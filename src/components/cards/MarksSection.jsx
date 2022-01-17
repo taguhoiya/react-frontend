@@ -10,7 +10,6 @@ import { MOVIE } from "../../graphql/queries";
 import { Loader } from "../Loader";
 import { Stars } from "../Stars";
 import Scrollbars from "react-custom-scrollbars-2";
-import { UserImageContext, UserImageProvider } from "../providers/UserImageProvider";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 
