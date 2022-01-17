@@ -12,12 +12,11 @@ import { Stars } from "../Stars";
 import Scrollbars from "react-custom-scrollbars-2";
 import { UserImageContext, UserImageProvider } from "../providers/UserImageProvider";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
-import { CommentThreeVertIcon } from "../CommentThreeVertIcon";
 import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 
 export const MarksSection = (props) => {
   const { movieId } = props;
-  const { imageState } = UserImageProvider(UserImageContext);
+  // const { imageState } = UserImageProvider(UserImageContext);
   const { loading, error, data } = useQuery(MOVIE, {
     variables: { id: movieId },
   });
