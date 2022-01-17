@@ -81,6 +81,10 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
+    "mini-css-extract-plugin": "2.4.5",
     "prettier": "^2.5.1"
+  },
+  "overrides": {
+    "mini-css-extract-plugin": "2.4.5"
   }
 }
