@@ -1,0 +1,86 @@
+{
+  "name": "react-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.5.6",
+    "@apollo/react-hooks": "^4.0.0",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
+    "@emotion/react": "^11.7.0",
+    "@habx/apollo-multi-endpoint-link": "^2.5.0",
+    "@material-ui/system": "^4.12.1",
+    "@mui-treasury/components": "^1.10.1",
+    "@mui-treasury/styles": "^1.13.1",
+    "@mui/icons-material": "^5.2.1",
+    "@mui/lab": "^5.0.0-alpha.62",
+    "@mui/material": "^5.2.3",
+    "@mui/styles": "^5.2.3",
+    "@testing-library/jest-dom": "^5.15.1",
+    "@testing-library/react": "12.1.2",
+    "@testing-library/user-event": "13.5.0",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "apollo-boost": "^0.4.9",
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-rest": "^0.8.0",
+    "apollo-upload-client": "^17.0.0",
+    "axios": "^0.24.0",
+    "babel-eslint": "^10.1.0",
+    "clsx": "^1.1.1",
+    "graphql": "^15.8.0",
+    "history": "^5.1.0",
+    "joi": "^17.5.0",
+    "prop-types": "^15.8.0",
+    "qs": "^6.10.2",
+    "react": "^17.0.2",
+    "react-alert": "^7.0.3",
+    "react-alert-template-mui": "^1.0.7",
+    "react-custom-scrollbars-2": "^4.4.0",
+    "react-dom": "^17.0.2",
+    "react-image-file-resizer": "^0.4.7",
+    "react-rating-stars-component": "^2.2.0",
+    "react-router-dom": "^6.0.2",
+    "react-scripts": "^4.0.3",
+    "react-spinners": "^0.11.0",
+    "styled-components": "^5.3.3",
+    "web-vitals": "2.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier --write ./src/*.{js,jsx} && prettier --write  ./src/**/*.{js,jsx}  && prettier --write  ./src/**/**/*.{js,jsx} && prettier --write  ./src/**/**/**/*.{js,jsx}"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.5.1"
+  }
+}
