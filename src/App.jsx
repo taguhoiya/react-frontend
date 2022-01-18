@@ -6,9 +6,9 @@ import { Register } from "./containers/auth/Register.jsx";
 import { Profile } from "./components/UserProfile/Profile.jsx";
 import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
-import { Logout } from "./containers/auth/Logout.jsx";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./components/client.js";
+import { Marks } from "./components/cards/EachMarkCard.jsx";
 
 const options = {
   position: positions.MIDDLE,
@@ -24,8 +24,7 @@ const App = function () {
             <Route path="/" element={<Demo />} />
             <Route path="movies/:num" element={<Demo />} />
             <Route path="user/:userId/profile" element={<Profile />} />
-            <Route path="logout" element={<Logout />} />
-            {/* <Route path="marks/:num" element={<Marks />} /> */}
+            <Route path="marks/:num" element={<Demo />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route

@@ -4,12 +4,16 @@ import { Navigate, useParams } from "react-router-dom";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { Loader } from "../components/Loader";
 import { Dashboard } from "./DashBoard";
-import { GET_USERS } from "../graphql/queries";
+import { LOGGED_USER } from "../graphql/queries";
+import { clientAuth } from "../components/client.js";
 
 const Demo = () => {
   const num = parseInt(useParams().num);
   const { authState } = useContext(UserAuthContext);
-  const { loading, error, data } = useQuery(GET_USERS);
+  const { loading, error, data } = useQuery(LOGGED_USER, {
+    variables: { id: parseInt(authState.id) },
+    client: clientAuth,
+  });
   if (authState.id === 0) {
     return <Navigate to="/login" />;
   }

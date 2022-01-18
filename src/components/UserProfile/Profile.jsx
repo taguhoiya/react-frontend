@@ -16,9 +16,9 @@ import { useQuery } from "@apollo/client";
 import { USER_INFO } from "../../graphql/queries";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { EditProfile } from "../Button";
+import { Navigate } from "react-router-dom";
 
 export const Profile = () => {
-  // const { userId } = useParams();
   const { authState } = useContext(UserAuthContext);
   const path = GetImagePath();
   const uri = !path ? "" : `http://localhost:3000/${path}`;
@@ -31,6 +31,9 @@ export const Profile = () => {
     variables: { id: parseInt(authState.id) },
     fetchPolicy: "cache-first",
   });
+  if (authState.id === 0) {
+    return <Navigate to="/login" />;
+  }
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
@@ -67,7 +70,7 @@ export const Profile = () => {
               <Divider />
               <SecondaryListItems to={profileUrl} />
             </DrawerStyle>
-            <Container maxWidth="lg" sx={{ mt: 12, mb: 4 }}>
+            <Container maxWidth="md" sx={{ mt: 12, mb: 4 }}>
               <h1>{nickname}'s page</h1>
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={3}>

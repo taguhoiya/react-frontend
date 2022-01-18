@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MarkIcon from "@mui/icons-material/RateReview";
 import ClipIcon from "@mui/icons-material/Bookmark";
@@ -41,13 +41,49 @@ export const TabsBasic = (props) => {
         <Tab icon={<FavoriteIcon />} label="FAVORITES" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <MarkTabPanel marks={marks} clips={clips} favorites={favorites} />
+        {!marks.id ? (
+          <>
+            <Typography
+              sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
+              variant="h4"
+              textAlign="center"
+            >
+              No marks yet!
+            </Typography>
+          </>
+        ) : (
+          <MarkTabPanel marks={marks} clips={clips} favorites={favorites} />
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ClipTabPanel clips={clips} />
+        {!clips.id ? (
+          <>
+            <Typography
+              sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
+              variant="h4"
+              textAlign="center"
+            >
+              No clips yet!
+            </Typography>
+          </>
+        ) : (
+          <ClipTabPanel clips={clips} />
+        )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <FavoTabPanel favorites={favorites} clips={clips} marks={marks} />
+        {!favorites.id ? (
+          <>
+            <Typography
+              sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
+              variant="h4"
+              textAlign="center"
+            >
+              No favos yet!
+            </Typography>
+          </>
+        ) : (
+          <FavoTabPanel favorites={favorites} clips={clips} marks={marks} />
+        )}
       </TabPanel>
     </>
   );

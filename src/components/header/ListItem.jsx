@@ -7,6 +7,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MarkIcon from "@mui/icons-material/RateReview";
 import ClipIcon from "@mui/icons-material/Bookmark";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import { Link } from "react-router-dom";
 import { List } from "@mui/material";
 
@@ -23,6 +24,14 @@ export const MainListItems = (props) => {
             <LocalMoviesIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Movies" sx={{ color: "black" }} />
+        </ListItem>
+      </Link>
+      <Link to="/marks/1" state={{ num: 0 }} style={{ textDecoration: "none" }}>
+        <ListItem button>
+          <ListItemIcon>
+            <MarkUnreadChatAltIcon sx={{ color: "black" }} />
+          </ListItemIcon>
+          <ListItemText primary="Marks" sx={{ color: "black" }} />
         </ListItem>
       </Link>
       <Link to={to} state={{ num: 0 }} style={{ textDecoration: "none" }}>

@@ -32,7 +32,7 @@ export const Register = () => {
     email: "",
     password: "",
     passwordConfirmation: "",
-    confirmSuccessUrl: "https://www.google.com/",
+    confirmSuccessUrl: "https://react-frontend-git-master-taguhoiya.vercel.app/",
   });
 
   const { nickname, email, password, passwordConfirmation } = formState;

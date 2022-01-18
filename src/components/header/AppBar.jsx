@@ -1,11 +1,9 @@
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import { drawerWidth } from "../../containers/DashBoard";
-import { Badge, IconButton, Toolbar, Typography } from "@mui/material";
+import { IconButton, Toolbar, Typography } from "@mui/material";
 import { AuthHeaderButton } from "../Button";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Logout } from "../../containers/auth/Logout";
 
 export const AppBar = styled(MuiAppBar, {
@@ -51,7 +49,7 @@ export const ToolBarModi = (props) => {
         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
           Moview
         </Typography>
-        <IconButton color="inherit">
+        {/* <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
             <NotificationsIcon />
           </Badge>
@@ -60,7 +58,7 @@ export const ToolBarModi = (props) => {
           <Badge color="secondary">
             <SearchIcon />
           </Badge>
-        </IconButton>
+        </IconButton> */}
         {authState.id === 0 ? (
           <>
             <AuthHeaderButton to="/register">Register</AuthHeaderButton>

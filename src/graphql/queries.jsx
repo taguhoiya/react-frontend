@@ -1,19 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const GET_USERS = gql`
-  {
-    users {
-      id
-      nickname
-      marks {
-        id
-        score
-        content
-      }
-    }
-  }
-`;
-
 export const USER_REGISTER = gql`
   mutation (
     $nickname: String!
@@ -173,6 +159,7 @@ export const MOVIE = gql`
   query ($id: ID!) {
     movie(id: $id) {
       id
+      movieName
       marks {
         id
         score
@@ -183,6 +170,9 @@ export const MOVIE = gql`
           image
           path
         }
+      }
+      clips {
+        id
       }
     }
   }
@@ -272,6 +262,30 @@ export const MARK = gql`
           id
           nickname
           path
+        }
+      }
+    }
+  }
+`;
+
+export const MARK_PAGES = gql`
+  query ($page: Int!, $limit: Int!) {
+    searchMarks(page: $page, limit: $limit) {
+      totalCount
+      totalPage
+      nowPage
+      marks {
+        id
+        score
+        userId
+        movieId
+        content
+        comments {
+          id
+          content
+        }
+        favorites {
+          id
         }
       }
     }
