@@ -12,7 +12,7 @@ export const USER_REGISTER = gql`
       email: $email
       password: $password
       passwordConfirmation: $passwordConfirmation
-      confirmSuccessUrl: "http://localhost:3000"
+      confirmSuccessUrl: "http://www.moview-ori.com/"
     ) {
       user {
         id
@@ -58,7 +58,7 @@ export const USER_LOGOUT = gql`
 
 export const USER_RESEND_EMAIL = gql`
   mutation ($email: String!) {
-    userResendConfirmationWithToken(email: $email, confirmUrl: "http://localhost:3000") {
+    userResendConfirmationWithToken(email: $email, confirmUrl: "http://www.moview-ori.com/") {
       message
     }
   }

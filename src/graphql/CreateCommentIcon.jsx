@@ -50,7 +50,7 @@ export const CreateCommentIcon = (props) => {
     const mark = data.mark;
     const comments = mark.comments;
     const users = comments.map((comm) => comm.user);
-    const usersPath = users.map((user) => (!user.path ? "" : `http://localhost:3000${user.path}`));
+    const usersPath = users.map((user) => (!user.path ? "" : `http://www.moview-ori.com${user.path}/`));
     const ary = comments.map((itemOfComment, idx) => {
       return {
         comment: comments[idx],

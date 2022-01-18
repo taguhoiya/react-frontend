@@ -21,7 +21,7 @@ import { Navigate } from "react-router-dom";
 export const Profile = () => {
   const { authState } = useContext(UserAuthContext);
   const path = GetImagePath();
-  const uri = !path ? "" : `http://localhost:3000/${path}`;
+  const uri = !path ? "" : `http://www.moview-ori.com/${path}/`;
   const profileUrl = ".";
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
