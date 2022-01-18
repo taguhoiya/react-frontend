@@ -8,7 +8,6 @@ import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./components/client.js";
-import { Marks } from "./components/cards/EachMarkCard.jsx";
 
 const options = {
   position: positions.MIDDLE,
