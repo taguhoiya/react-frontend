@@ -43,7 +43,7 @@ export const Verify = () => {
   const {
     loading: loadA,
     error: errorA,
-    data: _dataA,
+    // data: dataA,
   } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,

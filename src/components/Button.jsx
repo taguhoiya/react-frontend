@@ -22,7 +22,7 @@ import { USER_REGISTER } from "../graphql/queries";
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation, setFormState } = props;
   const [loadingB, setLoadingB] = useState(false);
-  const [_successB, setSuccessB] = useState(false);
+  const [setSuccessB] = useState(false);
   localStorage.setItem("email", email);
   localStorage.setItem("password", password);
 
