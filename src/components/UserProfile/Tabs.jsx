@@ -41,7 +41,7 @@ export const TabsBasic = (props) => {
         <Tab icon={<FavoriteIcon />} label="FAVORITES" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        {!marks.id ? (
+        {!marks ? (
           <>
             <Typography
               sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
@@ -56,7 +56,7 @@ export const TabsBasic = (props) => {
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {!clips.id ? (
+        {!clips ? (
           <>
             <Typography
               sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
@@ -71,7 +71,7 @@ export const TabsBasic = (props) => {
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {!favorites.id ? (
+        {!favorites ? (
           <>
             <Typography
               sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}

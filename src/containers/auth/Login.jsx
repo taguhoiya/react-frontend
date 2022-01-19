@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,8 +18,9 @@ import { clientAuth } from "../../components/client";
 import { EmailInput, PasswordInput } from "../../components/Form";
 import { Copyright } from "../../components/Copyright";
 import { UserAuthContext } from "../../components/providers/UserAuthProvider";
-import { AuthButton } from "../../components/Button";
 import { Loader } from "../../components/Loader";
+import { Alert, Button, Snackbar } from "@mui/material";
+import { GrowTransition } from "./Verify.jsx";
 
 const theme = createTheme();
 
@@ -29,10 +29,20 @@ export const Login = () => {
     email: "",
     password: "",
   });
+  const [loadingB] = useState(false);
   const navigate = useNavigate();
   const { setAuthState } = useContext(UserAuthContext);
   const { email, password } = formState;
-  const [login] = useMutation(USER_LOGIN, {
+  const [open, setOpen] = useState(true);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const [login, { error }] = useMutation(USER_LOGIN, {
     variables: { email, password },
     client: clientAuth,
     update: (_proxy, response) => {
@@ -52,16 +62,26 @@ export const Login = () => {
       }
     },
   });
+
   const id = Number(localStorage.getItem("id"));
-  const { loading, data } = useQuery(LOGGED_USER, {
+  const {
+    loading: loadA,
+    error: errorA,
+    data: dataA,
+  } = useQuery(LOGGED_USER, {
     variables: { id },
     client: clientAuth,
-    fetchPolicy: id ? "network-only" : "cache-only",
+    fetchPolicy: "network-only",
   });
-  if (loading) {
+  if (loadA) {
     return <Loader state={true} />;
-  } else if (data) {
-    return <Navigate to="/" />;
+  }
+  if (errorA) {
+    console.log("errorA");
+  }
+  if (dataA) {
+    const valid = dataA.publicUser.confirmationToken;
+    if (valid) return <Navigate to="/" />;
   }
   return (
     <>
@@ -69,6 +89,19 @@ export const Login = () => {
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
+          {!error ? null : (
+            <Snackbar
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              TransitionComponent={GrowTransition}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <Alert severity="warning" sx={{ width: "100%" }}>
+                Login Failed.
+              </Alert>
+            </Snackbar>
+          )}
           <Box
             sx={{
               marginTop: 8,
@@ -88,6 +121,7 @@ export const Login = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 login();
+                if (error) setOpen(!open);
               }}
               noValidate
               sx={{ mt: 1 }}
@@ -116,7 +150,15 @@ export const Login = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <AuthButton>Login</AuthButton>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                disabled={loadingB}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                LOGIN
+              </Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

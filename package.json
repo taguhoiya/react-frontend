@@ -29,6 +29,7 @@
     "graphql": "^16.2.0",
     "history": "^5.2.0",
     "joi": "^17.5.0",
+    "notistack": "^2.0.3",
     "npm-check-updates": "^12.1.0",
     "prop-types": "^15.8.1",
     "qs": "^6.10.3",

@@ -128,7 +128,6 @@ export const CustomCard = ({
                         countSetState(clickClip);
                         await createClip();
                         clipSetState(!clipped);
-                        window.location.reload();
                       }}
                     >
                       <Badge color="secondary">

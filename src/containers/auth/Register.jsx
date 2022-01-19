@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable react/react-in-jsx-scope */
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
@@ -9,11 +7,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { clientAuth } from "../../components/client";
-import { LOGGED_USER, USER_REGISTER } from "../../graphql/queries.jsx";
+import { LOGGED_USER } from "../../graphql/queries.jsx";
 import {
   NicknameInput,
   EmailInput,
@@ -34,23 +32,25 @@ export const Register = () => {
     passwordConfirmation: "",
     confirmSuccessUrl: "https://moview-taguhoiya.vercel.app/",
   });
-
   const { nickname, email, password, passwordConfirmation } = formState;
-  const [register] = useMutation(USER_REGISTER, {
-    variables: { nickname, email, password, passwordConfirmation },
+  const {
+    loading: loadA,
+    error: errorA,
+    data: dataA,
+  } = useQuery(LOGGED_USER, {
+    variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,
+    fetchPolicy: "network-only",
   });
-
-  const id = Number(localStorage.getItem("id")) || null;
-  const { loading, data } = useQuery(LOGGED_USER, {
-    variables: { id },
-    client: clientAuth,
-    fetchPolicy: id ? "network-only" : "cache-only",
-  });
-  if (loading) {
+  if (loadA) {
     return <Loader state={true} />;
-  } else if (data) {
-    return <Navigate to="/" />;
+  }
+  if (errorA) {
+    console.log("error");
+  }
+  if (dataA) {
+    const valid = dataA.publicUser.confirmationToken;
+    if (valid) return <Navigate to="/" />;
   }
 
   return (
@@ -71,15 +71,7 @@ export const Register = () => {
           <Typography component="h1" variant="h5">
             Register
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={(e) => {
-              e.preventDefault();
-              register();
-            }}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <NicknameInput
@@ -95,23 +87,24 @@ export const Register = () => {
               <Grid item xs={12}>
                 <EmailInput
                   value={email}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormState({
                       ...formState,
                       email: e.target.value,
-                    })
-                  }
+                    });
+                    // localStorage.setItem("email", e.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <PasswordInput
                   value={password}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormState({
                       ...formState,
                       password: e.target.value,
-                    })
-                  }
+                    });
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -126,7 +119,14 @@ export const Register = () => {
                 />
               </Grid>
             </Grid>
-            <AuthButton>Register</AuthButton>
+            <AuthButton
+              nickname={nickname}
+              email={email}
+              password={password}
+              passwordConfirmation={passwordConfirmation}
+            >
+              Register
+            </AuthButton>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="login" variant="body2">

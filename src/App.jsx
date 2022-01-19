@@ -8,6 +8,7 @@ import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./components/client.js";
+import { Verify } from "./containers/auth/Verify.jsx";
 
 const options = {
   position: positions.MIDDLE,
@@ -22,10 +23,11 @@ const App = function () {
           <Routes>
             <Route path="/" element={<Demo />} />
             <Route path="movies/:num" element={<Demo />} />
-            <Route path="user/:userId/profile" element={<Profile />} />
             <Route path="marks/:num" element={<Demo />} />
+            <Route path="user/:userId/profile" element={<Profile />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
+            <Route path="verify" element={<Verify />} />
             <Route
               path="*"
               element={

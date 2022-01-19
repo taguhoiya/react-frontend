@@ -13,7 +13,8 @@ import { AppBar, ToolBarModi } from "../components/header/AppBar";
 import { DrawerStyle } from "../components/header/Drawer";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation } from "react-router-dom";
-import { ScrollBar } from "../components/ScrollBar";
+// import { ScrollBar } from "../components/ScrollBar";
+import { EachMarkCard } from "../components/cards/EachMarkCard";
 // import { EachMarkCard } from "../components/cards/EachMarkCard";
 
 export const drawerWidth = 220;
@@ -66,28 +67,40 @@ export const Dashboard = (props) => {
             width: "100%",
           }}
         >
-          {location.includes("movie") && (
+          {location === "/" && (
             <>
-              <Container maxWidth="md" sx={{ mt: 12, mb: 4 }}>
+              <Container maxWidth="md" sx={{ mt: 12, mb: 4, ml: 4 }}>
                 <h1>HOT MOVIE</h1>
                 <EachMovieCard num={num} />
               </Container>
-              <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
+              {/* <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
                 <h2>CATEGORY</h2>
                 <ScrollBar />
-              </Box>
+              </Box> */}
+            </>
+          )}
+          {location.includes("movie") && (
+            <>
+              <Container maxWidth="md" sx={{ mt: 12, mb: 4, ml: 4 }}>
+                <h1>HOT MOVIE</h1>
+                <EachMovieCard num={num} />
+              </Container>
+              {/* <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
+                <h2>CATEGORY</h2>
+                <ScrollBar />
+              </Box> */}
             </>
           )}
           {location.includes("marks") && (
             <>
-              <Container maxWidth="md" sx={{ mt: 12, mb: 4 }}>
+              <Container maxWidth="lg" sx={{ mt: 12, mb: 4 }}>
                 <h1>HOT MARK</h1>
-                {/* <EachMarkCard num={num} /> */}
+                <EachMarkCard num={num} />
               </Container>
-              <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
+              {/* <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
                 <h2>CATEGORY</h2>
                 <ScrollBar />
-              </Box>
+              </Box> */}
             </>
           )}
         </Box>

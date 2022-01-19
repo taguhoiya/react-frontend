@@ -29,7 +29,7 @@ export const UpdateImage = (props) => {
   const { loading, data } = useQuery(LOGGED_USER, {
     variables: { id },
     client: clientAuth,
-    fetchPolicy: id ? "network-only" : "cache-only",
+    fetchPolicy: !id ? "network-only" : "cache-only",
   });
   if (loading) {
     return <Loader state={true} />;

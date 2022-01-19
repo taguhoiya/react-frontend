@@ -18,7 +18,7 @@ export const EachMovieCard = (props) => {
   const { authState } = useContext(UserAuthContext);
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
     variables: { page: !page ? 1 : page, limit: 20 },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
   });
   const { data: dataU, error: errorU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: parseInt(authState.id) },
@@ -26,7 +26,7 @@ export const EachMovieCard = (props) => {
   });
 
   if (loading) return <Loader state={true} />;
-  if (error || errorU) return `Error ${error.message}``Error ${errorU.message}`;
+  if (error || errorU) return `Error ${errorU.message}`;
   if (data && dataU) {
     // about data
     const movieArray = data.searchMovies.movies;

@@ -7,12 +7,12 @@ import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
 import { CustomCard } from "./CustomCard";
 import stock1 from "../../images/stock-photos/stock-1.jpg";
-import { cardStyles2 } from "./CardStyles";
+import { cardStyles3 } from "./CardStyles";
 
 export const CommentDialog = (props) => {
   const authState = useContext(UserAuthContext);
   const { mark, markBool, ave, clipBool } = props;
-  const styles = cardStyles2();
+  const styles = cardStyles3();
   const movie = mark.movie;
   const markFavoSum = mark.favorites.length;
   const markComme = mark.comments.length;

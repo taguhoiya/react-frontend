@@ -12,7 +12,7 @@ export const USER_REGISTER = gql`
       email: $email
       password: $password
       passwordConfirmation: $passwordConfirmation
-      confirmSuccessUrl: "http://www.moview-ori.com/"
+      confirmSuccessUrl: "http://localhost:3001/verify"
     ) {
       user {
         id
@@ -42,6 +42,7 @@ export const LOGGED_USER = gql`
   query ($id: Int!) {
     publicUser(id: $id) {
       id
+      confirmationToken
     }
   }
 `;
@@ -58,7 +59,7 @@ export const USER_LOGOUT = gql`
 
 export const USER_RESEND_EMAIL = gql`
   mutation ($email: String!) {
-    userResendConfirmationWithToken(email: $email, confirmUrl: "http://www.moview-ori.com/") {
+    userResendConfirmationWithToken(email: $email, confirmUrl: "https://localhost:3000/verify") {
       message
     }
   }
@@ -92,6 +93,12 @@ export const USER_INFO_TOP_PAGE = gql`
       }
       clips {
         movieId
+      }
+      favorites {
+        id
+        mark {
+          id
+        }
       }
     }
   }

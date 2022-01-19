@@ -7,7 +7,6 @@ export const UserAuthProvider = (props) => {
 
   const id = Number(localStorage.getItem("id")) || 0;
   const [authState, setAuthState] = useState({ id });
-
   return (
     <UserAuthContext.Provider value={{ authState, setAuthState }}>
       {children}

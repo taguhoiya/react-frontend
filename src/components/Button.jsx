@@ -1,35 +1,103 @@
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { Dropdown } from "./UserProfile/Dropdowns";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER_IMAGE } from "../graphql/mutations";
 import { UserAuthContext } from "./providers/UserAuthProvider";
-import { clientUpload } from "./client";
+import { clientAuth, clientUpload } from "./client";
 import { useContext } from "react";
+import { blue } from "@mui/material/colors";
+import { USER_REGISTER } from "../graphql/queries";
 
 export const AuthButton = (props) => {
+  const { nickname, email, password, passwordConfirmation, setFormState } = props;
+  const [loadingB, setLoadingB] = useState(false);
+  const [_successB, setSuccessB] = useState(false);
+  localStorage.setItem("email", email);
+  localStorage.setItem("password", password);
+
+  const [register, { error }] = useMutation(USER_REGISTER, {
+    variables: { nickname, email, password, passwordConfirmation },
+    client: clientAuth,
+    update: (_proxy, response) => {
+      const { id } = response.data.userRegister.user;
+      if (!response.errors) {
+        localStorage.setItem("id", id);
+      } else {
+        alert("ログイン情報が不正です。");
+        setFormState({ email: "", password: "" });
+      }
+    },
+  });
+  const timer = useRef();
+  const handleButtonClick = () => {
+    if (!error) {
+      timer.current = window.setTimeout(() => {
+        window.alert("Sent Email to your address. Please confirm it!");
+      }, 500);
+    } else {
+      timer.current = window.setTimeout(() => {
+        window.alert("Registration failed");
+        setLoadingB(false);
+      }, 500);
+    }
+  };
   return (
-    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-      {props.children}
-    </Button>
+    <>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        disabled={loadingB}
+        sx={{ mt: 3, mb: 2 }}
+        onClick={() => {
+          setSuccessB(false);
+          setLoadingB(true);
+          register();
+          handleButtonClick();
+        }}
+      >
+        {props.children}
+      </Button>
+      {loadingB && (
+        <CircularProgress
+          size={20}
+          sx={{
+            color: blue[500],
+            position: "absolute",
+            left: "50%",
+            mt: 4,
+          }}
+        />
+      )}
+    </>
   );
 };
 
 export const AuthHeaderButton = (props) => {
   return (
-    <Button
-      variant="outlined"
-      size="small"
-      component={Link}
-      to={props.to}
-      sx={{ mx: "6px" }}
-      onClick={props.onClick}
-    >
-      {props.children}
-    </Button>
+    <>
+      <Button
+        variant="outlined"
+        size="small"
+        component={Link}
+        to={props.to}
+        sx={{ mx: "6px" }}
+        onClick={props.onClick}
+      >
+        {props.children}
+      </Button>
+    </>
   );
 };
 

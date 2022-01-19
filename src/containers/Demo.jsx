@@ -14,8 +14,25 @@ const Demo = () => {
     variables: { id: parseInt(authState.id) },
     client: clientAuth,
   });
-  if (authState.id === 0) {
+  const {
+    loading: loadA,
+    error: errorA,
+    data: dataA,
+  } = useQuery(LOGGED_USER, {
+    variables: { id: parseInt(localStorage.getItem("id")) },
+    client: clientAuth,
+    fetchPolicy: "network-only",
+  });
+  if (loadA) {
+    return <Loader state={true} />;
+  }
+  if (errorA) {
     return <Navigate to="/login" />;
+  }
+  if (dataA) {
+    const valid = dataA.publicUser.confirmationToken;
+    console.log(valid);
+    if (!valid) return <Navigate to="/login" />;
   }
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;

@@ -45,7 +45,6 @@ export const CreateFavoIcon = (props) => {
               countSetState(clickFavo);
               await createFavo();
               favoSetState(!favored);
-              window.location.reload();
             }}
           >
             <FavoriteBorderIcon />

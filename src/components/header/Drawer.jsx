@@ -26,7 +26,7 @@ export const DrawerStyle = styled(MuiDrawer, { shouldForwardProp: (prop) => prop
         width: theme.spacing(7),
         [theme.breakpoints.up("sm")]: {
           width: theme.spacing(9),
-          height: "100%",
+          minHeight: "100vh",
         },
       }),
     },
@@ -42,7 +42,6 @@ export const Drawer = (props) => {
           alignItems: "center",
           justifyContent: "flex-end",
           px: [1],
-          backgroundColor: "#e6edf5",
         }}
       >
         <IconButton onClick={props.toggleDrawer}>

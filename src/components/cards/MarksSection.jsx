@@ -24,7 +24,9 @@ export const MarksSection = (props) => {
   if (data) {
     const marks = data.movie.marks;
     const users = marks.map((mark) => mark.user);
-    const usersPath = users.map((user) => (!user.path ? "" : `http://www.moview-ori.com${user.path}/`));
+    const usersPath = users.map((user) =>
+      !user.path ? "" : `http://www.moview-ori.com${user.path}`
+    );
     const ary = marks.map((itemOfMark, idx) => {
       return {
         mark: marks[idx],

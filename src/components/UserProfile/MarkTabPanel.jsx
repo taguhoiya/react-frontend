@@ -56,11 +56,11 @@ export const MarkTabPanel = (props) => {
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             {ary.map((ary, index) => (
-              <Grid item md={6} key={index} my={2}>
+              <Grid item lg={6} md={6} sm={12} key={index} my={2}>
                 <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
-                  <Grid container columnSpacing={{ xs: 2, sm: 3, md: 4 }} py={2}>
-                    <Grid item md={0.5} />
-                    <Grid item md={7} className="card-header">
+                  <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
+                    <Grid item md={0.5} sm={1.5} />
+                    <Grid item md={6.5} sm={6}>
                       <h3>{ary.movie.movieName}</h3>
                       <Stars value={ary.mark.score} />
                       <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
@@ -82,7 +82,7 @@ export const MarkTabPanel = (props) => {
                       />
                       {ary.markComme}
                     </Grid>
-                    <Grid item md={4}>
+                    <Grid item md={4.5} sm={3}>
                       <CustomCard
                         classes={styles}
                         image={stock1}
@@ -97,7 +97,7 @@ export const MarkTabPanel = (props) => {
                         initialState={ary.clipBool}
                       />
                     </Grid>
-                    <Grid item md={0.5} />
+                    <Grid item md={0.5} sm={1.5} />
                   </Grid>
                 </Card>
               </Grid>

@@ -60,14 +60,14 @@ export const FavoTabPanel = (props) => {
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             {ary.map((ary, index) => (
-              <Grid item md={6} key={index} my={2}>
+              <Grid item lg={6} md={6} sm={12} key={index} my={2}>
                 <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
-                  <Grid container columnSpacing={{ xs: 2, sm: 3, md: 4 }} py={2}>
-                    <Grid item md={0.5} />
-                    <Grid item md={7} className="card-header">
+                  <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
+                    <Grid item md={0.5} sm={1.5} />
+                    <Grid item md={6.5} sm={6}>
                       <h3>{ary.movie.movieName}</h3>
                       <Stars value={ary.favoredMark.score} />
-                      <Scrollbars autoHeight autoHeightMin={170} autoHeightMax={170}>
+                      <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
                         <p>{ary.favoredMark.content}</p>
                       </Scrollbars>
                       <Divider style={{ background: "inherit" }} />
@@ -86,7 +86,7 @@ export const FavoTabPanel = (props) => {
                       />
                       {ary.favoedMarkCommeSum}
                     </Grid>
-                    <Grid item key={ary.movie.id} md={4}>
+                    <Grid item md={4.5} sm={3}>
                       <CustomCard
                         classes={styles}
                         image={stock1}

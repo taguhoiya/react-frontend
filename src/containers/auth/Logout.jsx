@@ -15,14 +15,15 @@ export const Logout = (props) => {
   const [logout, { client, loading, data }] = useMutation(USER_LOGOUT, {
     fetchPolicy: "network-only",
     client: clientAuth,
-    update: (_proxy, response) => {
+    update: (_proxy, response, data) => {
+      console.log(data);
       if (!response.errors) {
         localStorage.clear();
         client.resetStore();
         setAuthState(0);
         navigate("/login", { replace: true });
       } else {
-        alert("ログアウトできません");
+        alert("Logout failed");
         navigate("/", { replace: true });
       }
     },
@@ -35,11 +36,10 @@ export const Logout = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  if (loading) return <Loader state={true} />;
+  if (loading) return null;
   if (data) return <Loader state={false} />;
   return (
     <>
-      <Loader state={false} />
       <Button variant="outlined" size="small" sx={{ mx: "6px" }} onClick={handleClickOpen}>
         {props.children}
       </Button>

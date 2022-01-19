@@ -73,12 +73,12 @@ export const cardGridStyles = makeStyles(({ breakpoints }) => ({
 export const cardStyles2 = makeStyles(() => ({
   card: () => ({
     height: 280,
-    width: 160,
+    width: "100%",
+    minWidth: 180,
     borderColor: "#000000",
     backgroundColor: "#e6edf5",
     borderRadius: 16,
     textAlign: "center",
-    boxShadow: "none",
   }),
   content: () => {
     return {
@@ -93,9 +93,48 @@ export const cardStyles2 = makeStyles(() => ({
     fontFamily: "Keania One",
     fontSize: "15px",
     color: "#0f0f0f",
-    // display: "-webkit-box",
-    // WebkitBoxOrient: "vertical",
-    // webkitLineClamp: "3",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
+  cardPosition: {
+    position: "relative",
+    bottom: 0,
+    textAlign: "center",
+  },
+  cardContent: {
+    paddingBottom: "5px",
+  },
+  rootBtn: {
+    color: "inherit",
+    "&:disabled": {
+      color: "inherit",
+    },
+  },
+}));
+
+export const cardStyles3 = makeStyles(() => ({
+  card: () => ({
+    height: 280,
+    width: 150,
+    borderColor: "#000000",
+    backgroundColor: "#e6edf5",
+    borderRadius: 16,
+    textAlign: "center",
+  }),
+  content: () => {
+    return {
+      width: "100%",
+      borderColor: "#000000",
+      padding: "1rem 1.5rem 1.5rem",
+    };
+  },
+  title: {
+    maxWidth: "10rem",
+    height: "1rem",
+    fontFamily: "Keania One",
+    fontSize: "15px",
+    color: "#0f0f0f",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",

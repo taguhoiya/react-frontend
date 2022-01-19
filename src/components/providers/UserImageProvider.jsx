@@ -10,10 +10,11 @@ export const UserImageContext = createContext({});
 
 export const GetImagePath = (props) => {
   const { authState } = useContext(UserAuthContext);
-  const { data } = useQuery(USER_IMAGE, {
-    variables: { id: Number(authState.id) },
+  const { data, error } = useQuery(USER_IMAGE, {
+    variables: { id: !authState.id ? 1 : Number(authState.id) },
     client: client,
   });
+  if (error) return null;
   if (data) {
     const path = data.userImage.path;
     return path;
@@ -24,7 +25,7 @@ export const UserImageProvider = (props) => {
   const { children } = props;
   const path = GetImagePath();
   const [imageState, setImageState] = useState("");
-  const uri = !path ? "" : `http://www.moview-ori.com${path}/`;
+  const uri = !path ? "" : `http://www.moview-ori.com${path}`;
   useEffect(() => {
     axios
       .get(uri, { responseType: "blob" })
