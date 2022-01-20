@@ -20,10 +20,8 @@ export const resizeFile = (file) =>
     );
   });
 
-// definition
 export function* zip(...args) {
   const length = args[0].length;
-  // 引数チェック
   for (let arr of args) {
     if (arr.length !== length) {
       return "Lengths of arrays are not eqaul.";

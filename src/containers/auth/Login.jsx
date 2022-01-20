@@ -83,7 +83,6 @@ export const Login = () => {
     const valid = dataA.publicUser.confirmedAt;
     if (valid) return <Navigate to="/" />;
   }
-  console.log(error);
   return (
     <>
       <Loader state={false} />

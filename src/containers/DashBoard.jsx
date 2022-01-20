@@ -13,9 +13,8 @@ import { AppBar, ToolBarModi } from "../components/header/AppBar";
 import { DrawerStyle } from "../components/header/Drawer";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation } from "react-router-dom";
-// import { ScrollBar } from "../components/ScrollBar";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
-// import { EachMarkCard } from "../components/cards/EachMarkCard";
+
 
 export const drawerWidth = 220;
 

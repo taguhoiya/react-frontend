@@ -24,7 +24,6 @@ export const EachMarkCard = (props) => {
   if (loading) return <Loader state={true} />;
   if (error || errorU) return `Error ${error.message}``Error ${errorU.message}`;
   if (data && dataU) {
-    // about data
     const marks = data.searchMarks.marks;
     const count = data.searchMarks.totalPage;
     const markMovieIds = marks.map((mark) => parseInt(mark.movieId));

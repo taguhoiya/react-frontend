@@ -15,7 +15,6 @@ import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 
 export const MarksSection = (props) => {
   const { movieId } = props;
-  // const { imageState } = UserImageProvider(UserImageContext);
   const { loading, error, data } = useQuery(MOVIE, {
     variables: { id: movieId },
   });

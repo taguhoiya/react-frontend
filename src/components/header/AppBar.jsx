@@ -30,7 +30,7 @@ export const ToolBarModi = (props) => {
     <>
       <Toolbar
         sx={{
-          pr: "24px", // keep right padding when drawer closed
+          pr: "24px",
           backgroundColor: "#e6edf5",
         }}
       >

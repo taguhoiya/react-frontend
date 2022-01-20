@@ -118,7 +118,6 @@ export default function MovieDialog(props) {
               {clipped ? (
                 <>
                   <IconButton
-                    // size={size}
                     color="warning"
                     onClick={() => {
                       countSetState(unClickClip);
@@ -135,7 +134,6 @@ export default function MovieDialog(props) {
               ) : (
                 <>
                   <IconButton
-                    // size={size}
                     color="inherit"
                     onClick={async () => {
                       countSetState(clickClip);

@@ -58,7 +58,7 @@ export const Verify = () => {
     <>
       <Snackbar
         open={open}
-        autoHideDuration={5000}
+        autoHideDuration={1500}
         onClose={handleClose}
         TransitionComponent={GrowTransition}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}

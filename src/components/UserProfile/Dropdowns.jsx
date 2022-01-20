@@ -11,7 +11,6 @@ export const Dropdown = (props) => {
   const handleClick1 = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  // const { imageState, setImageState } = useContext(UserImageContext);
   const handleClose1 = () => {
     setAnchorEl(false);
   };
