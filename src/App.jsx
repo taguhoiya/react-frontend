@@ -21,6 +21,7 @@ const App = function () {
       <Provider template={AlertMUITemplate} {...options}>
         <Routes>
           <Route exact path="/" element={<UnauthenticatedRoute />}>
+            <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/verify" element={<Verify />} />
@@ -31,6 +32,7 @@ const App = function () {
             <Route path="marks/:num" element={<Demo />} />
             <Route path="user/:userId/profile" element={<Profile />} />
           </Route>
+          <Route path="/" element={<Register />} />
           <Route
             path="*"
             element={
