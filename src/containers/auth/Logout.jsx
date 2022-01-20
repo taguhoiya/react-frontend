@@ -22,7 +22,7 @@ export const Logout = (props) => {
         navigate("/login", { replace: true });
       } else {
         alert("Logout failed");
-        navigate("/movie/1", { replace: true });
+        navigate("/movies/1", { replace: true });
       }
     },
   });

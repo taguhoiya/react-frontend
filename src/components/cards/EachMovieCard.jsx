@@ -26,7 +26,7 @@ export const EachMovieCard = (props) => {
 
   if (loading) return <Loader state={true} />;
   if (error || errorU) return `Error ${errorU.message}`;
-  if (data || dataU) {
+  if (data && dataU) {
     // about data
     const movieArray = data.searchMovies.movies;
     const clipCounts = movieArray.map((movie) => movie.clips.length);
