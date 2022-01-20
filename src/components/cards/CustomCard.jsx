@@ -124,9 +124,9 @@ export const CustomCard = ({
                     <IconButton
                       size={size}
                       color="inherit"
-                      onClick={async () => {
+                      onClick={() => {
                         countSetState(clickClip);
-                        await createClip();
+                        createClip();
                         clipSetState(!clipped);
                       }}
                     >

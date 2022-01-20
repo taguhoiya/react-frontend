@@ -81,8 +81,8 @@ export const CreateMarkIcon = (props) => {
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
           <Button
-            onClick={async () => {
-              await createMark();
+            onClick={() => {
+              createMark();
             }}
             color="primary"
           >

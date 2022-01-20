@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Navigate, useParams } from "react-router-dom";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
-import { Loader } from "../components/Loader";
 import { Dashboard } from "./DashBoard";
 import { LOGGED_USER } from "../graphql/queries";
 import { clientAuth } from "../components/client.js";
@@ -14,10 +13,7 @@ const Demo = () => {
     variables: { id: parseInt(authState.id) },
     client: clientAuth,
   });
-  const {
-    error: errorA,
-    data: dataA,
-  } = useQuery(LOGGED_USER, {
+  const { error: errorA, data: dataA } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,
   });

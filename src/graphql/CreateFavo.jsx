@@ -26,9 +26,9 @@ export const CreateFavoIcon = (props) => {
         <>
           <IconButton
             sx={{ color: red[500] }}
-            onClick={async () => {
+            onClick={() => {
               countSetState(unClickFavo);
-              await deleteFavo();
+              deleteFavo();
               favoSetState(!favored);
               window.location.reload();
             }}
@@ -41,9 +41,9 @@ export const CreateFavoIcon = (props) => {
         <>
           <IconButton
             color="inherit"
-            onClick={async () => {
+            onClick={() => {
               countSetState(clickFavo);
-              await createFavo();
+              createFavo();
               favoSetState(!favored);
             }}
           >

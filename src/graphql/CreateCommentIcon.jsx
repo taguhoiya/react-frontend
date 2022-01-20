@@ -149,8 +149,8 @@ export const CreateCommentIcon = (props) => {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={async () => {
-                await createComment();
+              onClick={() => {
+                createComment();
                 window.location.reload();
               }}
             >

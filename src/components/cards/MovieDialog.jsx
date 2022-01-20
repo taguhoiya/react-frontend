@@ -135,9 +135,9 @@ export default function MovieDialog(props) {
                 <>
                   <IconButton
                     color="inherit"
-                    onClick={async () => {
+                    onClick={() => {
                       countSetState(clickClip);
-                      await createClip();
+                      createClip();
                       clipSetState(!clipped);
                       window.location.reload();
                     }}

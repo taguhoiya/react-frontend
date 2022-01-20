@@ -16,7 +16,7 @@ export const Dropdown = (props) => {
   };
   const changeUploadFile = async (event) => {
     const { name, files } = event.target;
-    const image = await resizeFile(files[0]);
+    const image = resizeFile(files[0]);
     const reader = new FileReader();
     reader.onload = (e) => {
       setImageState({
