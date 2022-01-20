@@ -16,7 +16,6 @@ export const UpdateImage = (props) => {
     update: (_proxy, response) => {
       const { image } = response.data.updateUserImage.user;
       if (!response.errors) {
-        console.log("OK");
         return image;
       } else {
         alert("Upload failed");

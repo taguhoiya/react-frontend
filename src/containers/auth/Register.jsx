@@ -50,7 +50,6 @@ export const Register = () => {
   }
   if (dataA) {
     const valid = dataA.publicUser.confirmedAt;
-    console.log(valid)
     if (valid) return <Navigate to="/" />;
   }
 

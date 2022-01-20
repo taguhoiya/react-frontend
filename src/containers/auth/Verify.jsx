@@ -53,7 +53,6 @@ export const Verify = () => {
     return <Loader state={true} />;
   }
   if (errorA) {
-    console.log("error");
     return <Navigate to="/login" />;
   }
   // if (dataA) {

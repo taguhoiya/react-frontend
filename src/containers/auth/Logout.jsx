@@ -16,7 +16,6 @@ export const Logout = (props) => {
     fetchPolicy: "network-only",
     client: clientAuth,
     update: (_proxy, response, data) => {
-      console.log(data);
       if (!response.errors) {
         localStorage.clear();
         client.resetStore();

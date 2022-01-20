@@ -41,7 +41,6 @@ export const AuthButton = (props) => {
   const timer = useRef();
   const handleButtonClick = () => {
     if (error) {
-      console.log(error)
       timer.current = window.setTimeout(() => {
         window.alert("Sent Email to your address. Please confirm it!");
       }, 500);

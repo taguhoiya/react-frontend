@@ -31,7 +31,6 @@ const Demo = () => {
   }
   if (dataA) {
     const valid = dataA.publicUser.confirmedAt;
-    console.log(valid);
     if (!valid) return <Navigate to="/login" />;
   }
   if (loading) return <Loader state={true} />;
