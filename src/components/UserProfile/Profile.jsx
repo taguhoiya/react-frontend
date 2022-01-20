@@ -39,7 +39,7 @@ export const Profile = () => {
   } = useQuery(LOGGED_USER, {
     variables: { id: authState.id },
     client: clientAuth,
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
   if (loadA) {
     return <Loader state={true} />;

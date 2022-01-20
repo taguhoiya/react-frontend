@@ -71,7 +71,7 @@ export const Login = () => {
   } = useQuery(LOGGED_USER, {
     variables: { id },
     client: clientAuth,
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
   if (loadA) {
     return <Loader state={true} />;

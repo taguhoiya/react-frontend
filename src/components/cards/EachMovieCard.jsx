@@ -18,7 +18,7 @@ export const EachMovieCard = (props) => {
   const { authState } = useContext(UserAuthContext);
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
     variables: { page: !page ? 1 : page, limit: 20 },
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
   const { data: dataU, error: errorU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: parseInt(authState.id) },
