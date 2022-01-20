@@ -22,7 +22,7 @@ import { USER_REGISTER } from "../graphql/queries";
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation, setFormState } = props;
   const [loadingB, setLoadingB] = useState(false);
-  const [setSuccessB] = useState(false);
+  const [successB, setSuccessB] = useState(false);
   localStorage.setItem("email", email);
   localStorage.setItem("password", password);
 
@@ -34,14 +34,15 @@ export const AuthButton = (props) => {
       if (!response.errors) {
         localStorage.setItem("id", id);
       } else {
-        alert("ログイン情報が不正です。");
+        window.alert("ログイン情報が不正です。");
         setFormState({ email: "", password: "" });
       }
     },
   });
   const timer = useRef();
   const handleButtonClick = () => {
-    if (!error) {
+    if (error) {
+      console.log(error)
       timer.current = window.setTimeout(() => {
         window.alert("Sent Email to your address. Please confirm it!");
       }, 500);

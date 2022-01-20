@@ -51,7 +51,7 @@ export const CreateCommentIcon = (props) => {
     const comments = mark.comments;
     const users = comments.map((comm) => comm.user);
     const usersPath = users.map((user) =>
-      !user.path ? "" : `http://www.moview-ori.com${user.path}/`
+      !user.path ? "" : `https://www.moview-ori.com${user.path}/`
     );
     const ary = comments.map((itemOfComment, idx) => {
       return {

@@ -25,7 +25,7 @@ export const UserImageProvider = (props) => {
   const { children } = props;
   const path = GetImagePath();
   const [imageState, setImageState] = useState("");
-  const uri = !path ? "" : `http://www.moview-ori.com${path}`;
+  const uri = !path ? "" : `https://www.moview-ori.com${path}`;
   useEffect(() => {
     axios
       .get(uri, { responseType: "blob" })

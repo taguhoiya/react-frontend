@@ -22,7 +22,7 @@ import { clientAuth } from "../client";
 export const Profile = () => {
   const { authState } = useContext(UserAuthContext);
   const path = GetImagePath();
-  const uri = !path ? "" : `http://www.moview-ori.com/${path}`;
+  const uri = !path ? "" : `https://www.moview-ori.com/${path}`;
   const profileUrl = ".";
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
