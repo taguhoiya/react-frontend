@@ -80,7 +80,7 @@ export const Login = () => {
     console.log("errorA");
   }
   if (dataA) {
-    const valid = dataA.publicUser.confirmedAt;
+    const valid = dataA.publicUser.confirmationToken;
     if (valid) return <Navigate to="/" />;
   }
   return (
@@ -161,9 +161,9 @@ export const Login = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  {/* <Link href="#" variant="body2">
                     Forgot password?
-                  </Link>
+                  </Link> */}
                 </Grid>
                 <Grid item>
                   <Link href="register" variant="body2">
