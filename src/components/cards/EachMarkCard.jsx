@@ -14,11 +14,9 @@ export const EachMarkCard = (props) => {
 
   const { loading, error, data } = useQuery(MARK_PAGES, {
     variables: { page: !page ? 1 : page, limit: 16 },
-    fetchPolicy: "cache-and-network",
   });
   const { data: dataU, error: errorU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: parseInt(authState.id) },
-    fetchPolicy: "cache-and-network",
   });
 
   if (loading) return <Loader state={true} />;

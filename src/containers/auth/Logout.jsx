@@ -13,7 +13,6 @@ export const Logout = (props) => {
   const alert = useAlert();
   const navigate = useNavigate();
   const [logout, { client, loading, data }] = useMutation(USER_LOGOUT, {
-    fetchPolicy: "cache-and-network",
     client: clientAuth,
     update: (_proxy, response, data) => {
       if (!response.errors) {

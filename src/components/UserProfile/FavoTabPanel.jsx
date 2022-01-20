@@ -33,7 +33,6 @@ export const FavoTabPanel = (props) => {
 
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: favoredMarkMovieIds },
-    fetchPolicy: "cache-and-network",
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;

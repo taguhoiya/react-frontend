@@ -15,7 +15,6 @@ import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 
-
 export const drawerWidth = 220;
 
 export const mdTheme = createTheme();

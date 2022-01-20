@@ -21,7 +21,6 @@ const Demo = () => {
   } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,
-    fetchPolicy: "cache-and-network",
   });
   if (loadA) {
     return <Loader state={true} />;

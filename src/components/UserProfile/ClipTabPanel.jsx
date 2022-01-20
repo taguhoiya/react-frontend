@@ -17,7 +17,6 @@ export const ClipTabPanel = (props) => {
   const clipIds = clips.map((clip) => parseInt(clip.movie.id));
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: clipIds },
-    fetchPolicy: "cache-and-network",
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;

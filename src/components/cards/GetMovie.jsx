@@ -19,7 +19,6 @@ export const GetMovie = (props) => {
   const { authState } = useContext(UserAuthContext);
   const { error, loading, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
-    fetchPolicy: "cache-and-network",
   });
   if (error) return `Error ${error.message}`;
   if (loading) return null;

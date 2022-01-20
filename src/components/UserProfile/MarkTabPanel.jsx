@@ -28,7 +28,6 @@ export const MarkTabPanel = (props) => {
 
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
-    fetchPolicy: "cache-and-network",
   });
 
   if (loading) return <Loader state={true} />;
