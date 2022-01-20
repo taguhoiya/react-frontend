@@ -43,7 +43,6 @@ export const Verify = () => {
   const {
     loading: loadA,
     error: errorA,
-    data: dataA,
   } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,
@@ -54,16 +53,6 @@ export const Verify = () => {
   }
   if (errorA) {
     return <Navigate to="/login" />;
-  }
-  if (dataA) {
-    const valid = dataA.publicUser.confirmedAt;
-    if (valid)
-      return (
-        <>
-          <Loader state={false} />
-          <Navigate to="/" />
-        </>
-      );
   }
   return (
     <>
