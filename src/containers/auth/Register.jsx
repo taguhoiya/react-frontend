@@ -92,7 +92,6 @@ export const Register = () => {
                       ...formState,
                       email: e.target.value,
                     });
-                    // localStorage.setItem("email", e.target.value);
                   }}
                 />
               </Grid>

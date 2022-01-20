@@ -1,13 +1,15 @@
 import Button from "@mui/material/Button";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import {
+  Alert,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import { Dropdown } from "./UserProfile/Dropdowns";
@@ -18,51 +20,61 @@ import { clientAuth, clientUpload } from "./client";
 import { useContext } from "react";
 import { blue } from "@mui/material/colors";
 import { USER_REGISTER } from "../graphql/queries";
+import { GrowTransition } from "../containers/auth/Verify";
 
 export const AuthButton = (props) => {
-  const { nickname, email, password, passwordConfirmation, setFormState } = props;
+  const { nickname, email, password, passwordConfirmation } = props;
   const [loadingB, setLoadingB] = useState(false);
+  const [open, setOpen] = useState(true);
   localStorage.setItem("email", email);
   localStorage.setItem("password", password);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setLoadingB(false);
+    setOpen(false);
+    localStorage.clear();
+  };
 
   const [register, { error }] = useMutation(USER_REGISTER, {
     variables: { nickname, email, password, passwordConfirmation },
     client: clientAuth,
     update: (_proxy, response) => {
-      const { id } = response.data.userRegister.user;
       if (!response.errors) {
-        localStorage.setItem("id", id);
-      } else {
-        window.alert("ログイン情報が不正です。");
-        setFormState({ email: "", password: "" });
+        window.alert("Sent Email. Please Confirm it!");
+        setLoadingB(false);
       }
     },
   });
-  const timer = useRef();
-  const handleButtonClick = () => {
-    if (error) {
-      timer.current = window.setTimeout(() => {
-        window.alert("Sent Email to your address. Please confirm it!");
-      }, 500);
-    } else {
-      timer.current = window.setTimeout(() => {
-        window.alert("Registration failed");
-        setLoadingB(false);
-      }, 500);
-    }
-  };
+
   return (
     <>
+      {!error ? null : (
+        <Snackbar
+          open={open}
+          autoHideDuration={1500}
+          onClose={handleClose}
+          TransitionComponent={GrowTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="warning" sx={{ width: "100%" }}>
+            Register Failed.
+          </Alert>
+        </Snackbar>
+      )}
       <Button
         type="submit"
         fullWidth
         variant="contained"
         disabled={loadingB}
         sx={{ mt: 3, mb: 2 }}
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           setLoadingB(true);
           register();
-          handleButtonClick();
+          if (error) setOpen(!open);
         }}
       >
         {props.children}

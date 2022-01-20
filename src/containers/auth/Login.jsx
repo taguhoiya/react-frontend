@@ -19,8 +19,9 @@ import { EmailInput, PasswordInput } from "../../components/Form";
 import { Copyright } from "../../components/Copyright";
 import { UserAuthContext } from "../../components/providers/UserAuthProvider";
 import { Loader } from "../../components/Loader";
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Alert, Button, CircularProgress, Snackbar } from "@mui/material";
 import { GrowTransition } from "./Verify.jsx";
+import { blue } from "@mui/material/colors";
 
 const theme = createTheme();
 
@@ -29,17 +30,20 @@ export const Login = () => {
     email: "",
     password: "",
   });
-  const [loadingB] = useState(false);
+
+  const [loadingB, setLoadingB] = useState(false);
+  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const { setAuthState } = useContext(UserAuthContext);
   const { email, password } = formState;
-  const [open, setOpen] = useState(true);
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
+    setLoadingB(false);
     setOpen(false);
+    localStorage.clear();
   };
 
   const [login, { error }] = useMutation(USER_LOGIN, {
@@ -55,10 +59,6 @@ export const Login = () => {
         localStorage.setItem("uid", uid);
         setAuthState({ id });
         navigate("/");
-      } else {
-        alert("ログイン情報が不正です。");
-        setFormState({ email: "", password: "" });
-        localStorage.clear();
       }
     },
   });
@@ -83,6 +83,7 @@ export const Login = () => {
     const valid = dataA.publicUser.confirmationToken;
     if (valid) return <Navigate to="/" />;
   }
+  console.log(error);
   return (
     <>
       <Loader state={false} />
@@ -92,13 +93,13 @@ export const Login = () => {
           {!error ? null : (
             <Snackbar
               open={open}
-              autoHideDuration={3000}
+              autoHideDuration={1500}
               onClose={handleClose}
               TransitionComponent={GrowTransition}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
               <Alert severity="warning" sx={{ width: "100%" }}>
-                Login Failed.
+                Register Failed.
               </Alert>
             </Snackbar>
           )}
@@ -116,16 +117,7 @@ export const Login = () => {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            <Box
-              component="form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                login();
-                if (error) setOpen(!open);
-              }}
-              noValidate
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               <EmailInput
                 margin="normal"
                 value={email}
@@ -156,9 +148,26 @@ export const Login = () => {
                 variant="contained"
                 disabled={loadingB}
                 sx={{ mt: 3, mb: 2 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setLoadingB(true);
+                  login();
+                  if (error) setOpen(!open);
+                }}
               >
                 LOGIN
               </Button>
+              {loadingB && (
+                <CircularProgress
+                  size={20}
+                  sx={{
+                    color: blue[500],
+                    position: "absolute",
+                    left: "50%",
+                    mt: 4,
+                  }}
+                />
+              )}
               <Grid container>
                 <Grid item xs>
                   {/* <Link href="#" variant="body2">
