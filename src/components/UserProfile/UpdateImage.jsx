@@ -18,7 +18,7 @@ export const UpdateImage = (props) => {
       if (!response.errors) {
         return image;
       } else {
-        alert("Upload failed");
+        window.alert("Upload failed");
         setImageState({ image: {} });
       }
     },

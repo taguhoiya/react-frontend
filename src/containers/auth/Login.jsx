@@ -58,7 +58,7 @@ export const Login = () => {
         localStorage.setItem("client", client);
         localStorage.setItem("uid", uid);
         setAuthState({ id });
-        navigate("/");
+        navigate("/movie/1");
       }
     },
   });

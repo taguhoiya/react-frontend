@@ -31,7 +31,7 @@ export const Verify = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("client", client);
         localStorage.setItem("uid", uid);
-        navigate("/");
+        navigate("/movie/1");
         window.location.reload();
       } else {
         window.alert("You are not confirmed");
