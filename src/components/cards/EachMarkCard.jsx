@@ -17,6 +17,7 @@ export const EachMarkCard = (props) => {
   });
   const { data: dataU, error: errorU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: parseInt(authState.id) },
+    fetchPolicy: "cache-and-network",
   });
 
   if (loading) return <Loader state={true} />;
