@@ -42,10 +42,10 @@ export const AuthButton = (props) => {
     variables: { nickname, email, password, passwordConfirmation },
     client: clientAuth,
     update: (_proxy, response) => {
-      const { id } = response.userRegister.user;
+      const { id } = response.data.userRegister.user;
       if (!response.errors) {
         window.alert("Sent Email. Please Confirm it!");
-        localStorage.setItem("id", id);
+        localStorage.setItem("id", parseInt(id));
         setLoadingB(false);
       }
     },
