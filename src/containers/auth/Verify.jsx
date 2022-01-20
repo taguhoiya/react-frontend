@@ -1,10 +1,10 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Alert, Grow, Snackbar } from "@mui/material";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { clientAuth } from "../../components/client";
-import { Loader } from "../../components/Loader";
-import { LOGGED_USER, USER_LOGIN } from "../../graphql/queries";
+
+import { USER_LOGIN } from "../../graphql/queries";
 
 export function GrowTransition(props) {
   return <Grow {...props} />;
@@ -40,16 +40,6 @@ export const Verify = () => {
       }
     },
   });
-  const { loading: loadA, error: errorA } = useQuery(LOGGED_USER, {
-    variables: { id: parseInt(localStorage.getItem("id")) },
-    client: clientAuth,
-  });
-  if (loadA) {
-    return <Loader state={true} />;
-  }
-  if (errorA) {
-    return <Navigate to="/login" />;
-  }
   return (
     <>
       <Snackbar

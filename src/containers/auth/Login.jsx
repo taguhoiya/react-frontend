@@ -10,10 +10,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { USER_LOGIN, LOGGED_USER } from "../../graphql/queries.jsx";
+import { USER_LOGIN } from "../../graphql/queries.jsx";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 import { clientAuth } from "../../components/client";
 import { EmailInput, PasswordInput } from "../../components/Form";
 import { Copyright } from "../../components/Copyright";
@@ -63,25 +63,6 @@ export const Login = () => {
     },
   });
 
-  const id = Number(localStorage.getItem("id"));
-  const {
-    loading: loadA,
-    error: errorA,
-    data: dataA,
-  } = useQuery(LOGGED_USER, {
-    variables: { id },
-    client: clientAuth,
-  });
-  if (loadA) {
-    return <Loader state={true} />;
-  }
-  if (errorA) {
-    console.log("errorA");
-  }
-  if (dataA) {
-    const valid = dataA.publicUser.confirmedAt;
-    if (valid) return <Navigate to="/" />;
-  }
   return (
     <>
       <Loader state={false} />

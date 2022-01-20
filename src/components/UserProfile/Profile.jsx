@@ -32,24 +32,6 @@ export const Profile = () => {
     variables: { id: parseInt(authState.id) },
     fetchPolicy: "cache-first",
   });
-  const {
-    loading: loadA,
-    error: errorA,
-    data: dataA,
-  } = useQuery(LOGGED_USER, {
-    variables: { id: authState.id },
-    client: clientAuth,
-  });
-  if (loadA) {
-    return <Loader state={true} />;
-  }
-  if (errorA) {
-    return <Navigate to="/login" />;
-  }
-  if (dataA) {
-    const valid = dataA.publicUser.confirmedAt;
-    if (!valid) return <Navigate to="/login" />;
-  }
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {

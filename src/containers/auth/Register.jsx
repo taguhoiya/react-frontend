@@ -7,11 +7,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { clientAuth } from "../../components/client";
-import { LOGGED_USER } from "../../graphql/queries.jsx";
 import {
   NicknameInput,
   EmailInput,
@@ -20,7 +16,6 @@ import {
 } from "../../components/Form.jsx";
 import { Copyright } from "../../components/Copyright";
 import { AuthButton } from "../../components/Button";
-import { Loader } from "../../components/Loader";
 
 const theme = createTheme();
 
@@ -33,24 +28,6 @@ export const Register = () => {
     confirmSuccessUrl: "https://moview-taguhoiya.vercel.app/",
   });
   const { nickname, email, password, passwordConfirmation } = formState;
-  const {
-    loading: loadA,
-    error: errorA,
-    data: dataA,
-  } = useQuery(LOGGED_USER, {
-    variables: { id: parseInt(localStorage.getItem("id")) },
-    client: clientAuth,
-  });
-  if (loadA) {
-    return <Loader state={true} />;
-  }
-  if (errorA) {
-    console.log("error");
-  }
-  if (dataA) {
-    const valid = dataA.publicUser.confirmedAt;
-    if (valid) return <Navigate to="/" />;
-  }
 
   return (
     <ThemeProvider theme={theme}>

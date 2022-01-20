@@ -5,14 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserAuthProvider } from "./components/providers/UserAuthProvider";
 import { UserImageProvider } from "./components/providers/UserImageProvider";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./components/client";
 
 ReactDOM.render(
   <StrictMode>
-    <UserAuthProvider>
-      <UserImageProvider>
-        <App />
-      </UserImageProvider>
-    </UserAuthProvider>
+    <ApolloProvider client={client}>
+      <UserAuthProvider>
+        <UserImageProvider>
+          <App />
+        </UserImageProvider>
+      </UserAuthProvider>
+    </ApolloProvider>
   </StrictMode>,
   document.getElementById("root")
 );
