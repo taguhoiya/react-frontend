@@ -80,7 +80,7 @@ export const Login = () => {
     console.log("errorA");
   }
   if (dataA) {
-    const valid = dataA.publicUser.confirmationToken;
+    const valid = dataA.publicUser.confirmedAt;
     if (valid) return <Navigate to="/" />;
   }
   console.log(error);
