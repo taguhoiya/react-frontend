@@ -10,7 +10,7 @@ import { clientAuth } from "../components/client.js";
 const Demo = () => {
   const num = parseInt(useParams().num);
   const { authState } = useContext(UserAuthContext);
-  const { loading, error, data } = useQuery(LOGGED_USER, {
+  const { error, data } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(authState.id) },
     client: clientAuth,
   });
@@ -28,12 +28,10 @@ const Demo = () => {
     const valid = dataA.publicUser.confirmedAt;
     if (!valid) return <Navigate to="/login" />;
   }
-  if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
     return (
       <>
-        <Loader state={false} />
         <Dashboard num={num} />
       </>
     );
