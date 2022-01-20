@@ -15,16 +15,12 @@ const Demo = () => {
     client: clientAuth,
   });
   const {
-    loading: loadA,
     error: errorA,
     data: dataA,
   } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,
   });
-  if (loadA) {
-    return <Loader state={true} />;
-  }
   if (errorA) {
     return <Navigate to="/login" />;
   }
