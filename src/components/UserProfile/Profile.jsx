@@ -13,11 +13,9 @@ import { Loader } from "../Loader";
 import { GetImagePath } from "../providers/UserImageProvider";
 import { TabsBasic } from "../UserProfile/Tabs";
 import { useQuery } from "@apollo/client";
-import { LOGGED_USER, USER_INFO } from "../../graphql/queries";
+import { USER_INFO } from "../../graphql/queries";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { EditProfile } from "../Button";
-import { Navigate } from "react-router-dom";
-import { clientAuth } from "../client";
 
 export const Profile = () => {
   const { authState } = useContext(UserAuthContext);
