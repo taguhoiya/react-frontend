@@ -22,7 +22,6 @@ import { USER_REGISTER } from "../graphql/queries";
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation, setFormState } = props;
   const [loadingB, setLoadingB] = useState(false);
-  const [successB, setSuccessB] = useState(false);
   localStorage.setItem("email", email);
   localStorage.setItem("password", password);
 
@@ -62,7 +61,6 @@ export const AuthButton = (props) => {
         disabled={loadingB}
         sx={{ mt: 3, mb: 2 }}
         onClick={() => {
-          setSuccessB(false);
           setLoadingB(true);
           register();
           handleButtonClick();

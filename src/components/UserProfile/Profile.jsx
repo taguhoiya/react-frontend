@@ -48,7 +48,7 @@ export const Profile = () => {
     return <Navigate to="/login" />;
   }
   if (dataA) {
-    const valid = dataA.publicUser.confirmationToken;
+    const valid = dataA.publicUser.confirmedAt;
     if (!valid) return <Navigate to="/login" />;
   }
   if (loading) return <Loader state={true} />;

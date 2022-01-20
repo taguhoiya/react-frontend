@@ -57,7 +57,7 @@ export const Verify = () => {
     return <Navigate to="/login" />;
   }
   // if (dataA) {
-  //   const valid = dataA.publicUser.confirmationToken;
+  //   const valid = dataA.publicUser.confirmedAt;
   //   if (valid)
   //     return (
   //       <>

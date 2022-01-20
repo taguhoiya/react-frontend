@@ -49,7 +49,8 @@ export const Register = () => {
     console.log("error");
   }
   if (dataA) {
-    const valid = dataA.publicUser.confirmationToken;
+    const valid = dataA.publicUser.confirmedAt;
+    console.log(valid)
     if (valid) return <Navigate to="/" />;
   }
 

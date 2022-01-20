@@ -42,7 +42,7 @@ export const LOGGED_USER = gql`
   query ($id: Int!) {
     publicUser(id: $id) {
       id
-      confirmationToken
+      confirmedAt
     }
   }
 `;
