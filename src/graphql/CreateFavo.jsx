@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { IconButton } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CREATE_FAVO, DELETE_FAVO } from "./mutations";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { red } from "@mui/material/colors";
@@ -15,8 +15,12 @@ export const CreateFavoIcon = (props) => {
   const [createFavo] = useMutation(CREATE_FAVO, {
     variables: { userId, markId },
   });
-  const clickFavo = count + 1;
-  const unClickFavo = count - 1;
+  const clickFavo = useCallback(() => {
+    countSetState((prev) => prev + 1);
+  }, []);
+  const unClickFavo = useCallback(() => {
+    countSetState((prev) => prev - 1);
+  }, []);
   const [deleteFavo] = useMutation(DELETE_FAVO, {
     variables: { markId, userId },
   });

@@ -1,27 +1,10 @@
-import {
-  Badge,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Dialog, DialogTitle, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
-import { Stars } from "../Stars";
-import { ScrollBar } from "../ScrollBar";
-import { Link } from "react-router-dom";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { CreateMarkIcon } from "../../graphql/CreateMark";
-import { useContext } from "react";
-import { UserAuthContext } from "../providers/UserAuthProvider";
-import { MarksSection } from "./MarksSection";
+import { memo } from "react";
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
@@ -30,7 +13,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const BootstrapDialogTitle = (props) => {
+export const BootstrapDialogTitle = memo((props) => {
   const { children, onClose, releaseYear, ...other } = props;
 
   return (
@@ -57,125 +40,9 @@ const BootstrapDialogTitle = (props) => {
       </Typography>
     </DialogTitle>
   );
-};
+});
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
-
-export default function MovieDialog(props) {
-  const { propsDialog } = props;
-  const {
-    handleClose,
-    open,
-    image,
-    movie,
-    score,
-    count,
-    countSetState,
-    clickClip,
-    clipped,
-    clipSetState,
-    createClip,
-    unClickClip,
-    deleteClip,
-    mark,
-  } = propsDialog;
-  const {
-    id,
-    movieName,
-    summary,
-    runningTime,
-    releaseYear,
-    releaseDate,
-    country,
-    category,
-    releaseState,
-  } = movie;
-  const authState = useContext(UserAuthContext);
-  const userId = authState.id;
-  return (
-    <>
-      <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <BootstrapDialogTitle
-          id="customized-dialog-title"
-          onClose={handleClose}
-          releaseYear={releaseYear}
-        >
-          {movieName}
-        </BootstrapDialogTitle>
-        <DialogContent dividers>
-          <Grid container spaceing={1}>
-            <Grid item md={5}>
-              <img
-                src={image}
-                alt={movieName}
-                style={{ width: "200px", height: "300px", objectFit: "cover" }}
-              />
-              <CreateMarkIcon userId={userId} movieId={id} movie={movie} />
-              {mark}
-              {clipped ? (
-                <>
-                  <IconButton
-                    color="warning"
-                    onClick={() => {
-                      countSetState(unClickClip);
-                      deleteClip();
-                      clipSetState(!clipped);
-                      window.location.reload();
-                    }}
-                  >
-                    <Badge color="secondary">
-                      <BookmarkIcon />
-                    </Badge>
-                  </IconButton>
-                </>
-              ) : (
-                <>
-                  <IconButton
-                    color="inherit"
-                    onClick={() => {
-                      countSetState(clickClip);
-                      createClip();
-                      clipSetState(!clipped);
-                      window.location.reload();
-                    }}
-                  >
-                    <Badge color="secondary">
-                      <BookmarkBorderIcon />
-                    </Badge>
-                  </IconButton>
-                </>
-              )}
-              {count}
-            </Grid>
-            <Grid item md={7}>
-              <Typography variant="subtitle1">Release date: {releaseDate}</Typography>
-              <Typography variant="subtitle1">Country: {country}</Typography>
-              <Typography variant="subtitle1">Running Time: {runningTime}min</Typography>
-              <Typography variant="subtitle1">
-                Genre:
-                <Typography variant="title" color="inherit" noWrap>
-                  &nbsp;
-                </Typography>
-                <Link to="/">{category}</Link>
-              </Typography>
-              <div>
-                <Stars value={score} />
-              </div>
-              <Typography variant="subtitle1">Summary</Typography>
-              <ScrollBar content={summary} />
-              <Typography noWrap mt={2}>
-                current: {releaseState}
-              </Typography>
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <MarksSection movieId={movie.id} />
-        </DialogActions>
-      </BootstrapDialog>
-    </>
-  );
-}

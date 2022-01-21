@@ -1,7 +1,8 @@
 import ReactStars from "react-rating-stars-component";
 import { Typography } from "@mui/material";
+import { memo } from "react";
 
-export const Stars = (props) => {
+export const Stars = memo((props) => {
   return (
     <div style={{ display: "flex" }}>
       <ReactStars
@@ -19,4 +20,4 @@ export const Stars = (props) => {
       </Typography>
     </div>
   );
-};
+});

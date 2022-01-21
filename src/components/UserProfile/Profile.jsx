@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { Box, Container, CssBaseline, Grid, ThemeProvider } from "@mui/material";
+import { Avatar, Box, Container, CssBaseline, Grid, ThemeProvider } from "@mui/material";
 import { mdTheme } from "../../containers/DashBoard";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -17,15 +17,16 @@ import { USER_INFO } from "../../graphql/queries";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { EditProfile } from "../Button";
 
-export const Profile = () => {
+export const Profile = memo(() => {
   const { authState } = useContext(UserAuthContext);
-  const path = GetImagePath();
+  const path = useCallback(() => GetImagePath(), []);
   const uri = !path ? "" : `https://www.moview-ori.com/${path}`;
+  const src = !uri ? defaultImage : uri;
   const profileUrl = ".";
   const [open, setOpen] = useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const toggleDrawer = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
   const { loading, error, data } = useQuery(USER_INFO, {
     variables: { id: parseInt(authState.id) },
     fetchPolicy: "cache-first",
@@ -72,16 +73,21 @@ export const Profile = () => {
                 <Grid container spacing={3}>
                   <Grid item xs={3}>
                     <img
-                      src={!uri ? defaultImage : uri}
+                      src={src}
                       alt="icon"
                       height="150px"
                       width="150px"
                       style={{ borderRadius: "50%" }}
                     />
+                    <Avatar
+                      sx={{ width: 33, height: 33, marginRight: 2, marginBottom: 0.5 }}
+                      alt="my image"
+                      src={src}
+                    />
                   </Grid>
                   <Grid item xs={2} />
                   <Grid item>
-                    <EditProfile image={!uri ? defaultImage : uri}>Edit Profile</EditProfile>
+                    <EditProfile image={src}>Edit Profile</EditProfile>
                   </Grid>
                   <Grid item xs />
                   <Grid item xs={3} />
@@ -94,4 +100,4 @@ export const Profile = () => {
       </>
     );
   }
-};
+});

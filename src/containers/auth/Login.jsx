@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -25,7 +25,7 @@ import { blue } from "@mui/material/colors";
 
 const theme = createTheme();
 
-export const Login = () => {
+export const Login = memo(() => {
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -166,4 +166,4 @@ export const Login = () => {
       </ThemeProvider>
     </>
   );
-};
+});

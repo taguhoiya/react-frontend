@@ -5,9 +5,9 @@ import AlertMUITemplate from "react-alert-template-mui";
 import { Verify } from "./containers/auth/Verify.jsx";
 import { Login } from "./containers/auth/Login.jsx";
 import { Register } from "./containers/auth/Register.jsx";
-import Demo from "./containers/Demo.jsx";
+import { Demo } from "./containers/Demo.jsx";
 import { Profile } from "./components/UserProfile/Profile.jsx";
-import AuthenticatedRoute from "./components/cards/Routes/AuthenticatedRoute.jsx";
+import { AuthenticatedRoute } from "./components/cards/Routes/AuthenticatedRoute.jsx";
 import { UnauthenticatedRoute } from "./components/cards/Routes/UnauthenticatedRoute.jsx";
 
 const options = {
@@ -37,7 +37,7 @@ const App = function () {
             path="*"
             element={
               <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
+                <p>Theres nothing here!</p>
               </main>
             }
           />

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,18 +16,21 @@ import { useLocation } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 
 export const drawerWidth = 220;
-
 export const mdTheme = createTheme();
 
-export const Dashboard = (props) => {
+export const Dashboard = memo((props) => {
   const { num } = props;
   const location = useLocation().pathname;
   const { authState } = useContext(UserAuthContext);
   const profileUrl = `/user/${authState.id}/profile`;
   const [open, setOpen] = useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const toggleDrawer = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
+  //   <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
+  //   <h2>CATEGORY</h2>
+  //   <ScrollBar />
+  // </Box>
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -71,10 +74,6 @@ export const Dashboard = (props) => {
                 <h1>HOT MOVIE</h1>
                 <EachMovieCard num={num} />
               </Container>
-              {/* <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
-                <h2>CATEGORY</h2>
-                <ScrollBar />
-              </Box> */}
             </>
           )}
           {location.includes("movie") && (
@@ -83,10 +82,6 @@ export const Dashboard = (props) => {
                 <h1>HOT MOVIE</h1>
                 <EachMovieCard num={num} />
               </Container>
-              {/* <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
-                <h2>CATEGORY</h2>
-                <ScrollBar />
-              </Box> */}
             </>
           )}
           {location.includes("marks") && (
@@ -95,14 +90,10 @@ export const Dashboard = (props) => {
                 <h1>HOT MARK</h1>
                 <EachMarkCard num={num} />
               </Container>
-              {/* <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
-                <h2>CATEGORY</h2>
-                <ScrollBar />
-              </Box> */}
             </>
           )}
         </Box>
       </Box>
     </ThemeProvider>
   );
-};
+});

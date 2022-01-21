@@ -1,10 +1,11 @@
 import { useQuery } from "@apollo/client";
+import { memo } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { LOGGED_USER } from "../../../graphql/queries";
 import { clientAuth } from "../../client";
 import { Loader } from "../../Loader";
 
-export const UnauthenticatedRoute = () => {
+export const UnauthenticatedRoute = memo(() => {
   const {
     loading: loadA,
     error: errorA,
@@ -27,4 +28,4 @@ export const UnauthenticatedRoute = () => {
     else return <Outlet />;
   }
   return <Loader state={false} />;
-};
+});

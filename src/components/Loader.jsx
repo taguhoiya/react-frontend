@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { memo } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
 
 const override = css`
@@ -7,7 +8,7 @@ const override = css`
   left: 50%; /*左端を中央に*/
 `;
 
-export const Loader = (props) => {
+export const Loader = memo((props) => {
   const { state } = props;
   return <MoonLoader loading={state} css={override} size={40} />;
-};
+});

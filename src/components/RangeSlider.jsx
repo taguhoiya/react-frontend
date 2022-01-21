@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import MuiInput from "@mui/material/Input";
+import { memo, useCallback } from "react";
 
 const marks = [
   {
@@ -20,7 +21,7 @@ const marks = [
   },
 ];
 
-export const DiscreteSliderValues = () => {
+export const DiscreteSliderValues = memo(() => {
   return (
     <>
       <Box sx={{ width: "60%", margin: "0 auto" }}>
@@ -36,12 +37,12 @@ export const DiscreteSliderValues = () => {
       </Box>
     </>
   );
-};
+});
 const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export const InputSlider = (props) => {
+export const InputSlider = memo((props) => {
   const setValue = props.setValue;
   const value = props.value;
   const handleSliderChange = (event, newValue) => {
@@ -52,13 +53,13 @@ export const InputSlider = (props) => {
     setValue(event.target.value === "" ? "" : Number(event.target.value));
   };
 
-  const handleBlur = () => {
+  const handleBlur = useCallback(() => {
     if (value < 0) {
       setValue(0);
     } else if (value > 5) {
       setValue(5);
     }
-  };
+  }, []);
   return (
     <Box sx={{ width: "60%", margin: "0 auto" }}>
       <Typography id="input-slider" gutterBottom>
@@ -96,4 +97,4 @@ export const InputSlider = (props) => {
       </Grid>
     </Box>
   );
-};
+});

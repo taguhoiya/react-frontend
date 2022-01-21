@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
+import { memo } from "react";
 
-export const NicknameInput = (props) => {
+export const NicknameInput = memo((props) => {
   return (
     <TextField
       margin={props.margin}
@@ -14,9 +15,9 @@ export const NicknameInput = (props) => {
       onChange={props.onChange}
     />
   );
-};
+});
 
-export const EmailInput = (props) => {
+export const EmailInput = memo((props) => {
   return (
     <TextField
       margin={props.margin}
@@ -30,9 +31,9 @@ export const EmailInput = (props) => {
       onChange={props.onChange}
     />
   );
-};
+});
 
-export const PasswordInput = (props) => {
+export const PasswordInput = memo((props) => {
   return (
     <TextField
       margin={props.margin}
@@ -47,9 +48,9 @@ export const PasswordInput = (props) => {
       onChange={props.onChange}
     />
   );
-};
+});
 
-export const PasswordConfInput = (props) => {
+export const PasswordConfInput = memo((props) => {
   return (
     <TextField
       margin={props.margin}
@@ -64,4 +65,4 @@ export const PasswordConfInput = (props) => {
       onChange={props.onChange}
     />
   );
-};
+});

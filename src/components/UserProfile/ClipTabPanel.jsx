@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
 
@@ -10,7 +10,7 @@ import { CustomCard } from "../cards/CustomCard";
 import { Loader } from "../Loader";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 
-export const ClipTabPanel = (props) => {
+export const ClipTabPanel = memo((props) => {
   const { authState } = useContext(UserAuthContext);
   const styles = cardStyles3();
   const clips = props.clips;
@@ -52,4 +52,4 @@ export const ClipTabPanel = (props) => {
       </Grid>
     );
   }
-};
+});

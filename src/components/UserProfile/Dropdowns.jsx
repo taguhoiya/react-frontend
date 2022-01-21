@@ -1,19 +1,18 @@
 import { Button, Menu, MenuItem } from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { makeStyles } from "@mui/styles";
-
 import { resizeFile } from "../../Helper";
 
-export const Dropdown = (props) => {
+export const Dropdown = memo((props) => {
   const [anchorEl, setAnchorEl] = useState(false);
   const { imageState, setImageState } = props;
   const handleClick1 = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose1 = () => {
-    setAnchorEl(false);
-  };
+  const handleClose1 = useCallback(() => {
+    setAnchorEl((prevState) => !prevState);
+  }, []);
   const changeUploadFile = async (event) => {
     const { name, files } = event.target;
     const image = resizeFile(files[0]);
@@ -56,16 +55,16 @@ export const Dropdown = (props) => {
       </Menu>
     </div>
   );
-};
+});
 
-const useUploadButtonStyles = makeStyles((theme) =>
+const useUploadButtonStyles = makeStyles(() =>
   createStyles({
     input: {
       display: "none",
     },
   })
 );
-const UploadMenuItem = (props) => {
+const UploadMenuItem = memo((props) => {
   const { handleClose1 } = props;
   const classes = useUploadButtonStyles();
   return (
@@ -82,4 +81,4 @@ const UploadMenuItem = (props) => {
       <MenuItem onClick={handleClose1}>{props.children}</MenuItem>
     </label>
   );
-};
+});

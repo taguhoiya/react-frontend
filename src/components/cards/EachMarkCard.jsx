@@ -1,13 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { MARK_PAGES, USER_INFO_TOP_PAGE } from "../../graphql/queries";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Loader } from "../Loader";
 import { GetMovie } from "./GetMovie";
 
 // TODO usememoかcallback使う
-export const EachMarkCard = (props) => {
+export const EachMarkCard = memo((props) => {
   const { num } = props;
   const [page, setPage] = useState(num);
   const { authState } = useContext(UserAuthContext);
@@ -22,7 +22,7 @@ export const EachMarkCard = (props) => {
 
   if (loading) return <Loader state={true} />;
   if (error || errorU) return `Error ${error.message}``Error ${errorU.message}`;
-  if (z) {
+  if (data && dataU) {
     const marks = data.searchMarks.marks;
     const count = data.searchMarks.totalPage;
     const markMovieIds = marks.map((mark) => parseInt(mark.movieId));
@@ -46,4 +46,4 @@ export const EachMarkCard = (props) => {
       </>
     );
   }
-};
+});

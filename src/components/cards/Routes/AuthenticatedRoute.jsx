@@ -3,8 +3,9 @@ import { useQuery } from "@apollo/client";
 import { LOGGED_USER } from "../../../graphql/queries";
 import { clientAuth } from "../../client";
 import { Loader } from "../../Loader";
+import { memo } from "react";
 
-const AuthenticatedRoute = () => {
+export const AuthenticatedRoute = memo(() => {
   const location = useLocation();
   const { error: errorA, data: dataA } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
@@ -37,6 +38,4 @@ const AuthenticatedRoute = () => {
     } else return <Outlet />;
   }
   return <Loader state={false} />;
-};
-
-export default AuthenticatedRoute;
+});

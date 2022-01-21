@@ -2,15 +2,14 @@ import { Button, Dialog, DialogActions, DialogTitle, IconButton } from "@mui/mat
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 import { useMutation } from "@apollo/client";
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { DELETE_MARK } from "../../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { StyledMenu } from "../StyledMenu";
 
-export const MarkThreeVertIcon = (props) => {
+export const MarkThreeVertIcon = memo((props) => {
   const { markId, userId } = props;
   const [deleteMark] = useMutation(DELETE_MARK, {
     variables: { id: markId },
@@ -98,4 +97,4 @@ export const MarkThreeVertIcon = (props) => {
       </>
     );
   if (parseInt(userId) !== authState.id) return null;
-};
+});

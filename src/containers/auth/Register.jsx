@@ -7,7 +7,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
+import { memo, useState } from "react";
 import {
   NicknameInput,
   EmailInput,
@@ -19,7 +19,7 @@ import { AuthButton } from "../../components/Button";
 
 const theme = createTheme();
 
-export const Register = () => {
+export const Register = memo(() => {
   const [formState, setFormState] = useState({
     nickname: "",
     email: "",
@@ -115,4 +115,4 @@ export const Register = () => {
       </Container>
     </ThemeProvider>
   );
-};
+});

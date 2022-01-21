@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { MARK } from "./queries";
 import { CommentDialog } from "../components/cards/CommentDialog";
@@ -31,12 +31,12 @@ export const CreateCommentIcon = (props) => {
   const [open, setOpen] = useState(false);
   const [commContent, setCommContent] = useState("");
   const { uri } = useContext(UserImageContext);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
+  const handleClose = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
   const [createComment] = useMutation(CREATE_COMMENT, {
     variables: { userId, markId: id, content: commContent },
   });

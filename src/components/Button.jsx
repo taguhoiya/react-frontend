@@ -1,9 +1,10 @@
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import {
   Alert,
+  Avatar,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -96,7 +97,7 @@ export const AuthButton = (props) => {
   );
 };
 
-export const AuthHeaderButton = (props) => {
+export const AuthHeaderButton = memo((props) => {
   return (
     <>
       <Button
@@ -111,7 +112,7 @@ export const AuthHeaderButton = (props) => {
       </Button>
     </>
   );
-};
+});
 
 export const LogoutButton = (props) => {
   const [, setAction] = useState("");
@@ -138,15 +139,15 @@ export const LogoutButton = (props) => {
   );
 };
 
-export const EditProfile = (props) => {
+export const EditProfile = memo((props) => {
   const [open, setOpen] = useState(false);
   const [imageState, setImageState] = useState(props.image);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
+  const handleClickClose = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
   const { authState } = useContext(UserAuthContext);
   const [updateUserImage] = useMutation(UPDATE_USER_IMAGE, {
     variables: { image: imageState.postImage, id: authState.id },
@@ -173,19 +174,17 @@ export const EditProfile = (props) => {
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleClickClose}
         fullWidth={true}
         maxWidth="md"
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title" align="center"></DialogTitle>
         <DialogContent align="center">
-          <img
+          <Avatar
+            sx={{ width: "150px", height: "150px", marginRight: 2, marginBottom: 0.5 }}
+            alt="my image"
             src={!imageState.image ? imageState : imageState.image}
-            alt="アイコン"
-            height="150px"
-            width="150px"
-            style={{ borderRadius: "50%" }}
           />
           <Dropdown setImageState={setImageState} imageState={imageState} />
           <TextField
@@ -212,11 +211,11 @@ export const EditProfile = (props) => {
           <Button onClick={updateUserImage} color="primary">
             UPDATE
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClickClose} color="primary">
             CANCEL
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
-};
+});

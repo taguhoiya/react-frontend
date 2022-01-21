@@ -4,7 +4,7 @@ import { MOVIES } from "../../graphql/queries";
 import { CustomCard } from "./CustomCard";
 import stock1 from "../../images/stock-photos/stock-1.jpg";
 import { cardStyles2 } from "./CardStyles";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { average } from "../../Helper";
 import { Stars } from "../Stars";
@@ -13,7 +13,7 @@ import { CreateCommentIcon } from "../../graphql/CreateCommentIcon";
 import Scrollbars from "react-custom-scrollbars-2";
 import { BasicPagination } from "../UserProfile/Pagination";
 
-export const GetMovie = (props) => {
+export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;
   const styles = cardStyles2();
   const { authState } = useContext(UserAuthContext);
@@ -104,4 +104,4 @@ export const GetMovie = (props) => {
       </>
     );
   }
-};
+});

@@ -5,6 +5,7 @@ import { IconButton, Toolbar, Typography } from "@mui/material";
 import { AuthHeaderButton } from "../Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Logout } from "../../containers/auth/Logout";
+import { memo } from "react";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -24,8 +25,18 @@ export const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export const ToolBarModi = (props) => {
+export const ToolBarModi = memo((props) => {
   const { toggleDrawer, open, authState } = props;
+  //   <IconButton color="inherit">
+  //   <Badge badgeContent={4} color="secondary">
+  //     <NotificationsIcon />
+  //   </Badge>
+  // </IconButton>
+  // <IconButton color="inherit">
+  //   <Badge color="secondary">
+  //     <SearchIcon />
+  //   </Badge>
+  // </IconButton>
   return (
     <>
       <Toolbar
@@ -49,16 +60,7 @@ export const ToolBarModi = (props) => {
         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
           Moview
         </Typography>
-        {/* <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <IconButton color="inherit">
-          <Badge color="secondary">
-            <SearchIcon />
-          </Badge>
-        </IconButton> */}
+
         {authState.id === 0 ? (
           <>
             <AuthHeaderButton to="/register">Register</AuthHeaderButton>
@@ -66,10 +68,10 @@ export const ToolBarModi = (props) => {
           </>
         ) : (
           <>
-            <Logout>Logout</Logout>
+            <Logout />
           </>
         )}
       </Toolbar>
     </>
   );
-};
+});

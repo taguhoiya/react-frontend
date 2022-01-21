@@ -10,8 +10,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import { Link } from "react-router-dom";
 import { List } from "@mui/material";
+import { memo } from "react";
 
-export const MainListItems = (props) => {
+export const MainListItems = memo((props) => {
   const { to } = props;
   return (
     <div>
@@ -60,9 +61,9 @@ export const MainListItems = (props) => {
       </Link>
     </div>
   );
-};
+});
 
-export const SecondaryListItems = (props) => {
+export const SecondaryListItems = memo((props) => {
   const { to } = props;
 
   return (
@@ -80,4 +81,4 @@ export const SecondaryListItems = (props) => {
       </Link>
     </List>
   );
-};
+});

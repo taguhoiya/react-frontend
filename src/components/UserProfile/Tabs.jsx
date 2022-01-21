@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Tabs, Tab, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MarkIcon from "@mui/icons-material/RateReview";
@@ -10,14 +10,14 @@ import { useLocation } from "react-router-dom";
 import { FavoTabPanel } from "./FavoTabPanel";
 import { MarkTabPanel } from "./MarkTabPanel";
 
-function a11yProps(index) {
+const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
-}
+};
 
-export const TabsBasic = (props) => {
+export const TabsBasic = memo((props) => {
   const { marks, clips, favorites } = props.data;
   const [value, setValue] = useState(0);
   const location = useLocation();
@@ -87,4 +87,4 @@ export const TabsBasic = (props) => {
       </TabPanel>
     </>
   );
-};
+});

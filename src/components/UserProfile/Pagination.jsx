@@ -1,7 +1,8 @@
 import { Pagination, Stack } from "@mui/material";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const BasicPagination = (props) => {
+export const BasicPagination = memo((props) => {
   const { page, setPage, count } = props;
   const navigate = useNavigate();
   return (
@@ -17,4 +18,4 @@ export const BasicPagination = (props) => {
       />
     </Stack>
   );
-};
+});

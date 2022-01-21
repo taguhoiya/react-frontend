@@ -8,7 +8,7 @@ import { UserAuthContext } from "./UserAuthProvider";
 
 export const UserImageContext = createContext({});
 
-export const GetImagePath = (props) => {
+export const GetImagePath = () => {
   const { authState } = useContext(UserAuthContext);
   const { data, error } = useQuery(USER_IMAGE, {
     variables: { id: !authState.id ? 1 : Number(authState.id) },
@@ -32,8 +32,8 @@ export const UserImageProvider = (props) => {
       .then((res) => {
         setImageState([URL.createObjectURL(res.data)]);
       })
-      .catch((err) => {
-        return null;
+      .catch((e) => {
+        console.log(e)
       });
   }, [uri]);
   return (

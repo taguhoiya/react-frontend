@@ -10,7 +10,7 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Loader } from "../components/Loader";
 import MarkIcon from "@mui/icons-material/RateReview";
 import { CREATE_MARK } from "./mutations";
@@ -36,12 +36,12 @@ export const CreateMarkIcon = (props) => {
   });
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
+  const handleClose = useCallback(() => {
+    setOpen((prevState) => !prevState);
+  }, []);
   if (loading) return <Loader state={true} />;
   if (data) return <Loader state={false} />;
   return (

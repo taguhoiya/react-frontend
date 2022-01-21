@@ -1,16 +1,15 @@
 import { useMutation } from "@apollo/client";
 import { Alert, Grow, Snackbar } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clientAuth } from "../../components/client";
-
 import { USER_LOGIN } from "../../graphql/queries";
 
-export function GrowTransition(props) {
+export const GrowTransition = memo((props) => {
   return <Grow {...props} />;
-}
+});
 
-export const Verify = () => {
+export const Verify = memo(() => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
   const password = localStorage.getItem("password");
@@ -56,4 +55,4 @@ export const Verify = () => {
       </Snackbar>
     </>
   );
-};
+});
