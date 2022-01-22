@@ -12,7 +12,7 @@ export const USER_REGISTER = gql`
       email: $email
       password: $password
       passwordConfirmation: $passwordConfirmation
-      confirmSuccessUrl: "https://moview-pearl.vercel.app/verify"
+      confirmSuccessUrl: "http://localhost:3000/verify"
     ) {
       user {
         id

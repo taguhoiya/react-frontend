@@ -70,7 +70,7 @@ export const Dashboard = memo((props) => {
         >
           {location === "/" && (
             <>
-              <Container maxWidth="md" sx={{ mt: 12, mb: 4, ml: 4 }}>
+              <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
                 <h1>HOT MOVIE</h1>
                 <EachMovieCard num={num} />
               </Container>
@@ -78,7 +78,7 @@ export const Dashboard = memo((props) => {
           )}
           {location.includes("movie") && (
             <>
-              <Container maxWidth="md" sx={{ mt: 12, mb: 4, ml: 4 }}>
+              <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
                 <h1>HOT MOVIE</h1>
                 <EachMovieCard num={num} />
               </Container>
@@ -86,7 +86,7 @@ export const Dashboard = memo((props) => {
           )}
           {location.includes("marks") && (
             <>
-              <Container maxWidth="lg" sx={{ mt: 12, mb: 4 }}>
+              <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
                 <h1>HOT MARK</h1>
                 <EachMarkCard num={num} />
               </Container>

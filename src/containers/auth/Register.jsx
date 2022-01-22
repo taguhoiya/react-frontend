@@ -25,7 +25,6 @@ export const Register = memo(() => {
     email: "",
     password: "",
     passwordConfirmation: "",
-    confirmSuccessUrl: "https://moview-taguhoiya.vercel.app/",
   });
   const { nickname, email, password, passwordConfirmation } = formState;
 

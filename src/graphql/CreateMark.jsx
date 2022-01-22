@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 
 import {
+  Alert,
   Badge,
   Button,
   Dialog,
@@ -8,45 +9,59 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Snackbar,
   TextField,
 } from "@mui/material";
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Loader } from "../components/Loader";
 import MarkIcon from "@mui/icons-material/RateReview";
 import { CREATE_MARK } from "./mutations";
 import { InputSlider } from "../components/RangeSlider";
-import { useNavigate } from "react-router-dom";
+import { GrowTransition } from "../containers/auth/Verify";
 
-export const CreateMarkIcon = (props) => {
-  const { movieId, userId, size, movie } = props;
+export const CreateMarkIcon = memo((props) => {
+  const { userId, size, movie, markCount, setMarkCount } = props;
   const [value, setValue] = useState(2.5);
-  const [mark, setMark] = useState("");
-  const navigate = useNavigate();
-  const [createMark, { data, loading }] = useMutation(CREATE_MARK, {
-    variables: { movieId, userId, score: value, content: mark },
-    update: (_proxy, response) => {
-      if (!response.errors) {
-        return null;
-      } else {
-        navigate("/", { replace: true });
-        alert("Failed");
-        window.location.reload();
-      }
-    },
-  });
+  const [markInput, setMarkInput] = useState("");
   const [open, setOpen] = useState(false);
+  const [openB, setOpenB] = useState(true);
 
+  const handleCloseBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
   const handleClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  if (loading) return <Loader state={true} />;
-  if (data) return <Loader state={false} />;
+  const addMarkCount = useCallback(() => {
+    setMarkCount((prev) => prev + 1);
+  }, [markCount]);
+
+  const [createMark, { data, error, loading }] = useMutation(CREATE_MARK, {
+    variables: { movieId: movie.id, userId, score: value, content: markInput },
+  });
+
+  if (loading) return <Loader state={false} />;
   return (
     <>
-      <Loader state={false} />
+      {!error ? null : (
+        <Snackbar
+          open={openB}
+          autoHideDuration={1500}
+          onClose={handleCloseBar}
+          TransitionComponent={GrowTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="warning" sx={{ width: "100%" }}>
+            The Content is not written! Post again!
+          </Alert>
+        </Snackbar>
+      )}
       <IconButton size={size} color="inherit" onClick={handleClickOpen}>
         <Badge color="secondary">
           <MarkIcon />
@@ -72,9 +87,8 @@ export const CreateMarkIcon = (props) => {
             name="mark"
             multiline
             maxRows="12"
-            defaultValue={mark}
             onChange={(e) => {
-              setMark(e.target.value);
+              setMarkInput(e.target.value);
             }}
             type="text"
           />
@@ -82,7 +96,12 @@ export const CreateMarkIcon = (props) => {
         <DialogActions sx={{ margin: "auto" }}>
           <Button
             onClick={() => {
+              if (data) {
+                addMarkCount();
+              }
               createMark();
+              handleClose();
+              if (error) setOpenB(!openB);
             }}
             color="primary"
           >
@@ -95,4 +114,4 @@ export const CreateMarkIcon = (props) => {
       </Dialog>
     </>
   );
-};
+});

@@ -6,7 +6,7 @@ import { Verify } from "./containers/auth/Verify.jsx";
 import { Login } from "./containers/auth/Login.jsx";
 import { Register } from "./containers/auth/Register.jsx";
 import { Demo } from "./containers/Demo.jsx";
-import { Profile } from "./components/UserProfile/Profile.jsx";
+import { Profile } from "./components/userProfile/Profile.jsx";
 import { AuthenticatedRoute } from "./components/cards/Routes/AuthenticatedRoute.jsx";
 import { UnauthenticatedRoute } from "./components/cards/Routes/UnauthenticatedRoute.jsx";
 
@@ -24,8 +24,8 @@ const App = function () {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/verify" element={<Verify />} />
           </Route>
+          <Route path="/verify" element={<Verify />} />
           <Route exact path="/" element={<AuthenticatedRoute />}>
             <Route path="/" element={<Demo />} />
             <Route path="movies/:num" element={<Demo />} />

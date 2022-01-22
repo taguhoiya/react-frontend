@@ -1,15 +1,14 @@
 import { Dialog, DialogTitle, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import PropTypes from "prop-types";
 import { memo } from "react";
 
 export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
   },
   "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0),
   },
 }));
 
@@ -41,8 +40,3 @@ export const BootstrapDialogTitle = memo((props) => {
     </DialogTitle>
   );
 });
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};

@@ -3,25 +3,24 @@ import { Grid } from "@mui/material";
 import { memo, useContext, useState } from "react";
 import { MOVIE_PAGES, USER_INFO_TOP_PAGE } from "../../graphql/queries";
 import { average } from "../../Helper";
-import stock1 from "../../images/stock-photos/stock-1.jpg";
+import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles } from "./CardStyles";
 import { CustomCard } from "./CustomCard";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { BasicPagination } from "../UserProfile/Pagination";
+import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
 
-// TODO usememoかcallback使う
 export const EachMovieCard = memo((props) => {
   const { num } = props;
   const styles = cardStyles();
   const [page, setPage] = useState(num);
   const { authState } = useContext(UserAuthContext);
-  const { loading, error, data } = useQuery(MOVIE_PAGES, {
-    variables: { page: !page ? 1 : page, limit: 12 },
+  const { loading, error, data, refetch } = useQuery(MOVIE_PAGES, {
+    variables: { page: !page ? 1 : page, limit: 18 },
+    fetchPolicy: "cache-and-network",
   });
   const { data: dataU, error: errorU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: parseInt(authState.id) },
-    fetchPolicy: "cache-and-network",
   });
 
   if (loading) return <Loader state={true} />;
@@ -53,7 +52,14 @@ export const EachMovieCard = memo((props) => {
     return (
       <>
         <Loader state={false} />
-        <Grid container spacing={2} justify="center">
+        <Grid
+          container
+          columnSpacing={4}
+          rowSpacing={6}
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+        >
           {ary.map((info, index) => (
             <Grid item key={index}>
               <CustomCard
@@ -71,13 +77,9 @@ export const EachMovieCard = memo((props) => {
             </Grid>
           ))}
           <Grid
-            item
-            mt={3}
-            style={{
+            sx={{
+              m: 6,
               position: "relative",
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
             }}
           >
             <BasicPagination page={page} setPage={setPage} count={count} />
@@ -86,4 +88,5 @@ export const EachMovieCard = memo((props) => {
       </>
     );
   }
+  if (data) refetch();
 });

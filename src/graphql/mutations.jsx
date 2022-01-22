@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const UPDATE_USER_IMAGE = gql`
-  mutation ($id: ID!, $image: Upload) {
-    updateUserImage(input: { id: $id, image: $image }) {
+  mutation ($id: ID!, $image: Upload, $nickname: String!) {
+    updateUserImage(input: { id: $id, image: $image, nickname: $nickname }) {
       user {
         id
+        nickname
         image
       }
     }

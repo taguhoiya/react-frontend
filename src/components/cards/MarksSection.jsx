@@ -37,7 +37,7 @@ export const MarksSection = memo((props) => {
     return (
       <>
         <Loader state={false} />
-        <Scrollbars autoHeight autoHeightMin={260} autoHeightMax={260}>
+        <Scrollbars autoHeight>
           <List sx={{ width: "100%", bgcolor: "background.paper", margin: "auto" }}>
             {!marks.length ? (
               <Typography

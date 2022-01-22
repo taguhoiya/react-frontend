@@ -4,7 +4,7 @@ import { memo, useContext } from "react";
 import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
 
-import stock1 from "../../images/stock-photos/stock-1.jpg";
+import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles3 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader } from "../Loader";

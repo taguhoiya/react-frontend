@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Card, Divider, Grid } from "@mui/material";
 import { MOVIES } from "../../graphql/queries";
 import { CustomCard } from "./CustomCard";
-import stock1 from "../../images/stock-photos/stock-1.jpg";
+import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "./CardStyles";
 import { memo, useContext } from "react";
 import { UserAuthContext } from "../providers/UserAuthProvider";
@@ -11,7 +11,7 @@ import { Stars } from "../Stars";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { CreateCommentIcon } from "../../graphql/CreateCommentIcon";
 import Scrollbars from "react-custom-scrollbars-2";
-import { BasicPagination } from "../UserProfile/Pagination";
+import { BasicPagination } from "../userProfile/Pagination";
 
 export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;

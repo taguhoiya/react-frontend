@@ -1,7 +1,7 @@
 import { Card, Divider, Grid } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CustomCard } from "../cards/CustomCard";
-import stock1 from "../../images/stock-photos/stock-1.jpg";
+import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { useContext } from "react";
 import { cardStyles2 } from "../cards/CardStyles";

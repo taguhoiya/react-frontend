@@ -18,7 +18,6 @@ import { clientAuth } from "../../components/client";
 import { EmailInput, PasswordInput } from "../../components/Form";
 import { Copyright } from "../../components/Copyright";
 import { UserAuthContext } from "../../components/providers/UserAuthProvider";
-import { Loader } from "../../components/Loader";
 import { Alert, Button, CircularProgress, Snackbar } from "@mui/material";
 import { GrowTransition } from "./Verify.jsx";
 import { blue } from "@mui/material/colors";
@@ -37,7 +36,16 @@ export const Login = memo(() => {
   const { setAuthState } = useContext(UserAuthContext);
   const { email, password } = formState;
 
-  const handleClose = (event, reason) => {
+  const handleClose1 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setLoadingB(false);
+    setOpen(false);
+    navigate("/movies/1");
+    window.location.reload();
+  };
+  const handleClose2 = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -46,7 +54,7 @@ export const Login = memo(() => {
     localStorage.clear();
   };
 
-  const [login, { error }] = useMutation(USER_LOGIN, {
+  const [login, { error, data }] = useMutation(USER_LOGIN, {
     variables: { email, password },
     client: clientAuth,
     update: (_proxy, response) => {
@@ -58,14 +66,12 @@ export const Login = memo(() => {
         localStorage.setItem("client", client);
         localStorage.setItem("uid", uid);
         setAuthState({ id });
-        navigate("/movies/1");
       }
     },
   });
 
   return (
     <>
-      <Loader state={false} />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -73,12 +79,25 @@ export const Login = memo(() => {
             <Snackbar
               open={open}
               autoHideDuration={1500}
-              onClose={handleClose}
+              onClose={handleClose2}
               TransitionComponent={GrowTransition}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
               <Alert severity="warning" sx={{ width: "100%" }}>
-                Register Failed.
+                Login Failed.
+              </Alert>
+            </Snackbar>
+          )}
+          {!data ? null : (
+            <Snackbar
+              open={open}
+              autoHideDuration={2000}
+              onClose={handleClose1}
+              TransitionComponent={GrowTransition}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <Alert severity="success" sx={{ width: "100%" }}>
+                Succcess!
               </Alert>
             </Snackbar>
           )}

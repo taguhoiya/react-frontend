@@ -61,11 +61,11 @@ export const InputSlider = memo((props) => {
     }
   }, []);
   return (
-    <Box sx={{ width: "60%", margin: "0 auto" }}>
+    <Box sx={{ width: "80%", margin: "0 auto" }}>
       <Typography id="input-slider" gutterBottom>
         Score
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs>
           <Slider
             aria-label="Small steps"

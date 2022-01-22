@@ -15,7 +15,7 @@ export const Dropdown = memo((props) => {
   }, []);
   const changeUploadFile = async (event) => {
     const { name, files } = event.target;
-    const image = resizeFile(files[0]);
+    const image = await resizeFile(files[0]);
     const reader = new FileReader();
     reader.onload = (e) => {
       setImageState({
@@ -74,7 +74,6 @@ const UploadMenuItem = memo((props) => {
         className={classes.input}
         id={`upload-button-${props.name}`}
         name={props.name}
-        i
         type="file"
         onChange={props.onChange}
       />

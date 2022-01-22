@@ -23,8 +23,8 @@ import { CreateMarkIcon } from "../../graphql/CreateMark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { BootstrapDialog, BootstrapDialogTitle } from "./MovieDialog";
 import { Stars } from "../Stars";
+import { MarksSection } from "./MarksSection";
 import Scrollbars from "react-custom-scrollbars-2";
-import { MarksSection } from "./MarksSection"
 
 export const CustomCard = ({
   classes,
@@ -39,8 +39,10 @@ export const CustomCard = ({
   initialState,
 }) => {
   const mediaStyles = useFourThreeCardMediaStyles();
-  const [count, countSetState] = useState(clip);
+  const [countClip, countSetClip] = useState(clip);
   const [clipped, clipSetState] = useState(initialState);
+  const [open, setOpen] = useState(false);
+  const [markCount, setMarkCount] = useState(mark);
   const userId = auth;
   const movieId = parseInt(id);
   const [createClip] = useMutation(CREATE_CLIP, {
@@ -49,14 +51,14 @@ export const CustomCard = ({
   const [deleteClip] = useMutation(DELETE_CLIP, {
     variables: { userId, movieId },
   });
-
   const clickClip = useCallback(() => {
-    countSetState((prev) => prev + 1);
+    countSetClip((prev) => prev + 1);
+    clipSetState((prev) => !prev);
   }, []);
   const unClickClip = useCallback(() => {
-    countSetState((prev) => prev - 1);
+    countSetClip((prev) => prev - 1);
+    clipSetState((prev) => !prev);
   }, []);
-  const [open, setOpen] = useState(false);
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
@@ -77,78 +79,88 @@ export const CustomCard = ({
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
             open={open}
+            styles={{ maxWidth: "60%" }}
           >
             <BootstrapDialogTitle
-              id="customized-dialog-title"
+              id="customized-dialo g-title"
               onClose={handleClose}
               releaseYear={movie.releaseYear}
             >
               {movie.movieName}
             </BootstrapDialogTitle>
             <DialogContent dividers>
-              <Grid container spaceing={1}>
-                <Grid item md={5}>
+              <Grid container spaceing={0} alignItems="center">
+                <Grid item xs={6} sm={6} md={6}>
                   <img
                     src={image}
                     alt={movie.movieName}
-                    style={{ width: "200px", height: "300px", objectFit: "cover" }}
+                    style={{ width: "80%", height: "100%", objectFit: "cover" }}
                   />
-                  <CreateMarkIcon userId={userId} movieId={movie.id} movie={movie} />
-                  {mark}
-                  {clipped ? (
-                    <>
-                      <IconButton
-                        color="warning"
-                        onClick={() => {
-                          countSetState(unClickClip);
-                          deleteClip();
-                          clipSetState(!clipped);
-                          window.location.reload();
-                        }}
-                      >
-                        <Badge color="secondary">
-                          <BookmarkIcon />
-                        </Badge>
-                      </IconButton>
-                    </>
-                  ) : (
-                    <>
-                      <IconButton
-                        color="inherit"
-                        onClick={() => {
-                          countSetState(clickClip);
-                          createClip();
-                          clipSetState(!clipped);
-                          window.location.reload();
-                        }}
-                      >
-                        <Badge color="secondary">
-                          <BookmarkBorderIcon />
-                        </Badge>
-                      </IconButton>
-                    </>
-                  )}
-                  {count}
                 </Grid>
-                <Grid item md={7}>
-                  <Typography variant="subtitle1">Release date: {movie.releaseDate}</Typography>
-                  <Typography variant="subtitle1">Country: {movie.country}</Typography>
-                  <Typography variant="subtitle1">Running Time: {movie.runningTime}min</Typography>
-                  <Typography variant="subtitle1">
-                    Genre:
-                    <Typography variant="title" color="inherit" noWrap>
-                      &nbsp;
-                    </Typography>
-                    <Link to="/">{movie.category}</Link>
-                  </Typography>
+                <Grid item xs={6} sm={6} md={6}>
                   <div>
-                    <Stars value={movie.score} />
+                    <CreateMarkIcon
+                      userId={userId}
+                      movie={movie}
+                      markCount={markCount}
+                      setMarkCount={setMarkCount}
+                    />
+                    {markCount}
+                    {clipped ? (
+                      <>
+                        <IconButton
+                          color="warning"
+                          onClick={() => {
+                            unClickClip();
+                            deleteClip();
+                          }}
+                        >
+                          <Badge color="secondary">
+                            <BookmarkIcon />
+                          </Badge>
+                        </IconButton>
+                      </>
+                    ) : (
+                      <>
+                        <IconButton
+                          color="inherit"
+                          onClick={() => {
+                            clickClip();
+                            createClip();
+                          }}
+                        >
+                          <Badge color="secondary">
+                            <BookmarkBorderIcon />
+                          </Badge>
+                        </IconButton>
+                      </>
+                    )}
+                    {countClip}
                   </div>
-                  <Typography variant="subtitle1">Summary</Typography>
-                  <Scrollbars content={movie.summary} />
-                  <Typography noWrap mt={2}>
-                    current: {movie.releaseState}
-                  </Typography>
+                  <div>
+                    <Typography variant="subtitle1">Release date: {movie.releaseDate}</Typography>
+                    <Typography variant="subtitle1">Country: {movie.country}</Typography>
+                    <Typography variant="subtitle1">
+                      Running Time: {movie.runningTime}min
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      Genre:
+                      <Typography variant="title" color="inherit" noWrap>
+                        &nbsp;
+                      </Typography>
+                      <Link to="/">{movie.category}</Link>
+                    </Typography>
+                    <div>
+                      <Stars value={score} />
+                    </div>
+                    <Typography variant="subtitle1">Summary</Typography>
+                    <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={80}>
+                      <Typography variant="body2">{movie.summary}</Typography>
+                    </Scrollbars>
+                    <Typography noWrap mt={2}>
+                      current: {movie.releaseState}
+                    </Typography>
+                  </div>
                 </Grid>
               </Grid>
             </DialogContent>
@@ -164,7 +176,7 @@ export const CustomCard = ({
           <Grid container className={classes.cardPosition}>
             <Grid item xs={4} className={classes.cardContent}>
               <CreateMarkIcon size={size} userId={userId} movieId={movieId} movie={movie} />
-              <Box>{mark}</Box>
+              <Box>{markCount}</Box>
             </Grid>
             <Grid item xs={4}>
               {clipped ? (
@@ -173,9 +185,8 @@ export const CustomCard = ({
                     size={size}
                     color="warning"
                     onClick={() => {
-                      countSetState(unClickClip);
+                      unClickClip();
                       deleteClip();
-                      clipSetState(!clipped);
                       window.location.reload();
                     }}
                   >
@@ -190,9 +201,8 @@ export const CustomCard = ({
                     size={size}
                     color="inherit"
                     onClick={() => {
-                      countSetState(clickClip);
+                      clickClip();
                       createClip();
-                      clipSetState(!clipped);
                     }}
                   >
                     <Badge color="secondary">
@@ -201,7 +211,7 @@ export const CustomCard = ({
                   </IconButton>
                 </>
               )}
-              <Box>{count}</Box>
+              <Box>{countClip}</Box>
             </Grid>
             <Grid item xs={4}>
               <IconButton size={size} className={classes.rootBtn} disabled>
@@ -213,7 +223,6 @@ export const CustomCard = ({
             </Grid>
           </Grid>
         </Card>
-        )
       </CardActionArea>
     </>
   );

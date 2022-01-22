@@ -23,8 +23,8 @@ export const GetImagePath = () => {
 
 export const UserImageProvider = (props) => {
   const { children } = props;
-  const path = GetImagePath();
   const [imageState, setImageState] = useState("");
+  const path = GetImagePath();
   const uri = !path ? "" : `https://www.moview-ori.com${path}`;
   useEffect(() => {
     axios
@@ -33,7 +33,7 @@ export const UserImageProvider = (props) => {
         setImageState([URL.createObjectURL(res.data)]);
       })
       .catch((e) => {
-        console.log(e)
+        console.log(e);
       });
   }, [uri]);
   return (

@@ -5,7 +5,7 @@ import Scrollbars from "react-custom-scrollbars-2";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
-import stock1 from "../../images/stock-photos/stock-1.jpg";
+import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader } from "../Loader";
@@ -58,8 +58,8 @@ export const FavoTabPanel = (props) => {
         <Loader state={false} />
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
-            {ary.map((ary, index) => (
-              <Grid item lg={6} md={6} sm={12} key={index} my={2}>
+            {ary.map((ary) => (
+              <Grid item lg={6} md={6} sm={12} key={ary.favoredMark.id} my={2}>
                 <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} />

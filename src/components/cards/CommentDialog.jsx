@@ -6,7 +6,7 @@ import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
 import { CustomCard } from "./CustomCard";
-import stock1 from "../../images/stock-photos/stock-1.jpg";
+import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles3 } from "./CardStyles";
 
 export const CommentDialog = (props) => {
@@ -24,7 +24,7 @@ export const CommentDialog = (props) => {
         <Grid item md={7} className="card-header">
           <h3>{movie.movieName}</h3>
           <Stars value={mark.score} />
-          <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
+          <Scrollbars autoHeight>
             <p>{mark.content}</p>
           </Scrollbars>
           <Divider style={{ background: "inherit" }} />

@@ -3,16 +3,13 @@ import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { memo, useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clientAuth } from "../../components/client";
-import { Loader } from "../../components/Loader";
 import { UserAuthContext } from "../../components/providers/UserAuthProvider";
 import { USER_LOGOUT } from "../../graphql/queries.jsx";
-import { useAlert } from "react-alert";
 
 export const Logout = memo(() => {
   const { setAuthState } = useContext(UserAuthContext);
-  const alert = useAlert();
   const navigate = useNavigate();
-  const [logout, { client, loading, data }] = useMutation(USER_LOGOUT, {
+  const [logout, { client, loading, error }] = useMutation(USER_LOGOUT, {
     client: clientAuth,
     update: (_proxy, response) => {
       if (!response.errors) {
@@ -20,9 +17,6 @@ export const Logout = memo(() => {
         client.resetStore();
         setAuthState(0);
         navigate("/login", { replace: true });
-      } else {
-        alert("Logout failed");
-        navigate("/movies/1", { replace: true });
       }
     },
   });
@@ -35,11 +29,16 @@ export const Logout = memo(() => {
     setOpen((prevState) => !prevState);
   }, []);
   if (loading) return null;
-  if (data) return <Loader state={false} />;
+  if (error) {
+    localStorage.clear();
+    client.resetStore();
+    setAuthState(0);
+    navigate("/login", { replace: true });
+  }
   return (
     <>
       <Button variant="outlined" size="small" sx={{ mx: "6px" }} onClick={handleClickOpen}>
-        LOGIN
+        LOGOUT
       </Button>
       <Dialog
         open={open}

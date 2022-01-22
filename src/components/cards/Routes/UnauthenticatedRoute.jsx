@@ -18,13 +18,12 @@ export const UnauthenticatedRoute = memo(() => {
     return <Loader state={true} />;
   }
   if (errorA) {
-    console.log("Not found");
     return <Outlet />;
   }
   if (dataA) {
     const valid = dataA.publicUser.confirmedAt;
-    console.log("Confirmed");
-    if (!valid) return <Navigate to="/movies/1" />;
+    console.log(!valid);
+    if (valid) return <Navigate to="/movies/1" />;
     else return <Outlet />;
   }
   return <Loader state={false} />;

@@ -80,10 +80,10 @@ export const CreateCommentIcon = (props) => {
                     Post some comment!
                   </DialogContentText>
                 ) : (
-                  ary.map((ary, index) => {
+                  ary.map((ary) => {
                     return (
                       <>
-                        <ListItem key={index} sx={{ pt: "-15px" }}>
+                        <ListItem key={ary.comment.id} sx={{ pt: "-15px" }}>
                           <ListItemAvatar>
                             <Avatar
                               sx={{ width: 45, height: 45 }}
@@ -159,28 +159,6 @@ export const CreateCommentIcon = (props) => {
             <Button onClick={handleClose}>Cancel</Button>
           </DialogActions>
         </Dialog>
-        {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        fullWidth={true}
-        maxWidth="xs"
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title" align="center">
-          Are you sure?
-        </DialogTitle>
-        <DialogContent>
-      <TextField hintText="Name Surname" fullWidth={true} />
-    </DialogContent>
-        <DialogActions sx={{ margin: "auto" }}>
-          <Button onClick={createComment} color="primary">
-            LOGOUT
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            CANCEL
-          </Button>
-        </DialogActions>
-      </Dialog> */}
       </>
     );
   }

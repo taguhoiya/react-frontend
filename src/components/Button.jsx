@@ -13,7 +13,7 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
-import { Dropdown } from "./UserProfile/Dropdowns";
+import { Dropdown } from "./userProfile/Dropdowns";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER_IMAGE } from "../graphql/mutations";
 import { UserAuthContext } from "./providers/UserAuthProvider";
@@ -115,7 +115,7 @@ export const AuthHeaderButton = memo((props) => {
 });
 
 export const LogoutButton = (props) => {
-  const [, setAction] = useState("");
+  const [setAction] = useState("");
   const alert = useAlert();
   return (
     <Button
@@ -140,34 +140,66 @@ export const LogoutButton = (props) => {
 };
 
 export const EditProfile = memo((props) => {
+  const { nickname, image } = props;
   const [open, setOpen] = useState(false);
-  const [imageState, setImageState] = useState(props.image);
+  const [openB, setOpenB] = useState(true);
+  const [nameState, setNameState] = useState(nickname);
+  const [imageState, setImageState] = useState(image);
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
   const handleClickClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenB(false);
+  };
   const { authState } = useContext(UserAuthContext);
-  const [updateUserImage] = useMutation(UPDATE_USER_IMAGE, {
-    variables: { image: imageState.postImage, id: authState.id },
+  const [updateUserImage, { data, error }] = useMutation(UPDATE_USER_IMAGE, {
+    variables: { image: imageState.postImage, id: authState.id, nickname: nameState },
     client: clientUpload,
     update: (_proxy, response) => {
       if (!response.errors) {
         window.location.reload();
-      } else {
-        alert("Upload failed");
-        setImageState({ image: {} });
       }
     },
   });
   return (
     <>
+      {!error ? null : (
+        <Snackbar
+          open={openB}
+          autoHideDuration={2000}
+          onClose={handleClose}
+          TransitionComponent={GrowTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="warning" sx={{ width: "100%" }}>
+            There's something wrong! Update agein correctly!
+          </Alert>
+        </Snackbar>
+      )}
+      {!data ? null : (
+        <Snackbar
+          open={openB}
+          autoHideDuration={2000}
+          onClose={handleClose}
+          TransitionComponent={GrowTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="success" sx={{ width: "100%" }}>
+            Updated successfully!
+          </Alert>
+        </Snackbar>
+      )}
       <Button
         variant="outlined"
         align="center"
-        size="large"
-        sx={{ mt: "100px" }}
+        size="medium"
+        sx={{ mt: 10 }}
         onClick={handleClickOpen}
       >
         {props.children}
@@ -176,14 +208,14 @@ export const EditProfile = memo((props) => {
         open={open}
         onClose={handleClickClose}
         fullWidth={true}
-        maxWidth="md"
+        maxWidth="xs"
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title" align="center"></DialogTitle>
         <DialogContent align="center">
           <Avatar
-            sx={{ width: "150px", height: "150px", marginRight: 2, marginBottom: 0.5 }}
-            alt="my image"
+            sx={{ width: 150, height: 150, marginBottom: 0.5 }}
+            alt="icon"
             src={!imageState.image ? imageState : imageState.image}
           />
           <Dropdown setImageState={setImageState} imageState={imageState} />
@@ -191,20 +223,12 @@ export const EditProfile = memo((props) => {
             required
             margin="dense"
             id="name"
-            label="Email Address"
+            label="Update Nickname?"
             type="email"
             fullWidth
             variant="standard"
-            defaultValue="Default Value"
-          />
-          <TextField
-            required
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
+            defaultValue={nameState}
+            onChange={(e) => setNameState(e.target.value)}
           />
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
