@@ -14,6 +14,9 @@ import { DrawerStyle } from "../components/header/Drawer";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
+import { useQuery } from "@apollo/client";
+import { USER_INFO_TOP_PAGE } from "../graphql/queries";
+import { Loader } from "../components/Loader";
 
 export const drawerWidth = 220;
 export const mdTheme = createTheme();
@@ -27,11 +30,14 @@ export const Dashboard = memo((props) => {
   const toggleDrawer = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  //   <Box sx={{ width: "15%", height: "20%", mt: 21, mb: 4, mr: 8 }}>
-  //   <h2>CATEGORY</h2>
-  //   <ScrollBar />
-  // </Box>
+  const { loading ,data: dataU } = useQuery(USER_INFO_TOP_PAGE, {
+    variables: { id: authState.id },
+  });
+  if (loading) return <Loader state={true} />
+  if (dataU)
   return (
+    <>
+    <Loader state={false} />
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -72,7 +78,7 @@ export const Dashboard = memo((props) => {
             <>
               <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
                 <h1>HOT MOVIE</h1>
-                <EachMovieCard num={num} />
+                <EachMovieCard num={num} dataU={dataU}/>
               </Container>
             </>
           )}
@@ -80,7 +86,7 @@ export const Dashboard = memo((props) => {
             <>
               <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
                 <h1>HOT MOVIE</h1>
-                <EachMovieCard num={num} />
+                <EachMovieCard num={num} dataU={dataU}/>
               </Container>
             </>
           )}
@@ -88,12 +94,13 @@ export const Dashboard = memo((props) => {
             <>
               <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
                 <h1>HOT MARK</h1>
-                <EachMarkCard num={num} />
+                <EachMarkCard num={num} dataU={dataU}/>
               </Container>
             </>
           )}
         </Box>
       </Box>
     </ThemeProvider>
+    </>
   );
 });

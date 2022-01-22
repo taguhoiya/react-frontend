@@ -28,8 +28,7 @@ export const Profile = memo(() => {
     setOpen((prevState) => !prevState);
   }, []);
   const { loading, error, data } = useQuery(USER_INFO, {
-    variables: { id: parseInt(authState.id) },
-    fetchPolicy: "cache-first",
+    variables: { id: parseInt(authState.id) }
   });
   if (loading) return null;
   if (error) return `Error ${error.message}`;

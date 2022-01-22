@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
 import { memo, useContext, useState } from "react";
-import { MOVIE_PAGES, USER_INFO_TOP_PAGE } from "../../graphql/queries";
+import { MOVIE_PAGES } from "../../graphql/queries";
 import { average } from "../../Helper";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles } from "./CardStyles";
@@ -11,21 +11,16 @@ import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
 
 export const EachMovieCard = memo((props) => {
-  const { num } = props;
+  const { num, dataU } = props;
   const styles = cardStyles();
   const [page, setPage] = useState(num);
   const { authState } = useContext(UserAuthContext);
-  const { loading, error, data, refetch } = useQuery(MOVIE_PAGES, {
-    variables: { page: !page ? 1 : page, limit: 18 },
-    fetchPolicy: "cache-and-network",
+  const { loading, error, data } = useQuery(MOVIE_PAGES, {
+    variables: { page: !page ? 1 : page, limit: 18 }
   });
-  const { data: dataU, error: errorU } = useQuery(USER_INFO_TOP_PAGE, {
-    variables: { id: parseInt(authState.id) },
-  });
-
   if (loading) return <Loader state={true} />;
-  if (error || errorU) return `Error ${errorU.message}`;
-  if (data && dataU) {
+  if (error) return `Error ${error.message}`;
+  if (data) {
     // about data
     const movieArray = data.searchMovies.movies;
     const clipCounts = movieArray.map((movie) => movie.clips.length);
@@ -88,5 +83,4 @@ export const EachMovieCard = memo((props) => {
       </>
     );
   }
-  if (data) refetch();
 });
