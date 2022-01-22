@@ -3,9 +3,9 @@ import { memo } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
 
 const override = css`
-  position: fixed; /*body要素に対して絶対配置*/
-  top: 50%; /*上端を中央に*/
-  left: 50%; /*左端を中央に*/
+  position: fixed;
+  top: 50%;
+  left: 50%;
 `;
 
 export const Loader = memo((props) => {
