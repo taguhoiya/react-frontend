@@ -16,7 +16,7 @@ export const EachMovieCard = memo((props) => {
   const [page, setPage] = useState(num);
   const { authState } = useContext(UserAuthContext);
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
-    variables: { page: !page ? 1 : page, limit: 18 }
+    variables: { page: !page ? 1 : page, limit: 12 }
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;

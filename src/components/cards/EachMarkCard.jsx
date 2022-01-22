@@ -11,7 +11,7 @@ export const EachMarkCard = memo((props) => {
   const [page, setPage] = useState(num);
 
   const { loading, error, data } = useQuery(MARK_PAGES, {
-    variables: { page: !page ? 1 : page, limit: 16 },
+    variables: { page: !page ? 1 : page, limit: 12 },
   });
 
   if (loading) return <Loader state={true} />;

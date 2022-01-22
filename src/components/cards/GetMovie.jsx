@@ -12,6 +12,7 @@ import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { CreateCommentIcon } from "../../graphql/CreateCommentIcon";
 import Scrollbars from "react-custom-scrollbars-2";
 import { BasicPagination } from "../userProfile/Pagination";
+import { Loader } from "../Loader";
 
 export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;
@@ -21,7 +22,7 @@ export const GetMovie = memo((props) => {
     variables: { ids: markMovieIds },
   });
   if (error) return `Error ${error.message}`;
-  if (loading) return null;
+  if (loading) return <Loader state={true}/>;
   if (data) {
     const movies = data.movies;
     const movieIds = movies.map((movie) => movie.id);
@@ -43,6 +44,7 @@ export const GetMovie = memo((props) => {
     });
     return (
       <>
+      <Loader state={false}/>
         {ary.map((ary, index) => (
           <Grid item lg={6} md={6} sm={12} key={index} my={2}>
             <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>

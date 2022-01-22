@@ -49,6 +49,7 @@ export const MarkTabPanel = (props) => {
         markBool: markBools[idx],
       };
     });
+    console.log(marks)
     return (
       <>
         <Loader state={false} />
