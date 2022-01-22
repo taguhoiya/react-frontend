@@ -23,16 +23,10 @@ export const MarksSection = memo((props) => {
   if (error) return `Error ${error.message}`;
   if (data) {
     const marks = data.movie.marks;
-    const users = marks.map((mark) => mark.user);
-    const usersPath = users.map((user) =>
-      !user.path ? "" : `https://www.moview-ori.com${user.path}`
-    );
-    const ary = marks.map((itemOfMark, idx) => {
-      return {
-        mark: marks[idx],
-        user: users[idx],
-        userPath: usersPath[idx],
-      };
+    const ary = marks.map((mark, idx) => {
+      const user = mark.user;
+      const userPath = !user.path ? "" : `https://www.moview-ori.com${user.path}`;
+      return { mark: marks[idx], user, userPath };
     });
     return (
       <>

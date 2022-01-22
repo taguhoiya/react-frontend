@@ -22,14 +22,9 @@ export const ClipTabPanel = memo((props) => {
   if (error) return `Error ${error.message}`;
   if (data) {
     const movies = data.movies;
-    const markScoreArray = movies.map((movie) => movie.marks.map((mark) => mark.score));
-    const aveScore = markScoreArray.map((score) => average(score));
-    const ary = movies.map((itemOfMovie, idx) => {
-      return {
-        movie: movies[idx],
-        clip: clips[idx],
-        ave: aveScore[idx],
-      };
+    const ary = data.movies.map((movie, idx) => {
+      const ave = average(movie.marks.map((mark) => mark.score));
+      return { movie: movies[idx], clip: clips[idx], ave };
     });
     return (
       <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 5 }}>

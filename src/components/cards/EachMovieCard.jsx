@@ -15,34 +15,22 @@ export const EachMovieCard = memo((props) => {
   const styles = cardStyles();
   const [page, setPage] = useState(num);
   const { authState } = useContext(UserAuthContext);
+  const userClipIds = dataU.publicUser.clips.map((clip) => parseInt(clip.movieId));
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
-    variables: { page: !page ? 1 : page, limit: 12 }
+    variables: { page: !page ? 1 : page, limit: 12 },
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
-    // about data
-    const movieArray = data.searchMovies.movies;
-    const clipCounts = movieArray.map((movie) => movie.clips.length);
-    const markCounts = movieArray.map((movie) => movie.marks.length);
-    const markScoreArray = movieArray.map((movie) => movie.marks.map((mark) => mark.score));
-    const aveScore = markScoreArray.map((score) => average(score));
     const count = data.searchMovies.totalPage;
-    const movieKeys = movieArray.map((movie) => parseInt(movie.id));
-
-    // about dataU
-    const userInfo = dataU.publicUser;
-    const userClipIds = userInfo.clips.map((clip) => parseInt(clip.movieId));
-    const initialStates = movieKeys.map((movieId) => userClipIds.includes(movieId));
-    const ary = movieKeys.map((itemOfMovie, idx) => {
-      return {
-        id: movieKeys[idx],
-        movie: movieArray[idx],
-        clipSum: clipCounts[idx],
-        markSum: markCounts[idx],
-        ave: aveScore[idx],
-        initialState: initialStates[idx],
-      };
+    const ary = data.searchMovies.movies.map((movie) => {
+      const clipSum = movie.clips.length;
+      const markSum = movie.marks.length;
+      const markScoreArray = movie.marks.map((mark) => mark.score);
+      const ave = average(markScoreArray);
+      const id = parseInt(movie.id);
+      const initialState = userClipIds.includes(id);
+      return { movie, clipSum, markSum, ave, id, initialState };
     });
     return (
       <>

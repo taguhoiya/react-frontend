@@ -18,40 +18,32 @@ export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;
   const styles = cardStyles2();
   const { authState } = useContext(UserAuthContext);
+  const favoIds = user.favorites.map((favo) => favo.mark.id);
+  const markIds = marks.map((mark) => mark.id);
+  const clippedMovieIds = user.clips.map((clip) => clip.movieId);
+  const favoBools = markIds.map((markId) => favoIds.includes(markId));
   const { error, loading, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
   });
   if (error) return `Error ${error.message}`;
-  if (loading) return <Loader state={true}/>;
+  if (loading) return <Loader state={true} />;
   if (data) {
     const movies = data.movies;
-    const movieIds = movies.map((movie) => movie.id);
-    const aveScore = movies.map((movie) => movie.marks.map((mark) => mark.score));
-    const markIds = marks.map((mark) => mark.id);
-    const clippedMovieIds = user.clips.map((clip) => clip.movieId);
-    const bools = movieIds.map((movieId) => clippedMovieIds.includes(movieId));
-    const favoIds = user.favorites.map((favo) => favo.mark.id);
-    const favoBools = markIds.map((markId) => favoIds.includes(markId));
-    const ary = marks.map((itemOfMark, idx) => {
-      return {
-        movie: movies[idx],
-        mark: marks[idx],
-        markMovieId: markMovieIds[idx],
-        ave: aveScore.map((ave) => average(ave))[idx],
-        clipBool: bools[idx],
-        favoBool: favoBools[idx],
-      };
+    const ary = movies.map((movie, idx) => {
+      const ave = average(movie.marks.map((mark) => mark.score));
+      const clipBool = clippedMovieIds.includes(movie.id);
+      return { movie: movies[idx], mark: marks[idx], ave, clipBool, favoBool: favoBools[idx] };
     });
     return (
       <>
-      <Loader state={false}/>
+        <Loader state={false} />
         {ary.map((ary, index) => (
           <Grid item lg={6} md={6} sm={12} key={index} my={2}>
             <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
               <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                 <Grid item md={0.5} sm={1.5} />
                 <Grid item md={7} sm={6}>
-                  <h4>{ary.movie.movieName}</h4>
+                  <h4 style={{ maxHeight: 24 }}>{ary.movie.movieName}</h4>
                   <Stars value={ary.mark.score} size={23} />
                   <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
                     <p>{ary.mark.content}</p>

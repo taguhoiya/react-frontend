@@ -7,11 +7,15 @@ import { memo } from "react";
 
 export const AuthenticatedRoute = memo(() => {
   const location = useLocation();
-  const { loading, error: errorA, data: dataA } = useQuery(LOGGED_USER, {
+  const {
+    loading,
+    error: errorA,
+    data: dataA,
+  } = useQuery(LOGGED_USER, {
     variables: { id: parseInt(localStorage.getItem("id")) },
     client: clientAuth,
   });
-  if (loading) return <Loader state={true} />
+  if (loading) return <Loader state={true} />;
   if (errorA) {
     console.log("Not found");
     return (

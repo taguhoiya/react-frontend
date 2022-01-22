@@ -16,7 +16,6 @@ import { useLocation } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 import { useQuery } from "@apollo/client";
 import { USER_INFO_TOP_PAGE } from "../graphql/queries";
-import { Loader } from "../components/Loader";
 
 export const drawerWidth = 220;
 export const mdTheme = createTheme();
@@ -30,77 +29,71 @@ export const Dashboard = memo((props) => {
   const toggleDrawer = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  const { loading ,data: dataU } = useQuery(USER_INFO_TOP_PAGE, {
+  const { loading, data: dataU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: authState.id },
   });
-  if (loading) return <Loader state={true} />
+  if (loading) return null;
   if (dataU)
-  return (
-    <>
-    <Loader state={false} />
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open} color="inherit">
-          <ToolBarModi
-            open={open}
-            toggleDrawer={toggleDrawer}
-            profileUrl={profileUrl}
-            authState={authState}
-          />
-        </AppBar>
-        <DrawerStyle variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <MainListItems to={profileUrl} />
-          <Divider />
-          <SecondaryListItems to={profileUrl} />
-        </DrawerStyle>
-        <Box
-          component="main"
-          sx={{
-            display: "flex",
-            width: "100%",
-          }}
-        >
-          {location === "/" && (
-            <>
-              <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
-                <h1>HOT MOVIE</h1>
-                <EachMovieCard num={num} dataU={dataU}/>
-              </Container>
-            </>
-          )}
-          {location.includes("movie") && (
-            <>
-              <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
-                <h1>HOT MOVIE</h1>
-                <EachMovieCard num={num} dataU={dataU}/>
-              </Container>
-            </>
-          )}
-          {location.includes("marks") && (
-            <>
-              <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
-                <h1>HOT MARK</h1>
-                <EachMarkCard num={num} dataU={dataU}/>
-              </Container>
-            </>
-          )}
-        </Box>
-      </Box>
-    </ThemeProvider>
-    </>
-  );
+    return (
+      <>
+        <ThemeProvider theme={mdTheme}>
+          <Box sx={{ display: "flex" }}>
+            <CssBaseline />
+            <AppBar position="absolute" open={open} color="inherit">
+              <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
+            </AppBar>
+            <DrawerStyle variant="permanent" open={open}>
+              <Toolbar
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  px: [1],
+                }}
+              >
+                <IconButton onClick={toggleDrawer}>
+                  <ChevronLeftIcon />
+                </IconButton>
+              </Toolbar>
+              <Divider />
+              <MainListItems to={profileUrl} />
+              <Divider />
+              <SecondaryListItems to={profileUrl} />
+            </DrawerStyle>
+            <Box
+              component="main"
+              sx={{
+                display: "flex",
+                width: "100%",
+              }}
+            >
+              {location === "/" && (
+                <>
+                  <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
+                    <h1>HOT MOVIE</h1>
+                    <EachMovieCard num={num} dataU={dataU} />
+                  </Container>
+                </>
+              )}
+              {location.includes("movie") && (
+                <>
+                  <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
+                    <h1>HOT MOVIE</h1>
+                    <EachMovieCard num={num} dataU={dataU} />
+                  </Container>
+                </>
+              )}
+              {location.includes("marks") && (
+                <>
+                  <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
+                    <h1>HOT MARK</h1>
+                    <EachMarkCard num={num} dataU={dataU} />
+                  </Container>
+                </>
+              )}
+            </Box>
+          </Box>
+        </ThemeProvider>
+      </>
+    );
 });

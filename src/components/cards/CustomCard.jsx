@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useFourThreeCardMediaStyles } from "@mui-treasury/styles/cardMedia/fourThree";
 import {
   CardActionArea,
@@ -26,7 +26,7 @@ import { Stars } from "../Stars";
 import { MarksSection } from "./MarksSection";
 import Scrollbars from "react-custom-scrollbars-2";
 
-export const CustomCard = memo(({
+export const CustomCard = ({
   classes,
   image,
   movie,
@@ -45,7 +45,6 @@ export const CustomCard = memo(({
   const [markCount, setMarkCount] = useState(mark);
   const userId = auth;
   const movieId = parseInt(id);
-  console.log("再レンダリング")
   const [createClip] = useMutation(CREATE_CLIP, {
     variables: { userId, movieId },
   });
@@ -227,4 +226,4 @@ export const CustomCard = memo(({
       </CardActionArea>
     </>
   );
-});
+};

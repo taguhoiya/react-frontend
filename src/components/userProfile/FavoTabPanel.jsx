@@ -20,16 +20,13 @@ export const FavoTabPanel = (props) => {
   const { favorites, clips } = props;
 
   const favoredMarks = favorites.map((favo) => favo.mark);
-  const favoerdMarkIds = favoredMarks.map((mark) => parseInt(mark.id));
   const favoredMarkMovieIds = favoredMarks.map((mark) => mark.movie.id);
-
-  const favoredMarkCommesSum = favoredMarks.map((mark) => mark.comments.length);
-  const favoedMarkFavosSum = favoredMarks.map((mark) => mark.favorites.length);
-
   const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
-
-  const favoredMarkIds = favoredMarks.map((mark) => parseInt(mark.id));
-  const markBools = favoerdMarkIds.map((markId) => favoredMarkIds.includes(markId));
+  const array = favorites.map((favo) => {
+    const favoredMarkCommeSum = favo.mark.comments.length;
+    const favoredMarkFavoSum = favo.mark.favorites.length;
+    return { favoredMarkCommeSum, favoredMarkFavoSum, markBool: true };
+  });
 
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: favoredMarkMovieIds },
@@ -38,21 +35,19 @@ export const FavoTabPanel = (props) => {
   if (error) return `Error ${error.message}`;
   if (data) {
     const movies = data.movies;
-    const markScoreArray = movies.map((movie) => movie.marks.map((mark) => mark.score));
-    const aveScore = markScoreArray.map((score) => average(score));
-    const movieIds = movies.map((movie) => parseInt(movie.id));
-    const bools = movieIds.map((movieId) => clippedMovieIds.includes(movieId));
-    const ary = movies.map((itemOfMovie, idx) => {
+    const ary = movies.map((movie, idx) => {
+      const ave = average(movie.marks.map((mark) => mark.score));
+      const clipBool = clippedMovieIds.includes(parseInt(movie.id));
       return {
         movie: movies[idx],
-        ave: aveScore[idx],
-        clipBool: bools[idx],
+        ave,
+        clipBool,
         favoredMark: favoredMarks[idx],
-        favoedMarkCommeSum: favoredMarkCommesSum[idx],
-        favoedMarkFavoSum: favoedMarkFavosSum[idx],
-        markBool: markBools[idx],
+        favoedMarkCommeSum: array[idx].favoredMarkCommeSum,
+        favoredMarkFavoSum: array[idx].favoredMarkFavoSum,
       };
     });
+    console.log(ary);
     return (
       <>
         <Loader state={false} />
@@ -64,7 +59,7 @@ export const FavoTabPanel = (props) => {
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} />
                     <Grid item md={6.5} sm={6}>
-                      <h3>{ary.movie.movieName}</h3>
+                      <h4 style={{ maxHeight: 24 }}>{ary.movie.movieName}</h4>
                       <Stars value={ary.favoredMark.score} />
                       <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
                         <p>{ary.favoredMark.content}</p>

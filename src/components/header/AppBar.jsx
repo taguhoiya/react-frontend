@@ -2,7 +2,6 @@ import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import { drawerWidth } from "../../containers/DashBoard";
 import { IconButton, Toolbar, Typography } from "@mui/material";
-import { AuthHeaderButton } from "../Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Logout } from "../../containers/auth/Logout";
 import { memo } from "react";
@@ -26,7 +25,7 @@ export const AppBar = styled(MuiAppBar, {
 }));
 
 export const ToolBarModi = memo((props) => {
-  const { toggleDrawer, open, authState } = props;
+  const { toggleDrawer, open } = props;
   //   <IconButton color="inherit">
   //   <Badge badgeContent={4} color="secondary">
   //     <NotificationsIcon />
@@ -60,17 +59,7 @@ export const ToolBarModi = memo((props) => {
         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
           Moview
         </Typography>
-
-        {authState.id === 0 ? (
-          <>
-            <AuthHeaderButton to="/register">Register</AuthHeaderButton>
-            <AuthHeaderButton to="/login">Login</AuthHeaderButton>
-          </>
-        ) : (
-          <>
-            <Logout />
-          </>
-        )}
+        <Logout />
       </Toolbar>
     </>
   );

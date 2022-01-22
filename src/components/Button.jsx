@@ -140,7 +140,7 @@ export const LogoutButton = (props) => {
 };
 
 export const EditProfile = memo((props) => {
-  const { nickname, image } = props;
+  const { nickname, image, params, userId } = props;
   const [open, setOpen] = useState(false);
   const [openB, setOpenB] = useState(true);
   const [nameState, setNameState] = useState(nickname);
@@ -195,15 +195,17 @@ export const EditProfile = memo((props) => {
           </Alert>
         </Snackbar>
       )}
-      <Button
-        variant="outlined"
-        align="center"
-        size="medium"
-        sx={{ mt: 10 }}
-        onClick={handleClickOpen}
-      >
-        {props.children}
-      </Button>
+      {userId == params ? (
+        <Button
+          variant="outlined"
+          align="center"
+          size="medium"
+          sx={{ mt: 10 }}
+          onClick={handleClickOpen}
+        >
+          {props.children}
+        </Button>
+      ) : null}
       <Dialog
         open={open}
         onClose={handleClickClose}

@@ -33,7 +33,7 @@ export const EachMarkCard = memo((props) => {
               user={user}
               count={count}
               page={page}
-              setPPage={setPage}
+              setPage={setPage}
             />
           </Grid>
         </Grid>

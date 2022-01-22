@@ -12,7 +12,7 @@ export const USER_REGISTER = gql`
       email: $email
       password: $password
       passwordConfirmation: $passwordConfirmation
-      confirmSuccessUrl: "http://localhost:3000/verify"
+      confirmSuccessUrl: "https://moview-taguhoiya.vercel.app/verify"
     ) {
       user {
         id
@@ -112,6 +112,7 @@ export const USER_INFO = gql`
     publicUser(id: $id) {
       id
       nickname
+      path
       marks {
         id
         content

@@ -34,22 +34,20 @@ export const MarkTabPanel = (props) => {
   if (error) return `Error ${error.message}`;
   if (data) {
     const movies = data.movies;
-    const markScoreArray = movies.map((movie) => movie.marks.map((mark) => mark.score));
-    const aveScore = markScoreArray.map((score) => average(score));
-    const movieIds = movies.map((movie) => parseInt(movie.id));
-    const bools = movieIds.map((movieId) => clippedMovieIds.includes(movieId));
-    const ary = movies.map((itemOfMovie, idx) => {
+    const ary = movies.map((movie, idx) => {
+      const ave = average(movie.marks.map((mark) => mark.score));
+      const clipBool = clippedMovieIds.includes(parseInt(movie.id));
       return {
         movie: movies[idx],
         markFavoSum: markFavoSums[idx],
         markComme: markCommes[idx],
         mark: marks[idx],
-        ave: aveScore[idx],
-        clipBool: bools[idx],
+        ave,
+        clipBool,
         markBool: markBools[idx],
       };
     });
-    console.log(marks)
+    console.log(ary);
     return (
       <>
         <Loader state={false} />
@@ -61,7 +59,7 @@ export const MarkTabPanel = (props) => {
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} />
                     <Grid item md={6.5} sm={6}>
-                      <h3>{ary.movie.movieName}</h3>
+                      <h4 style={{ maxHeight: 24 }}>{ary.movie.movieName}</h4>
                       <Stars value={ary.mark.score} />
                       <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
                         <p>{ary.mark.content}</p>
