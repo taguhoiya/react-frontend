@@ -50,14 +50,14 @@ export const GetMovie = memo((props) => {
       <>
         <Loader state={false} />
         {ary.map((ary, index) => (
-          <Grid item lg={5} md={6} xs={12} key={index} my={4}>
-            <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
-              <Grid container columnSpacing={{ xs: 0, sm: 0, md: 2 }} py={2}>
-                <Grid item md={0.5} sm={0.5} xs={0.5} />
-                <Grid item md={6} sm={5} xs={5}>
+              <Grid item lg={6} md={6} sm={12} key={index} my={4}>
+              <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
+              <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
+              <Grid item md={0.5} sm={1.5} xs={0.5} />
+              <Grid item md={6.5} sm={6} xs={6}>
                   <h4
                     style={{
-                      maxWidth: 200,
+                      maxWidth: 100,
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
@@ -65,8 +65,8 @@ export const GetMovie = memo((props) => {
                   >
                     {ary.movie.movieName}
                   </h4>
-                  <Stars value={ary.mark.score} size={23} />
-                  <Scrollbars autoHeight autoHeightMin={130} autoHeightMax={150}>
+                  <Stars value={ary.mark.score} size={20} />
+                  <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
                     <p>{ary.mark.content}</p>
                   </Scrollbars>
                   <Divider style={{ background: "inherit" }} />
@@ -79,7 +79,7 @@ export const GetMovie = memo((props) => {
                   <CreateCommentIcon info={ary} markId={ary.mark.id} />
                   {ary.mark.comments.length}
                 </Grid>
-                <Grid item md={5} sm={4} xs={6}>
+                <Grid item md={4.5} sm={3} xs={5}>
                   <CustomCard
                     classes={styles}
                     image={stock1}
@@ -94,7 +94,7 @@ export const GetMovie = memo((props) => {
                     movieId={ary.movie.id}
                   />
                 </Grid>
-                <Grid item md={0.5} sm={1} xs={0.5} />
+                <Grid item md={0.5} sm={1.5} xs={0} />
               </Grid>
             </Card>
           </Grid>

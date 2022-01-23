@@ -1,42 +1,27 @@
 import { Card, Divider, Grid } from "@mui/material";
-import { useContext } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import { CreateCommentIcon } from "../../graphql/CreateComment";
-import { CreateFavoIcon } from "../../graphql/CreateFavo";
-import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
 import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles3 } from "../cards/CardStyles";
 
 export const CommentDialog = (props) => {
-  const authState = useContext(UserAuthContext);
-  const { mark, favoBool, info } = props;
+  const { mark, info } = props;
   const styles = cardStyles3();
   const movie = mark.movie;
-  const markFavoSum = mark.favorites.length;
-  const markComme = mark.comments.length;
   return (
-    <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
+    <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 4 }} py={2}>
-        <Grid item md={0.5} />
-        <Grid item md={7} className="card-header">
+        <Grid item md={0.5} xs={0.5}/>
+        <Grid item md={7} xs={5} className="card-header">
           <h3>{movie.movieName}</h3>
-          <Stars value={mark.score} />
+          <Stars value={mark.score} size={20}/>
           <Scrollbars autoHeight>
             <p>{mark.content}</p>
           </Scrollbars>
           <Divider style={{ background: "inherit" }} />
-          <CreateFavoIcon
-            favoSum={markFavoSum}
-            auth={parseInt(authState.id)}
-            markStrId={mark.id}
-            favoBool={favoBool}
-          />
-          <CreateCommentIcon info={info} markId={mark.id} />
-          {markComme}
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={4} xs={4}>
           <CustomCard
             classes={styles}
             image={stock1}
@@ -51,7 +36,7 @@ export const CommentDialog = (props) => {
             movieId={info.movie.id}
           />
         </Grid>
-        <Grid item md={0.5} />
+        <Grid item md={0.5} xs={0.5}/>
       </Grid>
     </Card>
   );

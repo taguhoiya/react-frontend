@@ -37,7 +37,7 @@ export const MarksSection = memo((props) => {
               <Typography
                 sx={{ fontStyle: "italic", fontWeight: "medium" }}
                 variant="h4"
-                mt="15%"
+                mt="10%"
                 textAlign="center"
               >
                 Post some review!

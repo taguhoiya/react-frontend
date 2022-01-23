@@ -55,11 +55,11 @@ export const FavoTabPanel = (props) => {
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             {ary.map((ary) => (
-              <Grid item lg={6} md={6} sm={12} key={ary.favoredMark.id} my={2}>
-                <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
+              <Grid item lg={6} md={6} sm={12} key={ary.favoredMark.id} my={4}>
+                <Card  sx={{ backgroundColor: "#e6edf5" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                    <Grid item md={0.5} sm={1.5} />
-                    <Grid item md={6.5} sm={6}>
+                    <Grid item md={0.5} sm={1.5} xs={0.5} />
+                    <Grid item md={6.5} sm={6} xs={6}>
                       <h4
                         style={{
                           maxWidth: 100,
@@ -100,7 +100,7 @@ export const FavoTabPanel = (props) => {
                         movieId={ary.movie.id}
                       />
                     </Grid>
-                    <Grid item md={0.5} />
+                    <Grid item md={0.5} sm={1.5} xs={0.5} />
                   </Grid>
                 </Card>
               </Grid>
