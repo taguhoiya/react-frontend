@@ -49,7 +49,6 @@ export const FavoTabPanel = (props) => {
         favoredMarkFavoSum: array[idx].favoredMarkFavoSum,
       };
     });
-    console.log(favoredMarks);
     return (
       <>
         <Loader state={false} />

@@ -22,7 +22,6 @@ export const UnauthenticatedRoute = memo(() => {
   }
   if (dataA) {
     const valid = dataA.publicUser.confirmedAt;
-    console.log(!valid);
     if (valid) return <Navigate to="/movies/1" />;
     else return <Outlet />;
   }

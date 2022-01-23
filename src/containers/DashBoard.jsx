@@ -11,7 +11,7 @@ import { Container } from "@mui/material";
 import { AppBar, ToolBarModi } from "../components/header/AppBar";
 import { DrawerStyle } from "../components/header/Drawer";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 import { useQuery } from "@apollo/client";
 import { USER_INFO_TOP_PAGE } from "../graphql/queries";
@@ -19,8 +19,8 @@ import { USER_INFO_TOP_PAGE } from "../graphql/queries";
 export const drawerWidth = 220;
 export const mdTheme = createTheme();
 
-export const Dashboard = memo((props) => {
-  const { num } = props;
+export const Dashboard = memo(() => {
+  const num = parseInt(useParams().num);
   const location = useLocation().pathname;
   const { authState } = useContext(UserAuthContext);
   const profileUrl = `/user/${authState.id}/profile`;

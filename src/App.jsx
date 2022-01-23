@@ -4,10 +4,10 @@ import AlertMUITemplate from "react-alert-template-mui";
 import { Verify } from "./containers/auth/Verify.jsx";
 import { Login } from "./containers/auth/Login.jsx";
 import { Register } from "./containers/auth/Register.jsx";
-import { Demo } from "./containers/Demo.jsx";
 import { Profile } from "./components/userProfile/Profile.jsx";
 import { AuthenticatedRoute } from "./components/cards/Routes/AuthenticatedRoute.jsx";
 import { UnauthenticatedRoute } from "./components/cards/Routes/UnauthenticatedRoute.jsx";
+import { Dashboard } from "./containers/DashBoard.jsx";
 
 const options = {
   position: positions.MIDDLE,
@@ -25,9 +25,9 @@ const App = function () {
           </Route>
           <Route path="/verify" element={<Verify />} />
           <Route exact path="/" element={<AuthenticatedRoute />}>
-            <Route path="/" element={<Demo />} />
-            <Route path="movies/:num" element={<Demo />} />
-            <Route path="marks/:num" element={<Demo />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="movies/:num" element={<Dashboard />} />
+            <Route path="marks/:num" element={<Dashboard />} />
             <Route path="user/:userId/profile" element={<Profile />} />
           </Route>
           <Route path="/" element={<Register />} />

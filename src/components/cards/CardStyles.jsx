@@ -12,8 +12,8 @@ export const cardStyles = makeStyles(() => ({
     marginBottom: 5,
   },
   card: () => ({
-    width: 180,
-    height: 270,
+    width: 200,
+    height: 300,
     borderColor: "#000000",
     backgroundColor: "#e6edf5",
     borderRadius: 16,
@@ -34,6 +34,9 @@ export const cardStyles = makeStyles(() => ({
     fontSize: "0.9rem",
     color: "#0f0f0f",
     textAlign: "center",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
   },
   subtitle: {
     fontFamily: "Montserrat",

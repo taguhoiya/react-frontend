@@ -20,7 +20,6 @@ import { UserAuthContext } from "../providers/UserAuthProvider";
 import { EachMovieDialog } from "./EachMovieDialog";
 
 export const CustomCard = (props) => {
-  console.log(props);
   const { classes, info, size, ave, movie, markSum, initialState, clipSum, movieId } = props;
   const mediaStyles = useFourThreeCardMediaStyles();
   const [open, setOpen] = useState(false);

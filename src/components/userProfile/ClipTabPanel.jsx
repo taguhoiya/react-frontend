@@ -31,7 +31,6 @@ export const ClipTabPanel = memo((props) => {
         clipSum: movie.clips.length,
       };
     });
-    console.log(ary);
     return (
       <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 5 }}>
         {ary.map((ary, index) => (

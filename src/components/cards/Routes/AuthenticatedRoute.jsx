@@ -17,7 +17,6 @@ export const AuthenticatedRoute = memo(() => {
   });
   if (loading) return <Loader state={true} />;
   if (errorA) {
-    console.log("Not found");
     return (
       <Navigate
         to={{
@@ -28,10 +27,8 @@ export const AuthenticatedRoute = memo(() => {
     );
   }
   if (dataA) {
-    console.log("Not confirmed");
     const valid = dataA.publicUser.confirmedAt;
     if (!valid) {
-      console.log("Not confirmed");
       return (
         <Navigate
           to={{
