@@ -68,7 +68,7 @@ export const MarkTabPanel = (props) => {
                       >
                         {ary.movie.movieName}
                       </h4>
-                        <Stars value={ary.mark.score} size={20} />
+                      <Stars value={ary.mark.score} size={20} />
                       <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
                         <p>{ary.mark.content}</p>
                       </Scrollbars>

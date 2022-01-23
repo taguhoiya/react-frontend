@@ -70,7 +70,7 @@ export const CreateCommentIcon = memo((props) => {
         <IconButton onClick={handleClickOpen}>
           <CommentIcon sx={{ color: "black" }} />
         </IconButton>
-        <Dialog open={open} onClose={handleClose} fullWidth >
+        <Dialog open={open} onClose={handleClose} fullWidth>
           <CommentDialog
             mark={mark}
             favoBool={info.favoBool}
@@ -78,14 +78,15 @@ export const CreateCommentIcon = memo((props) => {
             clipBool={info.clipBool}
             info={info}
           />
-          <Divider />
+          <Divider style={{ background: "inherit" }} />
+
           <DialogContent sx={{ backgroundColor: "#e6edf5" }}>
             <Scrollbars autoHeight autoHeightMin={260} autoHeightMax={260}>
               <List sx={{ width: "100%", margin: "auto" }}>
                 {!comments.length ? (
                   <DialogContentText
                     mt="10%"
-                    sx={{ fontStyle: "italic", fontWeight: "medium", backgroundColor: "#e6edf5"  }}
+                    sx={{ fontStyle: "italic", fontWeight: "medium", backgroundColor: "#e6edf5" }}
                     variant="h4"
                     textAlign="center"
                   >
@@ -145,7 +146,6 @@ export const CreateCommentIcon = memo((props) => {
                 src={uri}
               />
               <TextField
-
                 autoFocus
                 margin="dense"
                 id="name"
@@ -160,7 +160,7 @@ export const CreateCommentIcon = memo((props) => {
               />
             </Box>
           </DialogContent>
-          <DialogActions               sx={{backgroundColor: "#e6edf5"}}>
+          <DialogActions sx={{ backgroundColor: "#e6edf5" }}>
             <Button
               onClick={() => {
                 createComment();
