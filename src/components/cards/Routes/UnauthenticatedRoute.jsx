@@ -18,12 +18,28 @@ export const UnauthenticatedRoute = memo(() => {
     return <Loader state={true} />;
   }
   if (errorA) {
-    return <Outlet />;
+    return (
+      <>
+        <Loader state={false} />
+        <Outlet />
+      </>
+    );
   }
   if (dataA) {
     const valid = dataA.publicUser.confirmedAt;
-    if (valid) return <Navigate to="/movies/1" />;
-    else return <Outlet />;
+    if (valid)
+      return (
+        <>
+          <Loader state={false} />
+          <Navigate to="/movies/1" />
+        </>
+      );
+    else
+      return (
+        <>
+          <Loader state={false} />
+          <Outlet />
+        </>
+      );
   }
-  return <Loader state={false} />;
 });

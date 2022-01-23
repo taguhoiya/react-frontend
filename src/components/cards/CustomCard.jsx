@@ -34,12 +34,7 @@ export const CustomCard = (props) => {
     <>
       <CardActionArea className={classes.actionArea}>
         <Card className={classes.card}>
-        <CardMedia
-            component="img"
-            height={180}
-            image={stock1}
-            onClick={handleClickOpen}
-          />
+          <CardMedia component="img" height={160} image={stock1} onClick={handleClickOpen} />
           <EachMovieDialog
             info={info}
             open={open}

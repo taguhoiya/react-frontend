@@ -51,7 +51,7 @@ export const GetMovie = memo((props) => {
         <Loader state={false} />
         {ary.map((ary, index) => (
           <Grid item lg={5} md={6} xs={12} key={index} my={4}>
-            <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
+            <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
               <Grid container columnSpacing={{ xs: 0, sm: 0, md: 2 }} py={2}>
                 <Grid item md={0.5} sm={0.5} xs={0.5} />
                 <Grid item md={6} sm={5} xs={5}>

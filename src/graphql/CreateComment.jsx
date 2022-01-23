@@ -47,7 +47,7 @@ export const CreateCommentIcon = memo((props) => {
     variables: { id: parseInt(markId) },
     fetchPolicy: "cache-and-network",
   });
-  if (loading) return null;
+  if (loading) return null
   if (error) return null;
   if (data) {
     const mark = data.mark;

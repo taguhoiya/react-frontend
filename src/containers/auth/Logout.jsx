@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { memo, useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "react-spinners/PuffLoader";
 import { clientAuth } from "../../components/client";
 import { UserAuthContext } from "../../components/providers/UserAuthProvider";
 import { USER_LOGOUT } from "../../graphql/queries.jsx";
@@ -28,7 +29,7 @@ export const Logout = memo(() => {
   const handleClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  if (loading) return null;
+  if (loading) return <Loader state={true} />;
   if (error) {
     localStorage.clear();
     client.resetStore();

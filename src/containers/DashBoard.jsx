@@ -15,6 +15,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 import { useQuery } from "@apollo/client";
 import { USER_INFO_TOP_PAGE } from "../graphql/queries";
+import Loader from "react-spinners/PuffLoader";
 
 export const drawerWidth = 220;
 export const mdTheme = createTheme();
@@ -31,10 +32,11 @@ export const Dashboard = memo(() => {
   const { loading, data: dataU } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: authState.id },
   });
-  if (loading) return null;
+  if (loading) return <Loader state={true} />;
   if (dataU)
     return (
       <>
+        <Loader state={false} />
         <ThemeProvider theme={mdTheme}>
           <Box sx={{ display: "flex" }}>
             <AppBar position="absolute" open={open} color="inherit">

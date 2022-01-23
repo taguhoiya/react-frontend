@@ -18,26 +18,31 @@ export const AuthenticatedRoute = memo(() => {
   if (loading) return <Loader state={true} />;
   if (errorA) {
     return (
-      <Navigate
-        to={{
-          pathname: "/login",
-          state: { from: location },
-        }}
-      />
-    );
-  }
-  if (dataA) {
-    const valid = dataA.publicUser.confirmedAt;
-    if (!valid) {
-      return (
+      <>
+        <Loader state={false} />
         <Navigate
           to={{
             pathname: "/login",
             state: { from: location },
           }}
         />
+      </>
+    );
+  }
+  if (dataA) {
+    const valid = dataA.publicUser.confirmedAt;
+    if (!valid) {
+      return (
+        <>
+          <Loader state={false} />
+          <Navigate
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        </>
       );
     } else return <Outlet />;
   }
-  return <Loader state={false} />;
 });

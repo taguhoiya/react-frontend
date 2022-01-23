@@ -15,6 +15,7 @@ import { USER_INFO } from "../../graphql/queries";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { EditProfile } from "../Button";
 import { useParams } from "react-router-dom";
+import Loader from "react-spinners/PuffLoader";
 
 export const Profile = memo(() => {
   const { authState } = useContext(UserAuthContext);
@@ -27,7 +28,7 @@ export const Profile = memo(() => {
   const { loading, error, data } = useQuery(USER_INFO, {
     variables: { id: parseInt(params) },
   });
-  if (loading) return null;
+  if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
     const user = data.publicUser;
@@ -36,6 +37,7 @@ export const Profile = memo(() => {
     const src = !uri.includes("https") ? defaultImage : uri;
     return (
       <>
+      <Loader state={false} />;
         <ThemeProvider theme={mdTheme}>
           <Box sx={{ display: "flex" }}>
             <AppBar position="absolute" open={open} color="inherit">

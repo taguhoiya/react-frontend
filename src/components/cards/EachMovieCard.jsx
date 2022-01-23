@@ -16,7 +16,6 @@ export const EachMovieCard = memo((props) => {
   const userClipIds = dataU.publicUser.clips.map((clip) => parseInt(clip.movieId));
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
     variables: { page: !page ? 1 : page, limit: 12 },
-    fetchPolicy: "cache-and-network",
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;

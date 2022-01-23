@@ -12,7 +12,6 @@ export const EachMarkCard = memo((props) => {
 
   const { loading, error, data } = useQuery(MARK_PAGES, {
     variables: { page: !page ? 1 : page, limit: 12 },
-    fetchPolicy: "cache-and-network",
   });
 
   if (loading) return <Loader state={true} />;

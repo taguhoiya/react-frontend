@@ -1,25 +1,17 @@
 import { css } from "@emotion/react";
 import { memo } from "react";
-import MoonLoader from "react-spinners/MoonLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const override = css`
   position: fixed;
   top: 50%;
   left: 50%;
-  color: blue;
+  color: #36a9d7;
+  border-color: #36a9d7;
 `;
 
-const smallOverride = css`
-  position: relative;
-  color: blue;
-`;
 
 export const Loader = memo((props) => {
   const { state } = props;
-  return <MoonLoader loading={state} css={override} size={40} />;
-});
-
-export const SmallLoader = memo((props) => {
-  const { state } = props;
-  return <MoonLoader loading={state} css={smallOverride} size={40} />;
+  return <PuffLoader loading={state} css={override} size={40} />;
 });
