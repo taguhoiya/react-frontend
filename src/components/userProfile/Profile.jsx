@@ -1,6 +1,6 @@
 import { memo, useCallback, useContext, useState } from "react";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { Avatar, Box, Container, CssBaseline, Grid, ThemeProvider } from "@mui/material";
+import { Avatar, Box, Container, Grid, ThemeProvider } from "@mui/material";
 import { mdTheme } from "../../containers/DashBoard";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -38,7 +38,6 @@ export const Profile = memo(() => {
       <>
         <ThemeProvider theme={mdTheme}>
           <Box sx={{ display: "flex" }}>
-            <CssBaseline />
             <AppBar position="absolute" open={open} color="inherit">
               <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
             </AppBar>

@@ -1,7 +1,6 @@
 import { memo, useCallback, useContext, useState } from "react";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -38,7 +37,6 @@ export const Dashboard = memo((props) => {
       <>
         <ThemeProvider theme={mdTheme}>
           <Box sx={{ display: "flex" }}>
-            <CssBaseline />
             <AppBar position="absolute" open={open} color="inherit">
               <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
             </AppBar>

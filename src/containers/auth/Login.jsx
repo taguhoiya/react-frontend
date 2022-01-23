@@ -1,6 +1,5 @@
 import { memo, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
@@ -74,7 +73,6 @@ export const Login = memo(() => {
     <>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
-          <CssBaseline />
           {!error ? null : (
             <Snackbar
               open={open}

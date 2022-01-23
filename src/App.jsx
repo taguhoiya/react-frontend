@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
 import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
 import { Verify } from "./containers/auth/Verify.jsx";
@@ -17,7 +16,6 @@ const options = {
 const App = function () {
   return (
     <BrowserRouter>
-      <CssBaseline />
       <Provider template={AlertMUITemplate} {...options}>
         <Routes>
           <Route exact path="/" element={<UnauthenticatedRoute />}>
