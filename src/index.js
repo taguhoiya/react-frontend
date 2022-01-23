@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { UserAuthProvider } from "./components/providers/UserAuthProvider";
 import { UserImageProvider } from "./components/providers/UserImageProvider";
 import { ApolloProvider } from "@apollo/client";
-import { client } from "./components/client";
+import { client } from "./graphql/client";
 import { CssBaseline } from "@mui/material";
 
 ReactDOM.render(

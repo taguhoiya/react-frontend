@@ -2,9 +2,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Alert, Grow, Snackbar } from "@mui/material";
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { clientAuth } from "../../components/client";
-import { Loader } from "../../components/Loader";
-import { LOGGED_USER, USER_LOGIN } from "../../graphql/queries";
+import { clientAuth } from "../graphql/client";
+import { Loader } from "../components/Loader";
+import { LOGGED_USER, USER_LOGIN } from "../graphql/queries";
 
 export const GrowTransition = memo((props) => {
   return <Grow {...props} />;

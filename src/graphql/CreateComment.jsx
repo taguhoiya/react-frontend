@@ -19,13 +19,14 @@ import CommentIcon from "@mui/icons-material/Comment";
 import { memo, useCallback, useContext, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { MARK } from "./queries";
-import { CommentDialog } from "../components/cards/CommentDialog";
+import { CommentDialog } from "../components/dialogs/CommentDialog";
 import Scrollbars from "react-custom-scrollbars-2";
 import defaultImage from "../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { UserImageContext } from "../components/providers/UserImageProvider";
 import { CREATE_COMMENT } from "./mutations";
 import { CommentThreeVertIcon } from "../components/CommentThreeVertIcon";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
+import { Loader } from "../components/Loader";
 
 export const CreateCommentIcon = memo((props) => {
   const { info, markId } = props;
@@ -47,7 +48,7 @@ export const CreateCommentIcon = memo((props) => {
     variables: { id: parseInt(markId) },
     fetchPolicy: "cache-and-network",
   });
-  if (loading) return null
+  if (loading) return <Loader state={true} />;
   if (error) return null;
   if (data) {
     const mark = data.mark;
@@ -65,6 +66,7 @@ export const CreateCommentIcon = memo((props) => {
     });
     return (
       <>
+        <Loader state={false} />
         <IconButton onClick={handleClickOpen}>
           <CommentIcon sx={{ color: "black" }} />
         </IconButton>

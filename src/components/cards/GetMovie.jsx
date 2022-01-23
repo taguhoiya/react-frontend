@@ -57,7 +57,7 @@ export const GetMovie = memo((props) => {
                 <Grid item md={6} sm={5} xs={5}>
                   <h4
                     style={{
-                      maxWidth: 100,
+                      maxWidth: 200,
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
@@ -85,7 +85,7 @@ export const GetMovie = memo((props) => {
                     image={stock1}
                     info={ary}
                     size="small"
-                    // ave={ary.ave}
+                    ave={ary.ave}
                     movie={ary.movie}
                     markSum={ary.markSum}
                     initialState={ary.initialState}

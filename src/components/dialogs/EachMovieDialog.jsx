@@ -6,8 +6,8 @@ import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { CreateClipIcon } from "../../graphql/CreateClip";
 import { CreateMarkIcon } from "../../graphql/CreateMark";
 import { Stars } from "../Stars";
-import { MarksSection } from "./MarksSection";
-import { BootstrapDialog, BootstrapDialogTitle } from "./MovieDialog";
+import { MarksSection } from "../cards/MarksSection";
+import { BootstrapDialog, BootstrapDialogTitle } from "../cards/MovieDialog";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 
 export const EachMovieDialog = memo((props) => {

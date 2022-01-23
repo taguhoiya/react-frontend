@@ -2,10 +2,10 @@ import { useMutation } from "@apollo/client";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { memo, useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "react-spinners/PuffLoader";
-import { clientAuth } from "../../components/client";
-import { UserAuthContext } from "../../components/providers/UserAuthProvider";
-import { USER_LOGOUT } from "../../graphql/queries.jsx";
+import { clientAuth } from "../graphql/client";
+import { UserAuthContext } from "../components/providers/UserAuthProvider";
+import { USER_LOGOUT } from "../graphql/queries.jsx";
+import { Loader } from "../components/Loader";
 
 export const Logout = memo(() => {
   const { setAuthState } = useContext(UserAuthContext);

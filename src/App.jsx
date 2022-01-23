@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
-import { Verify } from "./containers/auth/Verify.jsx";
-import { Login } from "./containers/auth/Login.jsx";
-import { Register } from "./containers/auth/Register.jsx";
+import { Verify } from "./containers/Verify.jsx";
+import { Login } from "./containers/Login.jsx";
+import { Register } from "./containers/Register.jsx";
 import { Profile } from "./components/userProfile/Profile.jsx";
-import { AuthenticatedRoute } from "./components/cards/Routes/AuthenticatedRoute.jsx";
-import { UnauthenticatedRoute } from "./components/cards/Routes/UnauthenticatedRoute.jsx";
+import { AuthenticatedRoute } from "./components/routes/AuthenticatedRoute.jsx";
+import { UnauthenticatedRoute } from "./components/routes/UnauthenticatedRoute.jsx";
 import { Dashboard } from "./containers/DashBoard.jsx";
 
 const options = {

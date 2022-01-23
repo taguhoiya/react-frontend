@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { CreateMarkIcon } from "../../graphql/CreateMark";
 import { Stars } from "../Stars";
-import { MarksSection } from "./MarksSection";
+import { MarksSection } from "../cards/MarksSection";
 import Scrollbars from "react-custom-scrollbars-2";
 import { memo, useCallback, useContext, useState } from "react";
 import BookmarkIcon from "@mui/icons-material/Bookmark";

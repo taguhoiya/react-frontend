@@ -5,9 +5,9 @@ import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
-import { CustomCard } from "./CustomCard";
+import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
-import { cardStyles3 } from "./CardStyles";
+import { cardStyles3 } from "../cards/CardStyles";
 
 export const CommentDialog = (props) => {
   const authState = useContext(UserAuthContext);

@@ -1,8 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { LOGGED_USER } from "../../../graphql/queries";
-import { clientAuth } from "../../client";
-import { Loader } from "../../Loader";
+import { LOGGED_USER } from "../../graphql/queries";
+import { clientAuth } from "../../graphql/client";
+import { Loader } from "../Loader";
 import { memo } from "react";
 
 export const AuthenticatedRoute = memo(() => {

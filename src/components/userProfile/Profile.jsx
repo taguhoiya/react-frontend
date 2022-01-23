@@ -6,16 +6,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { MainListItems, SecondaryListItems } from "../header/ListItem";
-import { AppBar, ToolBarModi } from "../header/AppBar";
-import { DrawerStyle } from "../header/Drawer";
+import { MainListItems, SecondaryListItems } from "../headers/ListItem";
+import { AppBar, ToolBarModi } from "../headers/AppBar";
+import { DrawerStyle } from "../headers/Drawer";
 import { TabsBasic } from "./Tabs";
 import { useQuery } from "@apollo/client";
 import { USER_INFO } from "../../graphql/queries";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { EditProfile } from "../Button";
 import { useParams } from "react-router-dom";
-import Loader from "react-spinners/PuffLoader";
+import { Loader } from "../Loader";
 
 export const Profile = memo(() => {
   const { authState } = useContext(UserAuthContext);
@@ -37,7 +37,7 @@ export const Profile = memo(() => {
     const src = !uri.includes("https") ? defaultImage : uri;
     return (
       <>
-      <Loader state={false} />;
+        <Loader state={false} />;
         <ThemeProvider theme={mdTheme}>
           <Box sx={{ display: "flex" }}>
             <AppBar position="absolute" open={open} color="inherit">

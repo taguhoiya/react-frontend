@@ -16,7 +16,7 @@ import { CreateMarkIcon } from "../../graphql/CreateMark";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { CreateClipIcon } from "../../graphql/CreateClip";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { EachMovieDialog } from "./EachMovieDialog";
+import { EachMovieDialog } from "../dialogs/EachMovieDialog";
 
 export const CustomCard = (props) => {
   const { classes, info, size, ave, movie, markSum, initialState, clipSum, movieId } = props;

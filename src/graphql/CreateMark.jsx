@@ -14,11 +14,10 @@ import {
   TextField,
 } from "@mui/material";
 import { memo, useCallback, useState } from "react";
-import { Loader } from "../components/Loader";
 import MarkIcon from "@mui/icons-material/RateReview";
 import { CREATE_MARK } from "./mutations";
 import { InputSlider } from "../components/RangeSlider";
-import { GrowTransition } from "../containers/auth/Verify";
+import { GrowTransition } from "../containers/Verify";
 
 export const CreateMarkIcon = memo((props) => {
   const { userId, size, vert, markSum, movieId, movieName } = props;
@@ -48,7 +47,7 @@ export const CreateMarkIcon = memo((props) => {
     variables: { movieId, userId, score: value, content: markInput },
   });
 
-  if (loading) return <Loader state={false} />;
+  if (loading) return null;
   return (
     <>
       {!error ? null : (

@@ -12,9 +12,9 @@ import {
   EmailInput,
   PasswordInput,
   PasswordConfInput,
-} from "../../components/Form.jsx";
-import { Copyright } from "../../components/Copyright";
-import { AuthButton } from "../../components/Button";
+} from "../components/Form.jsx";
+import { Copyright } from "../components/Copyright";
+import { AuthButton } from "../components/Button";
 
 const theme = createTheme();
 

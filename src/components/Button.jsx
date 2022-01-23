@@ -17,11 +17,11 @@ import { Dropdown } from "./userProfile/Dropdowns";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER_IMAGE } from "../graphql/mutations";
 import { UserAuthContext } from "./providers/UserAuthProvider";
-import { clientAuth, clientUpload } from "./client";
+import { clientAuth, clientUpload } from "../graphql/client";
 import { useContext } from "react";
 import { blue } from "@mui/material/colors";
 import { USER_REGISTER } from "../graphql/queries";
-import { GrowTransition } from "../containers/auth/Verify";
+import { GrowTransition } from "../containers/Verify";
 
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation } = props;
