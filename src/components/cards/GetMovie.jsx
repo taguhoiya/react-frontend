@@ -85,7 +85,7 @@ export const GetMovie = memo((props) => {
                     image={stock1}
                     info={ary}
                     size="small"
-                    ave={ary.ave}
+                    // ave={ary.ave}
                     movie={ary.movie}
                     markSum={ary.markSum}
                     initialState={ary.initialState}

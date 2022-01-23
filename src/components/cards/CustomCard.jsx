@@ -1,31 +1,14 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { useFourThreeCardMediaStyles } from "@mui-treasury/styles/cardMedia/fourThree";
-import {
-  CardActionArea,
-  CardMedia,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Badge,
-  IconButton,
-  Box,
-} from "@mui/material";
-import { yellow } from "@mui/material/colors";
-import StarIcon from "@mui/icons-material/Star";
-import { CreateMarkIcon } from "../../graphql/CreateMark";
+import { CardActionArea, CardMedia, Typography, Grid, Card, CardContent } from "@mui/material";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
-import { CreateClipIcon } from "../../graphql/CreateClip";
-import { UserAuthContext } from "../providers/UserAuthProvider";
 import { EachMovieDialog } from "./EachMovieDialog";
+import { Stars } from "../Stars";
 
 export const CustomCard = (props) => {
-  const { classes, info, size, ave, movie, markSum, initialState, clipSum, movieId } = props;
+  const { classes, info, ave, movie, markSum, initialState, clipSum } = props;
   const mediaStyles = useFourThreeCardMediaStyles();
   const [open, setOpen] = useState(false);
-  const { authState } = useContext(UserAuthContext);
-  const userId = authState.id;
-  const score = Number.isNaN(ave) ? 0 : ave;
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
@@ -57,8 +40,9 @@ export const CustomCard = (props) => {
               {movie.movieName}
             </Typography>
           </CardContent>
-          <Grid container className={classes.cardPosition}>
-            <Grid item xs={4} className={classes.cardContent}>
+          <Grid container className={classes.cardPosition} alignItems="center">
+            <Stars value={ave} size={20} />
+            {/* <Grid item xs={4} className={classes.cardContent}>
               <CreateMarkIcon
                 size={size}
                 userId={userId}
@@ -84,7 +68,7 @@ export const CustomCard = (props) => {
                 </Badge>
               </IconButton>
               <Box>{score}</Box>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Card>
       </CardActionArea>
