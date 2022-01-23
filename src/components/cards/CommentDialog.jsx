@@ -1,7 +1,7 @@
 import { Card, Divider, Grid } from "@mui/material";
 import { useContext } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import { CreateCommentIcon } from "../../graphql/CreateCommentIcon";
+import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
@@ -11,12 +11,11 @@ import { cardStyles3 } from "./CardStyles";
 
 export const CommentDialog = (props) => {
   const authState = useContext(UserAuthContext);
-  const { mark, markBool, ave, clipBool } = props;
+  const { mark, favoBool, info } = props;
   const styles = cardStyles3();
   const movie = mark.movie;
   const markFavoSum = mark.favorites.length;
   const markComme = mark.comments.length;
-
   return (
     <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 4 }} py={2}>
@@ -32,24 +31,24 @@ export const CommentDialog = (props) => {
             favoSum={markFavoSum}
             auth={parseInt(authState.id)}
             markStrId={mark.id}
-            initialState={markBool}
+            favoBool={favoBool}
           />
-          <CreateCommentIcon id={mark.id} userId={parseInt(authState.id)} />
+          <CreateCommentIcon info={info} markId={mark.id} />
           {markComme}
         </Grid>
         <Grid item md={4}>
           <CustomCard
             classes={styles}
             image={stock1}
-            movieName={movie.movieName}
-            movie={movie}
-            score={Number.isNaN(ave) ? 0 : ave}
-            mark={movie.marks.length}
-            clip={movie.clips.length}
-            id={movie.id}
-            auth={parseInt(authState.id)}
+            info={info}
+            movie={info.movie}
             size="small"
-            initialState={clipBool}
+            ave={info.ave}
+            markSum={info.markSum}
+            initialState={info.initialState}
+            clipSum={info.clipSum}
+            movieName={info.movie.movieName}
+            movieId={info.movie.id}
           />
         </Grid>
         <Grid item md={0.5} />

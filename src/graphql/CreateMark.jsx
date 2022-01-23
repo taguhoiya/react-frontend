@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import {
   Alert,
   Badge,
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -20,8 +21,9 @@ import { InputSlider } from "../components/RangeSlider";
 import { GrowTransition } from "../containers/auth/Verify";
 
 export const CreateMarkIcon = memo((props) => {
-  const { userId, size, movie, markCount, setMarkCount } = props;
+  const { userId, size, vert, markSum, movieId, movieName } = props;
   const [value, setValue] = useState(2.5);
+  const [markCount, setMarkCount] = useState(markSum);
   const [markInput, setMarkInput] = useState("");
   const [open, setOpen] = useState(false);
   const [openB, setOpenB] = useState(true);
@@ -30,7 +32,7 @@ export const CreateMarkIcon = memo((props) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setOpenB(false);
   };
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
@@ -43,7 +45,7 @@ export const CreateMarkIcon = memo((props) => {
   }, [markCount]);
 
   const [createMark, { data, error, loading }] = useMutation(CREATE_MARK, {
-    variables: { movieId: movie.id, userId, score: value, content: markInput },
+    variables: { movieId, userId, score: value, content: markInput },
   });
 
   if (loading) return <Loader state={false} />;
@@ -52,13 +54,13 @@ export const CreateMarkIcon = memo((props) => {
       {!error ? null : (
         <Snackbar
           open={openB}
-          autoHideDuration={1500}
+          autoHideDuration={2500}
           onClose={handleCloseBar}
           TransitionComponent={GrowTransition}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="warning" sx={{ width: "100%" }}>
-            The Content is not written! Post again!
+            There's something wrong! ※You cannot post agein if you post marks※!
           </Alert>
         </Snackbar>
       )}
@@ -67,6 +69,7 @@ export const CreateMarkIcon = memo((props) => {
           <MarkIcon />
         </Badge>
       </IconButton>
+      {vert ? <Box>{markCount}</Box> : markCount}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -75,7 +78,7 @@ export const CreateMarkIcon = memo((props) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title" align="center">
-          Add review of {movie.movieName}
+          Add a review of {movieName}
         </DialogTitle>
         <InputSlider setValue={setValue} value={value} />
         <DialogContent>

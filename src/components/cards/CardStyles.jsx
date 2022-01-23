@@ -12,8 +12,8 @@ export const cardStyles = makeStyles(() => ({
     marginBottom: 5,
   },
   card: () => ({
-    width: 200,
-    height: 350,
+    width: 180,
+    height: 270,
     borderColor: "#000000",
     backgroundColor: "#e6edf5",
     borderRadius: 16,
@@ -26,13 +26,12 @@ export const cardStyles = makeStyles(() => ({
   content: () => {
     return {
       width: "100%",
-      padding: "1rem 1.5rem 1.5rem",
     };
   },
   title: {
     width: "9rem",
     fontFamily: "Keania One",
-    fontSize: "1rem",
+    fontSize: "0.9rem",
     color: "#0f0f0f",
     textAlign: "center",
   },
@@ -72,9 +71,9 @@ export const cardGridStyles = makeStyles(({ breakpoints }) => ({
 
 export const cardStyles2 = makeStyles(() => ({
   card: () => ({
-    height: 280,
+    minHeight: 230,
+    maxHeight: 300,
     width: "100%",
-    minWidth: 180,
     borderColor: "#000000",
     backgroundColor: "#e6edf5",
     borderRadius: 16,
@@ -84,12 +83,11 @@ export const cardStyles2 = makeStyles(() => ({
     return {
       width: "100%",
       borderColor: "#000000",
-      padding: "1rem 1.5rem 1.5rem",
     };
   },
   title: {
-    maxWidth: "10rem",
-    height: "1rem",
+    maxWidth: "12rem",
+    height: "0.9rem",
     fontFamily: "Keania One",
     fontSize: "15px",
     color: "#0f0f0f",
@@ -157,7 +155,7 @@ export const cardStyles3 = makeStyles(() => ({
 
 export const cardGridStyles2 = makeStyles(({ breakpoints }) => ({
   root: {
-    [breakpoints.down("md")]: {
+    [breakpoints.down("xs")]: {
       justifyContent: "center",
     },
   },

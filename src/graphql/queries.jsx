@@ -278,6 +278,16 @@ export const MARK = gql`
     }
   }
 `;
+export const MARK_VALID = gql`
+  query ($id: ID!) {
+    mark(id: $id) {
+      id
+      user {
+        id
+      }
+    }
+  }
+`;
 
 export const MARK_PAGES = gql`
   query ($page: Int!, $limit: Int!) {

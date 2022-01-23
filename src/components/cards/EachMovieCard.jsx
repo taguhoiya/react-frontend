@@ -1,12 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
-import { memo, useContext, useState } from "react";
+import { memo, useState } from "react";
 import { MOVIE_PAGES } from "../../graphql/queries";
 import { average } from "../../Helper";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles } from "./CardStyles";
 import { CustomCard } from "./CustomCard";
-import { UserAuthContext } from "../providers/UserAuthProvider";
 import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
 
@@ -14,7 +13,6 @@ export const EachMovieCard = memo((props) => {
   const { num, dataU } = props;
   const styles = cardStyles();
   const [page, setPage] = useState(num);
-  const { authState } = useContext(UserAuthContext);
   const userClipIds = dataU.publicUser.clips.map((clip) => parseInt(clip.movieId));
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
     variables: { page: !page ? 1 : page, limit: 12 },
@@ -37,8 +35,8 @@ export const EachMovieCard = memo((props) => {
         <Loader state={false} />
         <Grid
           container
-          columnSpacing={4}
-          rowSpacing={6}
+          columnSpacing={2}
+          rowSpacing={5}
           direction="row"
           alignItems="center"
           justifyContent="center"
@@ -47,22 +45,23 @@ export const EachMovieCard = memo((props) => {
             <Grid item key={index}>
               <CustomCard
                 classes={styles}
-                movie={info.movie}
                 image={stock1}
-                score={Number.isNaN(info.ave) ? 0 : info.ave}
-                mark={info.markSum}
-                clip={info.clipSum}
-                id={info.id}
-                auth={parseInt(authState.id)}
+                info={info}
+                movie={info.movie}
                 size="large"
+                ave={info.ave}
+                markSum={info.markSum}
                 initialState={info.initialState}
+                clipSum={info.clipSum}
+                movieName={info.movie.movieName}
+                movieId={info.movie.id}
               />
             </Grid>
           ))}
           <Grid
             sx={{
-              m: 6,
               position: "relative",
+              my: 6,
             }}
           >
             <BasicPagination page={page} setPage={setPage} count={count} />

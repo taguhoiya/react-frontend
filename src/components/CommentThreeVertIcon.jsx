@@ -13,6 +13,7 @@ export const CommentThreeVertIcon = (props) => {
   const { commId, userId } = props;
   const [deleteComment] = useMutation(DELETE_COMMENT, {
     variables: { id: commId },
+    fetchPolicy: "network-only",
   });
   const { authState } = useContext(UserAuthContext);
   const [anchorEl, setAnchorEl] = useState(null);

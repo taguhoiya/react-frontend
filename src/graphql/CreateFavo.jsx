@@ -7,13 +7,14 @@ import { red } from "@mui/material/colors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export const CreateFavoIcon = (props) => {
-  const { favoSum, auth, markStrId, initialState } = props;
+  const { favoSum, auth, markStrId, favoBool } = props;
   const [count, countSetState] = useState(favoSum);
-  const [favored, favoSetState] = useState(initialState);
+  const [favored, favoSetState] = useState(favoBool);
   const userId = auth;
   const markId = parseInt(markStrId);
   const [createFavo] = useMutation(CREATE_FAVO, {
     variables: { userId, markId },
+    fetchPolicy: "network-only",
   });
   const clickFavo = useCallback(() => {
     countSetState((prev) => prev + 1);
@@ -23,6 +24,7 @@ export const CreateFavoIcon = (props) => {
   }, []);
   const [deleteFavo] = useMutation(DELETE_FAVO, {
     variables: { markId, userId },
+    fetchPolicy: "network-only",
   });
   return (
     <>
@@ -34,7 +36,6 @@ export const CreateFavoIcon = (props) => {
               countSetState(unClickFavo);
               deleteFavo();
               favoSetState(!favored);
-              window.location.reload();
             }}
           >
             <FavoriteIcon />

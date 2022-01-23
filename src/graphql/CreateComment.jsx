@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useCallback, useContext, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { MARK } from "./queries";
 import { CommentDialog } from "../components/cards/CommentDialog";
@@ -25,10 +25,13 @@ import defaultImage from "../images/stock-photos/blank-profile-picture-gc8f50652
 import { UserImageContext } from "../components/providers/UserImageProvider";
 import { CREATE_COMMENT } from "./mutations";
 import { CommentThreeVertIcon } from "../components/CommentThreeVertIcon";
+import { UserAuthContext } from "../components/providers/UserAuthProvider";
 
-export const CreateCommentIcon = (props) => {
-  const { userId, id, markBool, ave, clipBool } = props;
+export const CreateCommentIcon = memo((props) => {
+  const { info, markId } = props;
   const [open, setOpen] = useState(false);
+  const { authState } = useContext(UserAuthContext);
+  const userId = authState.id;
   const [commContent, setCommContent] = useState("");
   const { uri } = useContext(UserImageContext);
   const handleClickOpen = useCallback(() => {
@@ -37,15 +40,15 @@ export const CreateCommentIcon = (props) => {
   const handleClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  const [createComment] = useMutation(CREATE_COMMENT, {
-    variables: { userId, markId: id, content: commContent },
+  const [createComment, { data: dataC }] = useMutation(CREATE_COMMENT, {
+    variables: { userId, markId, content: commContent },
   });
-
-  const { loading, error, data } = useQuery(MARK, {
-    variables: { id: parseInt(id) },
+  const { loading, error, data, refetch } = useQuery(MARK, {
+    variables: { id: parseInt(markId) },
+    fetchPolicy: "cache-and-network",
   });
   if (loading) return null;
-  if (error) return `Error ${error.message}`;
+  if (error) return null;
   if (data) {
     const mark = data.mark;
     const comments = mark.comments;
@@ -66,7 +69,13 @@ export const CreateCommentIcon = (props) => {
           <CommentIcon sx={{ color: "black" }} />
         </IconButton>
         <Dialog open={open} onClose={handleClose} fullWidth>
-          <CommentDialog mark={mark} markBool={markBool} ave={ave} clipBool={clipBool} />
+          <CommentDialog
+            mark={mark}
+            favoBool={info.favoBool}
+            ave={info.ave}
+            clipBool={info.clipBool}
+            info={info}
+          />
           <DialogContent>
             <Scrollbars autoHeight autoHeightMin={260} autoHeightMax={260}>
               <List sx={{ width: "100%", bgcolor: "background.paper", margin: "auto" }}>
@@ -151,7 +160,8 @@ export const CreateCommentIcon = (props) => {
             <Button
               onClick={() => {
                 createComment();
-                window.location.reload();
+                if (dataC) refetch();
+                handleClose();
               }}
             >
               ADD
@@ -162,4 +172,4 @@ export const CreateCommentIcon = (props) => {
       </>
     );
   }
-};
+});

@@ -6,9 +6,20 @@ const override = css`
   position: fixed;
   top: 50%;
   left: 50%;
+  color: blue;
+`;
+
+const smallOverride = css`
+  position: relative;
+  color: blue;
 `;
 
 export const Loader = memo((props) => {
   const { state } = props;
   return <MoonLoader loading={state} css={override} size={40} />;
+});
+
+export const SmallLoader = memo((props) => {
+  const { state } = props;
+  return <MoonLoader loading={state} css={smallOverride} size={40} />;
 });

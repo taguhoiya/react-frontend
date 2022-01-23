@@ -11,7 +11,7 @@ import { CustomCard } from "../cards/CustomCard";
 import { Loader } from "../Loader";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
-import { CreateCommentIcon } from "../../graphql/CreateCommentIcon";
+import { CreateCommentIcon } from "../../graphql/CreateComment";
 
 export const FavoTabPanel = (props) => {
   const styles = cardStyles2();
@@ -25,7 +25,7 @@ export const FavoTabPanel = (props) => {
   const array = favorites.map((favo) => {
     const favoredMarkCommeSum = favo.mark.comments.length;
     const favoredMarkFavoSum = favo.mark.favorites.length;
-    return { favoredMarkCommeSum, favoredMarkFavoSum, markBool: true };
+    return { favoredMarkCommeSum, favoredMarkFavoSum };
   });
 
   const { loading, error, data } = useQuery(MOVIES, {
@@ -37,17 +37,19 @@ export const FavoTabPanel = (props) => {
     const movies = data.movies;
     const ary = movies.map((movie, idx) => {
       const ave = average(movie.marks.map((mark) => mark.score));
-      const clipBool = clippedMovieIds.includes(parseInt(movie.id));
+      const initialState = clippedMovieIds.includes(parseInt(movie.id));
       return {
         movie: movies[idx],
         ave,
-        clipBool,
+        initialState,
+        clipSum: movie.clips.length,
+        markSum: movie.marks.length,
         favoredMark: favoredMarks[idx],
         favoedMarkCommeSum: array[idx].favoredMarkCommeSum,
         favoredMarkFavoSum: array[idx].favoredMarkFavoSum,
       };
     });
-    console.log(ary);
+    console.log(favoredMarks);
     return (
       <>
         <Loader state={false} />
@@ -59,9 +61,18 @@ export const FavoTabPanel = (props) => {
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} />
                     <Grid item md={6.5} sm={6}>
-                      <h4 style={{ maxHeight: 24 }}>{ary.movie.movieName}</h4>
-                      <Stars value={ary.favoredMark.score} />
-                      <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
+                      <h4
+                        style={{
+                          maxWidth: 100,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {ary.movie.movieName}
+                      </h4>
+                      <Stars value={ary.favoredMark.score} size={20} />
+                      <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
                         <p>{ary.favoredMark.content}</p>
                       </Scrollbars>
                       <Divider style={{ background: "inherit" }} />
@@ -69,29 +80,25 @@ export const FavoTabPanel = (props) => {
                         favoSum={ary.favoedMarkFavoSum}
                         auth={parseInt(authState.id)}
                         markStrId={ary.favoredMark.id}
-                        initialState={ary.markBool}
+                        favoBool={true}
                       />
-                      <CreateCommentIcon
-                        id={ary.favoredMark.id}
-                        markBool={ary.markBool}
-                        ave={ary.ave}
-                        clipBool={ary.clipBool}
-                        userId={parseInt(authState.id)}
-                      />
+                      {ary.favoredMarkFavoSum}
+                      <CreateCommentIcon markId={ary.favoredMark.id} info={ary} />
                       {ary.favoedMarkCommeSum}
                     </Grid>
                     <Grid item md={4.5} sm={3}>
                       <CustomCard
                         classes={styles}
                         image={stock1}
+                        info={ary}
                         movie={ary.movie}
-                        score={Number.isNaN(ary.ave) ? 0 : ary.ave}
-                        mark={ary.movie.marks.length}
-                        clip={ary.movie.clips.length}
-                        id={ary.movie.id}
-                        auth={parseInt(authState.id)}
                         size="small"
-                        initialState={ary.clipBool}
+                        ave={ary.ave}
+                        markSum={ary.markSum}
+                        initialState={ary.initialState}
+                        clipSum={ary.clipSum}
+                        movieName={ary.movie.movieName}
+                        movieId={ary.movie.id}
                       />
                     </Grid>
                     <Grid item md={0.5} />

@@ -11,20 +11,19 @@ import { MOVIES } from "../../graphql/queries";
 import { useQuery } from "@apollo/client";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { Stars } from "../Stars";
-import { CreateCommentIcon } from "../../graphql/CreateCommentIcon";
+import { CreateCommentIcon } from "../../graphql/CreateComment";
 
 export const MarkTabPanel = (props) => {
   const { marks, clips, favorites } = props;
   const { authState } = useContext(UserAuthContext);
   const styles = cardStyles2();
   const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
-  const markFavoSums = marks.map((mark) => mark.favorites.length);
   const markCommes = marks.map((mark) => mark.comments.length);
   const markMovieIds = marks.map((mark) => parseInt(mark.movie.id));
   const favoredMarks = favorites.map((favo) => favo.mark);
   const favoredMarkIds = favoredMarks.map((mark) => parseInt(mark.id));
   const markIds = marks.map((mark) => parseInt(mark.id));
-  const markBools = markIds.map((markId) => favoredMarkIds.includes(markId));
+  const favoBools = markIds.map((markId) => favoredMarkIds.includes(markId));
 
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
@@ -36,66 +35,71 @@ export const MarkTabPanel = (props) => {
     const movies = data.movies;
     const ary = movies.map((movie, idx) => {
       const ave = average(movie.marks.map((mark) => mark.score));
-      const clipBool = clippedMovieIds.includes(parseInt(movie.id));
+      const initialState = clippedMovieIds.includes(parseInt(movie.id));
       return {
         movie: movies[idx],
-        markFavoSum: markFavoSums[idx],
         markComme: markCommes[idx],
+        markSum: movie.marks.length,
+        clipSum: movie.clips.length,
         mark: marks[idx],
         ave,
-        clipBool,
-        markBool: markBools[idx],
+        initialState,
+        favoBool: favoBools[idx],
       };
     });
-    console.log(ary);
     return (
       <>
         <Loader state={false} />
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             {ary.map((ary, index) => (
-              <Grid item lg={6} md={6} sm={12} key={index} my={2}>
+              <Grid item lg={6} md={6} xs={12} key={index} my={4}>
                 <Card className="card-box" sx={{ backgroundColor: "#ceadad" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                    <Grid item md={0.5} sm={1.5} />
-                    <Grid item md={6.5} sm={6}>
-                      <h4 style={{ maxHeight: 24 }}>{ary.movie.movieName}</h4>
-                      <Stars value={ary.mark.score} />
-                      <Scrollbars autoHeight autoHeightMin={150} autoHeightMax={150}>
+                    <Grid item md={0.5} sm={1.5} xs={0.5} />
+                    <Grid item md={6.5} sm={6} xs={6}>
+                      <h4
+                        style={{
+                          maxWidth: 100,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {ary.movie.movieName}
+                      </h4>
+                      <Grid xs={12}>
+                        <Stars value={ary.mark.score} size={20} />
+                      </Grid>
+                      <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
                         <p>{ary.mark.content}</p>
                       </Scrollbars>
                       <Divider style={{ background: "inherit" }} />
                       <CreateFavoIcon
-                        favoSum={ary.markFavoSum}
+                        favoSum={ary.mark.favorites.length}
                         auth={parseInt(authState.id)}
                         markStrId={ary.mark.id}
-                        initialState={ary.markBool}
+                        favoBool={ary.favoBool}
                       />
-                      <CreateCommentIcon
-                        id={ary.mark.id}
-                        markBool={ary.markBool}
-                        ave={ary.ave}
-                        clipBool={ary.clipBool}
-                        userId={parseInt(authState.id)}
-                      />
+                      <CreateCommentIcon info={ary} markId={ary.mark.id} />
                       {ary.markComme}
                     </Grid>
-                    <Grid item md={4.5} sm={3}>
+                    <Grid item md={4.5} sm={4} xs={5}>
                       <CustomCard
                         classes={styles}
                         image={stock1}
-                        movieName={ary.movie.movieName}
+                        info={ary}
                         movie={ary.movie}
-                        score={Number.isNaN(ary.ave) ? 0 : ary.ave}
-                        mark={ary.movie.marks.length}
-                        clip={ary.movie.clips.length}
-                        id={ary.movie.id}
-                        auth={parseInt(authState.id)}
                         size="small"
-                        initialState={ary.clipBool}
+                        ave={ary.ave}
+                        markSum={ary.markSum}
+                        initialState={ary.initialState}
+                        clipSum={ary.clipSum}
+                        movieName={ary.movie.movieName}
+                        movieId={ary.movie.id}
                       />
                     </Grid>
-                    <Grid item md={0.5} sm={1.5} />
+                    <Grid item md={0.5} sm={1.5} xs={0.5} />
                   </Grid>
                 </Card>
               </Grid>
