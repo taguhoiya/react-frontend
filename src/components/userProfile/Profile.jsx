@@ -62,7 +62,7 @@ export const Profile = memo(() => {
               <SecondaryListItems to={profileUrl} />
             </DrawerStyle>
             <Container maxWidth="lg" sx={{ mt: 12, mb: 4 }}>
-              <h1>{nickname}'s page</h1>
+              <h2>{nickname}'s page</h2>
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={3}>
                   <Grid item xs={3}>

@@ -35,6 +35,7 @@ export const CreateFavoIcon = (props) => {
             onClick={() => {
               countSetState(unClickFavo);
               deleteFavo();
+              window.location.reload();
               favoSetState(!favored);
             }}
           >

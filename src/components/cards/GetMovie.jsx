@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Card, Divider, Grid } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import { MOVIES } from "../../graphql/queries";
 import { CustomCard } from "./CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
@@ -50,8 +50,8 @@ export const GetMovie = memo((props) => {
       <>
         <Loader state={false} />
         {ary.map((ary, index) => (
-          <Grid item lg={6} md={6} sm={12} key={index} my={4}>
-            <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
+          <Grid item lg={5.5} md={5} sm={12} xs={12} key={index} my={4}>
+            <Card className="card-box" sx={{ backgroundColor: "#e6edf5c5", marginLeft: 2 }}>
               <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                 <Grid item md={0.5} sm={1.5} xs={0.5} />
                 <Grid item md={6.5} sm={6} xs={6}>
@@ -65,11 +65,19 @@ export const GetMovie = memo((props) => {
                   >
                     {ary.movie.movieName}
                   </h4>
-                  <Stars value={ary.mark.score} size={20} />
-                  <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
+                  <Stars value={ary.mark.score} size={18} pt="2px" />
+                  <Scrollbars
+                    autoHeight
+                    autoHeightMin={120}
+                    autoHeightMax={150}
+                    style={{
+                      border: "1px solid rgba(192, 231, 231, 0.733)",
+                      borderRadius: "10px",
+                      paddingInline: "15px",
+                    }}
+                  >
                     <p>{ary.mark.content}</p>
                   </Scrollbars>
-                  <Divider style={{ background: "inherit" }} />
                   <CreateFavoIcon
                     favoSum={ary.mark.favorites.length}
                     auth={parseInt(authState.id)}

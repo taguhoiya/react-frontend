@@ -55,11 +55,11 @@ export const FavoTabPanel = (props) => {
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             {ary.map((ary) => (
-              <Grid item lg={6} md={6} sm={12} key={ary.favoredMark.id} my={4}>
+              <Grid item lg={6} md={6} sm={12} xs={12} key={ary.favoredMark.id} my={4}>
                 <Card sx={{ backgroundColor: "#e6edf5" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                    <Grid item md={0.5} sm={1.5} xs={0.5} />
-                    <Grid item md={6.5} sm={6} xs={6}>
+                    <Grid item md={0.5} sm={1.5} xs={0} />
+                    <Grid item md={6.5} sm={6} xs={5}>
                       <h4
                         style={{
                           maxWidth: 100,
@@ -70,8 +70,17 @@ export const FavoTabPanel = (props) => {
                       >
                         {ary.movie.movieName}
                       </h4>
-                      <Stars value={ary.favoredMark.score} size={20} />
-                      <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
+                      <Stars value={ary.favoredMark.score} size={18} pt="3px" />
+                      <Scrollbars
+                        autoHeight
+                        autoHeightMin={120}
+                        autoHeightMax={150}
+                        style={{
+                          border: "1px solid rgba(192, 231, 231, 0.733)",
+                          borderRadius: "10px",
+                          padding: "0px 6px",
+                        }}
+                      >
                         <p>{ary.favoredMark.content}</p>
                       </Scrollbars>
                       <Divider style={{ background: "inherit" }} />
@@ -85,7 +94,7 @@ export const FavoTabPanel = (props) => {
                       <CreateCommentIcon markId={ary.favoredMark.id} info={ary} />
                       {ary.favoedMarkCommeSum}
                     </Grid>
-                    <Grid item md={4.5} sm={3}>
+                    <Grid item md={4.5} sm={3} xs={6}>
                       <CustomCard
                         classes={styles}
                         image={stock1}
@@ -100,7 +109,7 @@ export const FavoTabPanel = (props) => {
                         movieId={ary.movie.id}
                       />
                     </Grid>
-                    <Grid item md={0.5} sm={1.5} xs={0.5} />
+                    <Grid item md={0.5} sm={1.5} xs={0} />
                   </Grid>
                 </Card>
               </Grid>

@@ -1,4 +1,4 @@
-import { Card, Divider, Grid } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
@@ -56,8 +56,8 @@ export const MarkTabPanel = (props) => {
               <Grid item lg={6} md={6} xs={12} key={index} my={4}>
                 <Card sx={{ backgroundColor: "#e6edf5" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                    <Grid item md={0.5} sm={1.5} xs={0.5} />
-                    <Grid item md={6.5} sm={6} xs={6}>
+                    <Grid item md={0.5} sm={1.5} xs={0} />
+                    <Grid item md={6.5} sm={6} xs={5}>
                       <h4
                         style={{
                           maxWidth: 100,
@@ -68,11 +68,19 @@ export const MarkTabPanel = (props) => {
                       >
                         {ary.movie.movieName}
                       </h4>
-                      <Stars value={ary.mark.score} size={20} />
-                      <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={150}>
+                      <Stars value={ary.mark.score} size={18} pt="3px" />
+                      <Scrollbars
+                        autoHeight
+                        autoHeightMin={120}
+                        autoHeightMax={150}
+                        style={{
+                          border: "1px solid rgba(192, 231, 231, 0.733)",
+                          borderRadius: "10px",
+                          padding: "0px 6px",
+                        }}
+                      >
                         <p>{ary.mark.content}</p>
                       </Scrollbars>
-                      <Divider style={{ background: "inherit" }} />
                       <CreateFavoIcon
                         favoSum={ary.mark.favorites.length}
                         auth={parseInt(authState.id)}
@@ -82,7 +90,7 @@ export const MarkTabPanel = (props) => {
                       <CreateCommentIcon info={ary} markId={ary.mark.id} />
                       {ary.markComme}
                     </Grid>
-                    <Grid item md={4.5} sm={3}>
+                    <Grid item md={4.5} sm={3} xs={6}>
                       <CustomCard
                         classes={styles}
                         image={stock1}
@@ -97,7 +105,7 @@ export const MarkTabPanel = (props) => {
                         movieId={ary.movie.id}
                       />
                     </Grid>
-                    <Grid item md={0.5} sm={1.5} xs={0.5} />
+                    <Grid item md={0.5} sm={1.5} xs={0} />
                   </Grid>
                 </Card>
               </Grid>

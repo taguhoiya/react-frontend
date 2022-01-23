@@ -163,7 +163,9 @@ export const EditProfile = memo((props) => {
     client: clientUpload,
     update: (_proxy, response) => {
       if (!response.errors) {
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
     },
   });

@@ -53,13 +53,13 @@ export const CreateMarkIcon = memo((props) => {
       {!error ? null : (
         <Snackbar
           open={openB}
-          autoHideDuration={2500}
+          autoHideDuration={3000}
           onClose={handleCloseBar}
           TransitionComponent={GrowTransition}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="warning" sx={{ width: "100%" }}>
-            There's something wrong! ※You cannot post agein if you post marks※!
+            There's something wrong! ※ You cannot post agein if you post marks! ※
           </Alert>
         </Snackbar>
       )}

@@ -7,7 +7,7 @@ import { CreateClipIcon } from "../../graphql/CreateClip";
 import { CreateMarkIcon } from "../../graphql/CreateMark";
 import { Stars } from "../Stars";
 import { MarksSection } from "../cards/MarksSection";
-import { BootstrapDialog, BootstrapDialogTitle } from "../cards/MovieDialog";
+import { BootstrapDialog, BootstrapDialogTitle } from "./MovieDialog";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 
 export const EachMovieDialog = memo((props) => {

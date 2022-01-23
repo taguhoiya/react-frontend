@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -12,6 +13,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -27,6 +29,7 @@ import { CREATE_COMMENT } from "./mutations";
 import { CommentThreeVertIcon } from "../components/CommentThreeVertIcon";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { Loader } from "../components/Loader";
+import { GrowTransition } from "../containers/Verify";
 
 export const CreateCommentIcon = memo((props) => {
   const { info, markId } = props;
@@ -35,21 +38,28 @@ export const CreateCommentIcon = memo((props) => {
   const userId = authState.id;
   const [commContent, setCommContent] = useState("");
   const { uri } = useContext(UserImageContext);
+  const [openB, setOpenB] = useState(true);
+
+  const handleCloseBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenB(false);
+  };
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
   const handleClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  const [createComment, { data: dataC }] = useMutation(CREATE_COMMENT, {
+  const [createComment, { error, data: dataC }] = useMutation(CREATE_COMMENT, {
     variables: { userId, markId, content: commContent },
   });
-  const { loading, error, data, refetch } = useQuery(MARK, {
+  const { loading, data, refetch } = useQuery(MARK, {
     variables: { id: parseInt(markId) },
     fetchPolicy: "cache-and-network",
   });
   if (loading) return <Loader state={true} />;
-  if (error) return null;
   if (data) {
     const mark = data.mark;
     const comments = mark.comments;
@@ -67,6 +77,19 @@ export const CreateCommentIcon = memo((props) => {
     return (
       <>
         <Loader state={false} />
+        {!error ? null : (
+          <Snackbar
+            open={openB}
+            autoHideDuration={3000}
+            onClose={handleCloseBar}
+            TransitionComponent={GrowTransition}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert severity="warning" sx={{ width: "100%" }}>
+              Type a comment!
+            </Alert>
+          </Snackbar>
+        )}
         <IconButton onClick={handleClickOpen}>
           <CommentIcon sx={{ color: "black" }} />
         </IconButton>
@@ -166,6 +189,7 @@ export const CreateCommentIcon = memo((props) => {
                 createComment();
                 if (dataC) refetch();
                 handleClose();
+                if (error) setOpenB(!openB);
               }}
             >
               ADD
