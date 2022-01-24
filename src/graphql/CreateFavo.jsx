@@ -39,7 +39,7 @@ export const CreateFavoIcon = (props) => {
               favoSetState(!favored);
             }}
           >
-            <FavoriteIcon />
+            <FavoriteIcon fontSize="small" />
           </IconButton>
           {count}
         </>
@@ -53,7 +53,7 @@ export const CreateFavoIcon = (props) => {
               favoSetState(!favored);
             }}
           >
-            <FavoriteBorderIcon />
+            <FavoriteBorderIcon fontSize="small" />
           </IconButton>
           {count}
         </>

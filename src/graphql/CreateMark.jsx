@@ -65,7 +65,7 @@ export const CreateMarkIcon = memo((props) => {
       )}
       <IconButton size={size} color="inherit" onClick={handleClickOpen}>
         <Badge color="secondary">
-          <MarkIcon />
+          <MarkIcon fontSize="small" />
         </Badge>
       </IconButton>
       {vert ? <Box>{markCount}</Box> : markCount}

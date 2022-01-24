@@ -40,7 +40,7 @@ export const CreateClipIcon = memo((props) => {
             }}
           >
             <Badge color="secondary">
-              <BookmarkIcon />
+              <BookmarkIcon fontSize="small" />
             </Badge>
           </IconButton>
         </>
@@ -55,7 +55,7 @@ export const CreateClipIcon = memo((props) => {
             }}
           >
             <Badge color="secondary">
-              <BookmarkBorderIcon />
+              <BookmarkBorderIcon fontSize="small" />
             </Badge>
           </IconButton>
         </>

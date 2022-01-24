@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import { DELETE_COMMENT } from "../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "./providers/UserAuthProvider";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const CommentThreeVertIcon = (props) => {
   const { commId, userId } = props;
@@ -45,7 +46,7 @@ export const CommentThreeVertIcon = (props) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon />
+          <MoreVertIcon fontSize="small" />
         </IconButton>
 
         <StyledMenu
@@ -57,16 +58,16 @@ export const CommentThreeVertIcon = (props) => {
           open={open}
           onClose={handleClose}
         >
-          {/* <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          Edit
-        </MenuItem> */}
+          <MenuItem onClick={handleClose} disableRipple>
+            <EditIcon fontSize="small" />
+            Edit
+          </MenuItem>
           <MenuItem onClick={handleClick2} disableRipple>
-            <DeleteIcon />
+            <DeleteIcon fontSize="small" />
             Delete
           </MenuItem>
           <MenuItem onClick={handleClose} disableRipple>
-            <CancelIcon />
+            <CancelIcon fontSize="small" />
             Cancel
           </MenuItem>
           <Dialog

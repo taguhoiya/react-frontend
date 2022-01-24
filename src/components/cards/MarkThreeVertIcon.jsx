@@ -11,8 +11,8 @@ import { StyledMenu } from "../StyledMenu";
 
 export const MarkThreeVertIcon = memo((props) => {
   const { markId, userId } = props;
-  const [deleteMark] = useMutation(DELETE_MARK, {
-    variables: { id: markId },
+  const [deleteMark, { error, data }] = useMutation(DELETE_MARK, {
+    variables: { id: parseInt(markId) },
   });
   const { authState } = useContext(UserAuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,7 +44,7 @@ export const MarkThreeVertIcon = memo((props) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon />
+          <MoreVertIcon fontSize="small" />
         </IconButton>
 
         <StyledMenu
@@ -56,16 +56,12 @@ export const MarkThreeVertIcon = memo((props) => {
           open={open}
           onClose={handleClose}
         >
-          {/* <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          Edit
-        </MenuItem> */}
           <MenuItem onClick={handleClick2} disableRipple>
-            <DeleteIcon />
+            <DeleteIcon fontSize="small" />
             Delete
           </MenuItem>
           <MenuItem onClick={handleClose} disableRipple>
-            <CancelIcon />
+            <CancelIcon fontSize="small" />
             Cancel
           </MenuItem>
           <Dialog
@@ -82,7 +78,8 @@ export const MarkThreeVertIcon = memo((props) => {
               <Button
                 onClick={() => {
                   deleteMark();
-                  window.location.reload();
+                  if (data) console.log(data);
+                  if (error) console.log(error);
                 }}
                 color="primary"
               >

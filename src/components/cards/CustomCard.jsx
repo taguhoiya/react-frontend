@@ -73,7 +73,7 @@ export const CustomCard = (props) => {
             <Grid item xs={4}>
               <IconButton size={size} className={classes.rootBtn} disabled>
                 <Badge color="secondary">
-                  <StarIcon sx={{ color: yellow[700] }} />
+                  <StarIcon sx={{ color: yellow[700] }} fontSize="small" />
                 </Badge>
               </IconButton>
               <Box>{score}</Box>
