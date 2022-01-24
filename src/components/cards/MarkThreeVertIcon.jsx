@@ -1,25 +1,29 @@
-import { Button, Dialog, DialogActions, DialogTitle, IconButton } from "@mui/material";
+import { Alert, Button, Dialog, DialogActions, DialogTitle, IconButton, Snackbar } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@apollo/client";
-import { memo, useContext, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import { DELETE_MARK } from "../../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { StyledMenu } from "../StyledMenu";
+import { GrowTransition } from "../../containers/Verify";
 
 export const MarkThreeVertIcon = memo((props) => {
   const { markId, userId } = props;
-  const [deleteMark, { error, data }] = useMutation(DELETE_MARK, {
+  const [deleteMark, { data }] = useMutation(DELETE_MARK, {
     variables: { id: parseInt(markId) },
   });
   const { authState } = useContext(UserAuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const [, setOpenB] = useState(true);
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
-
+  const handleClickDelete = useCallback(() => {
+    setOpenB((prevState) => !prevState);
+  }, []);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,10 +36,29 @@ export const MarkThreeVertIcon = memo((props) => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
-
+  const handleCloseBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    handleClickDelete();
+    window.location.reload();
+  };
   if (parseInt(userId) === authState.id)
     return (
       <>
+            {!data ? null : (
+        <Snackbar
+          open={handleCloseBar}
+          autoHideDuration={700}
+          onClose={handleCloseBar}
+          TransitionComponent={GrowTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="success" sx={{ width: "100%" }}>
+            Deleted successfully!
+          </Alert>
+        </Snackbar>
+      )}
         <IconButton
           aria-label="more"
           id="long-button"
@@ -76,14 +99,10 @@ export const MarkThreeVertIcon = memo((props) => {
             </DialogTitle>
             <DialogActions sx={{ margin: "auto" }}>
               <Button
-                onClick={() => {
-                  deleteMark();
-                  if (data) console.log(data);
-                  if (error) console.log(error);
-                }}
+                onClick={() => deleteMark()}
                 color="primary"
               >
-                DELETE Mark
+                DELETE
               </Button>
               <Button onClick={handleClose2} color="primary">
                 CANCEL

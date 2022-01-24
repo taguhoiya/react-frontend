@@ -31,8 +31,18 @@ export const CreateMarkIcon = memo((props) => {
     if (reason === "clickaway") {
       return;
     }
+    setOpenB(false)
+    window.location.reload()
+  };
+  const handleCloseBarError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
     setOpenB(false);
   };
+  const log = useCallback(() => {
+    setOpenB((prevState) => !prevState);
+  }, []);
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
@@ -53,13 +63,26 @@ export const CreateMarkIcon = memo((props) => {
       {!error ? null : (
         <Snackbar
           open={openB}
-          autoHideDuration={3000}
-          onClose={handleCloseBar}
+          autoHideDuration={2000}
+          onClose={handleCloseBarError}
           TransitionComponent={GrowTransition}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="warning" sx={{ width: "100%" }}>
-            There's something wrong! ※ You cannot post agein if you post marks! ※
+            Cannot post agein if you've done before!
+          </Alert>
+        </Snackbar>
+      )}
+      {!data ? null : (
+        <Snackbar
+          open={openB}
+          autoHideDuration={700}
+          onClose={handleCloseBar}
+          TransitionComponent={GrowTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="success" sx={{ width: "100%" }}>
+            Sucess!
           </Alert>
         </Snackbar>
       )}
@@ -98,13 +121,10 @@ export const CreateMarkIcon = memo((props) => {
         <DialogActions sx={{ margin: "auto" }}>
           <Button
             onClick={() => {
-              if (data) {
-                addMarkCount();
-                window.location.reload();
-              }
               createMark();
               handleClose();
-              if (error) setOpenB(!openB);
+              if (data) addMarkCount();
+              if (error) log()
             }}
             color="primary"
           >

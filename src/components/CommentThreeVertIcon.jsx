@@ -8,7 +8,6 @@ import { useContext, useState } from "react";
 import { DELETE_COMMENT } from "../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "./providers/UserAuthProvider";
-import EditIcon from "@mui/icons-material/Edit";
 
 export const CommentThreeVertIcon = (props) => {
   const { commId, userId } = props;
@@ -58,10 +57,10 @@ export const CommentThreeVertIcon = (props) => {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose} disableRipple>
+          {/* <MenuItem onClick={handleClose} disableRipple>
             <EditIcon fontSize="small" />
             Edit
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem onClick={handleClick2} disableRipple>
             <DeleteIcon fontSize="small" />
             Delete

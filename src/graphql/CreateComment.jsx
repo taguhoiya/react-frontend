@@ -179,10 +179,10 @@ export const CreateCommentIcon = memo((props) => {
           </DialogContent>
           <DialogActions disableSpacing={true}>
             <Button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 createComment();
                 if (dataC) refetch();
-                handleClose();
                 if (error) setOpenB(!openB);
               }}
             >

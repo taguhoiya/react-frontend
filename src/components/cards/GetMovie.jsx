@@ -44,9 +44,10 @@ export const GetMovie = memo((props) => {
         id,
         mark: marks[idx],
         initialState,
-        favoBool: favoBools[idx],
+        favoBool: favoBools[idx]
       };
     });
+    console.log(favoBools)
     return (
       <>
         <Loader state={false} />
@@ -83,7 +84,7 @@ export const GetMovie = memo((props) => {
                     favoSum={ary.mark.favorites.length}
                     auth={parseInt(authState.id)}
                     markStrId={ary.mark.id}
-                    initialState={ary.favoBool}
+                    favoBool={ary.favoBool}
                   />
                   <CreateCommentIcon info={ary} markId={ary.mark.id} />
                   {ary.mark.comments.length}

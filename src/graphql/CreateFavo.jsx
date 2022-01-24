@@ -18,11 +18,11 @@ export const CreateFavoIcon = (props) => {
   });
   const clickFavo = useCallback(() => {
     countSetState((prev) => prev + 1);
-    favoSetState(!favored);
+    favoSetState((prev) => !prev);
   }, []);
   const unClickFavo = useCallback(() => {
     countSetState((prev) => prev - 1);
-    favoSetState(!favored);
+    favoSetState((prev) => !prev);
   }, []);
   const [deleteFavo] = useMutation(DELETE_FAVO, {
     variables: { markId, userId },
@@ -49,7 +49,7 @@ export const CreateFavoIcon = (props) => {
           <IconButton
             color="inherit"
             onClick={() => {
-              countSetState(clickFavo);
+              clickFavo();
               createFavo();
               window.location.reload();
             }}
