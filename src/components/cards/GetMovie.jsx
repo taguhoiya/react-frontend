@@ -47,7 +47,6 @@ export const GetMovie = memo((props) => {
         favoBool: favoBools[idx],
       };
     });
-    console.log(favoBools);
     return (
       <>
         <Loader state={false} />
