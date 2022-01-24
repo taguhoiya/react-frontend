@@ -1,10 +1,10 @@
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import { drawerWidth } from "../../containers/DashBoard";
 import { IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Logout } from "../../containers/Logout";
 import { memo } from "react";
+import { drawerWidth } from "./Drawer";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",

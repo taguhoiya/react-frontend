@@ -7,7 +7,7 @@ import { memo, useCallback, useContext, useState } from "react";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 
 export const CreateClipIcon = memo((props) => {
-  const { vert, size, initialState, clipSum, movieId } = props;
+  const { vert, size, initialState, clipSum, movieId, fontSize } = props;
   const { authState } = useContext(UserAuthContext);
   const userId = authState.id;
   const [clipped, clipSetState] = useState(initialState);
@@ -40,7 +40,7 @@ export const CreateClipIcon = memo((props) => {
             }}
           >
             <Badge color="secondary">
-              <BookmarkIcon  />
+              <BookmarkIcon fontSize={fontSize ? fontSize : "medium"} />
             </Badge>
           </IconButton>
         </>
@@ -55,7 +55,7 @@ export const CreateClipIcon = memo((props) => {
             }}
           >
             <Badge color="secondary">
-              <BookmarkBorderIcon />
+              <BookmarkBorderIcon fontSize={fontSize ? fontSize : "medium"} />
             </Badge>
           </IconButton>
         </>

@@ -20,7 +20,7 @@ import { InputSlider } from "../components/RangeSlider";
 import { GrowTransition } from "../containers/Verify";
 
 export const CreateMarkIcon = memo((props) => {
-  const { userId, size, vert, markSum, movieId, movieName } = props;
+  const { userId, size, vert, markSum, movieId, movieName, fontSize } = props;
   const [value, setValue] = useState(2.5);
   const [markCount, setMarkCount] = useState(markSum);
   const [markInput, setMarkInput] = useState("");
@@ -65,7 +65,7 @@ export const CreateMarkIcon = memo((props) => {
       )}
       <IconButton size={size} color="inherit" onClick={handleClickOpen}>
         <Badge color="secondary">
-          <MarkIcon />
+          <MarkIcon fontSize={fontSize ? fontSize : "medium"} />
         </Badge>
       </IconButton>
       {vert ? <Box>{markCount}</Box> : markCount}
@@ -100,6 +100,7 @@ export const CreateMarkIcon = memo((props) => {
             onClick={() => {
               if (data) {
                 addMarkCount();
+                window.location.reload();
               }
               createMark();
               handleClose();

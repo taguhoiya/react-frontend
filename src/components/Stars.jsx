@@ -16,8 +16,12 @@ export const Stars = memo((props) => {
         fullIcon={<i className="fa fa-star"></i>}
       />
       {props.starNum ? (
-      <Typography pl={1} pt={!props.pt ? "7px" : props.pt}>
-          props.value{" "}
+        <Typography
+          pl={1}
+          pt={!props.pt ? "3px" : props.pt}
+          fontSize={props.typo ? props.typo : "1rem"}
+        >
+          {props.value}
         </Typography>
       ) : null}
     </div>

@@ -15,7 +15,7 @@ import { memo } from "react";
 export const MainListItems = memo((props) => {
   const { to } = props;
   return (
-    <div>
+    <>
       <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
         Contents
       </ListSubheader>
@@ -59,7 +59,7 @@ export const MainListItems = memo((props) => {
           <ListItemText primary="Favorites" sx={{ color: "black" }} />
         </ListItem>
       </Link>
-    </div>
+    </>
   );
 });
 

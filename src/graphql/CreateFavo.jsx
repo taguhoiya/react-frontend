@@ -7,7 +7,7 @@ import { red } from "@mui/material/colors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export const CreateFavoIcon = (props) => {
-  const { favoSum, auth, markStrId, favoBool } = props;
+  const { favoSum, auth, markStrId, favoBool, fontSize } = props;
   const [count, countSetState] = useState(favoSum);
   const [favored, favoSetState] = useState(favoBool);
   const userId = auth;
@@ -18,9 +18,11 @@ export const CreateFavoIcon = (props) => {
   });
   const clickFavo = useCallback(() => {
     countSetState((prev) => prev + 1);
+    favoSetState(!favored);
   }, []);
   const unClickFavo = useCallback(() => {
     countSetState((prev) => prev - 1);
+    favoSetState(!favored);
   }, []);
   const [deleteFavo] = useMutation(DELETE_FAVO, {
     variables: { markId, userId },
@@ -33,13 +35,12 @@ export const CreateFavoIcon = (props) => {
           <IconButton
             sx={{ color: red[500] }}
             onClick={() => {
-              countSetState(unClickFavo);
+              unClickFavo();
               deleteFavo();
               window.location.reload();
-              favoSetState(!favored);
             }}
           >
-            <FavoriteIcon fontSize="small" />
+            <FavoriteIcon fontSize={fontSize ? fontSize : "medium"} />
           </IconButton>
           {count}
         </>
@@ -50,10 +51,10 @@ export const CreateFavoIcon = (props) => {
             onClick={() => {
               countSetState(clickFavo);
               createFavo();
-              favoSetState(!favored);
+              window.location.reload();
             }}
           >
-            <FavoriteBorderIcon fontSize="small" />
+            <FavoriteBorderIcon fontSize={fontSize ? fontSize : "medium"} />
           </IconButton>
           {count}
         </>

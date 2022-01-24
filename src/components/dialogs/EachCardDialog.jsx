@@ -103,7 +103,7 @@ export const EachCardDialog = memo((props) => {
                 <Link to="/">{info.movie.category}</Link>
               </Typography>
               <div>
-                <Stars value={Number.isNaN(info.ave) ? 0 : info.ave} />
+                <Stars value={Number.isNaN(info.ave) ? 0 : info.ave} starNum={true} />
               </div>
               <Typography variant="subtitle1">Summary</Typography>
               <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={80}>

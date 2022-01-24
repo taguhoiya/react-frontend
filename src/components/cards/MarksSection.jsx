@@ -13,6 +13,7 @@ import Scrollbars from "react-custom-scrollbars-2";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 import { memo } from "react";
+import MediaQuery from "react-responsive";
 
 export const MarksSection = memo((props) => {
   const { movieId } = props;
@@ -32,52 +33,103 @@ export const MarksSection = memo((props) => {
       <>
         <Loader state={false} />
         <Scrollbars autoHeight>
-          <List sx={{ width: "100%", bgcolor: "background.paper", margin: "auto" }}>
-            {!marks.length ? (
-              <Typography
-                sx={{ fontStyle: "italic", fontWeight: "medium" }}
-                variant="h4"
-                mt="10%"
-                textAlign="center"
-              >
-                Post some review!
-              </Typography>
-            ) : (
-              ary.map((ary, index) => {
-                return (
-                  <>
-                    <ListItem key={index} sx={{ pt: "-5%" }}>
-                      <ListItemAvatar>
-                        <Avatar
-                          sx={{ width: 45, height: 45 }}
-                          alt={ary.user.nickname}
-                          src={!ary.userPath ? defaultImage : ary.userPath}
-                        />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={ary.user.nickname}
-                        secondary={
-                          <>
-                            <Stars value={ary.mark.score} size={17} pt={"0px"} />
-                            <Typography
-                              sx={{ display: "inline" }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
-                            >
-                              {ary.mark.content}
-                            </Typography>
-                          </>
-                        }
-                      />
-                      <MarkThreeVertIcon userId={ary.user.id} markId={ary.mark.id} />
-                    </ListItem>
+          {!marks.length ? (
+            <Typography
+              sx={{ fontStyle: "italic", fontWeight: "medium", color: "#c7c3c3" }}
+              variant="h5"
+              textAlign="center"
+            >
+              No review yet.
+            </Typography>
+          ) : (
+            ary.map((ary, index) => {
+              return (
+                <>
+                  <List sx={{ width: "100%", bgcolor: "background.paper" }}>
                     <Divider />
-                  </>
-                );
-              })
-            )}
-          </List>
+                    <MediaQuery query="(min-width: 550px)">
+                      <ListItem key={index}>
+                        <ListItemAvatar>
+                          <Avatar
+                            sx={{ width: 40, height: 40 }}
+                            alt={ary.user.nickname}
+                            src={!ary.userPath ? defaultImage : ary.userPath}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={
+                            <>
+                              <Typography
+                                sx={{ display: "inline" }}
+                                fontSize="0.7rem"
+                                color="text.primary"
+                              >
+                                {ary.user.nickname}
+                              </Typography>
+                            </>
+                          }
+                          fontSize="0.6rem"
+                          secondary={
+                            <>
+                              <Stars value={ary.mark.score} size={16} pt={"0px"} starNum={true} />
+                              <Typography
+                                sx={{ display: "inline" }}
+                                fontSize="0.8rem"
+                                component="span"
+                                color="text.primary"
+                              >
+                                {ary.mark.content}
+                              </Typography>
+                            </>
+                          }
+                        />
+                        <MarkThreeVertIcon userId={ary.user.id} markId={ary.mark.id} />
+                      </ListItem>
+                    </MediaQuery>
+                    <MediaQuery query="(max-width: 550px)">
+                      <ListItem key={index}>
+                        <ListItemAvatar>
+                          <Avatar
+                            sx={{ width: 25, height: 25 }}
+                            alt={ary.user.nickname}
+                            src={!ary.userPath ? defaultImage : ary.userPath}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={
+                            <>
+                              <Typography
+                                sx={{ display: "inline" }}
+                                fontSize="0.6rem"
+                                color="text.primary"
+                              >
+                                {ary.user.nickname}
+                              </Typography>
+                            </>
+                          }
+                          fontSize="0.6rem"
+                          secondary={
+                            <>
+                              <Stars value={ary.mark.score} size={13} pt="0px" starNum={false} />
+                              <Typography
+                                sx={{ display: "inline" }}
+                                fontSize="0.7rem"
+                                component="span"
+                                color="text.primary"
+                              >
+                                {ary.mark.content}
+                              </Typography>
+                            </>
+                          }
+                        />
+                        <MarkThreeVertIcon userId={ary.user.id} markId={ary.mark.id} />
+                      </ListItem>
+                    </MediaQuery>
+                  </List>
+                </>
+              );
+            })
+          )}
         </Scrollbars>
       </>
     );

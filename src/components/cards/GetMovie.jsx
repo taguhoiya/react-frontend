@@ -66,7 +66,7 @@ export const GetMovie = memo((props) => {
                   >
                     {ary.movie.movieName}
                   </h4>
-                  <Stars value={ary.mark.score} size={18} pt="2px" />
+                  <Stars value={ary.mark.score} size={18} pt="2px" starNum={true} />
                   <Scrollbars
                     autoHeight
                     autoHeightMin={120}

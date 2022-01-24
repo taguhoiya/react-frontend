@@ -101,16 +101,14 @@ export const CreateCommentIcon = memo((props) => {
             clipBool={info.clipBool}
             info={info}
           />
-          <Divider style={{ background: "inherit" }} />
-
-          <DialogContent sx={{ backgroundColor: "#e6edf5" }}>
-            <Scrollbars autoHeight autoHeightMin={260} autoHeightMax={260}>
+          <DialogContent>
+            <Scrollbars autoHeight autoHeightMin={200} autoHeightMax={200}>
               <List sx={{ width: "100%", margin: "auto" }}>
                 {!comments.length ? (
                   <DialogContentText
                     mt="10%"
-                    sx={{ fontStyle: "italic", fontWeight: "medium", backgroundColor: "#e6edf5" }}
-                    variant="h4"
+                    sx={{ fontStyle: "italic", fontWeight: "medium" }}
+                    variant="h6"
                     textAlign="center"
                   >
                     Post first comment!
@@ -119,10 +117,11 @@ export const CreateCommentIcon = memo((props) => {
                   ary.map((ary) => {
                     return (
                       <>
+                        <Divider />
                         <ListItem key={ary.comment.id}>
                           <ListItemAvatar>
                             <Avatar
-                              sx={{ width: 45, height: 45 }}
+                              sx={{ width: 40, height: 40 }}
                               alt={ary.user.nickname}
                               src={!ary.userPath ? defaultImage : ary.userPath}
                             />
@@ -132,8 +131,7 @@ export const CreateCommentIcon = memo((props) => {
                               <>
                                 <Typography
                                   sx={{ display: "inline" }}
-                                  component="span"
-                                  variant="body2"
+                                  fontSize="0.6rem"
                                   color="text.primary"
                                 >
                                   {ary.user.nickname}
@@ -144,8 +142,7 @@ export const CreateCommentIcon = memo((props) => {
                               <>
                                 <Typography
                                   sx={{ display: "inline" }}
-                                  component="span"
-                                  variant="body1"
+                                  fontSize="0.8rem"
                                   color="text.primary"
                                 >
                                   {ary.comment.content}
@@ -155,23 +152,20 @@ export const CreateCommentIcon = memo((props) => {
                           />
                           <CommentThreeVertIcon commId={ary.comment.id} userId={ary.user.id} />
                         </ListItem>
-                        <Divider />
                       </>
                     );
                   })
                 )}
               </List>
             </Scrollbars>
+            <Divider color="" />
             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
               <Avatar
-                sx={{ width: 33, height: 33, marginRight: 2, marginBottom: 0.5 }}
+                sx={{ width: 25, height: 25, marginRight: 2, marginBottom: 0.5 }}
                 alt="my image"
                 src={uri}
               />
               <TextField
-                autoFocus
-                margin="dense"
-                id="name"
                 type="text"
                 fullWidth
                 variant="standard"
@@ -183,7 +177,7 @@ export const CreateCommentIcon = memo((props) => {
               />
             </Box>
           </DialogContent>
-          <DialogActions sx={{ backgroundColor: "#e6edf5" }}>
+          <DialogActions disableSpacing={true}>
             <Button
               onClick={() => {
                 createComment();

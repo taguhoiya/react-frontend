@@ -9,6 +9,7 @@ import { ClipTabPanel } from "./ClipTabPanel";
 import { useLocation } from "react-router-dom";
 import { FavoTabPanel } from "./FavoTabPanel";
 import { MarkTabPanel } from "./MarkTabPanel";
+import MediaQuery from "react-responsive";
 
 const a11yProps = (index) => {
   return {
@@ -35,11 +36,22 @@ export const TabsBasic = memo((props) => {
   return (
     <>
       <Loader state={false} />
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab icon={<MarkIcon />} label="MARKS" {...a11yProps(0)} />
-        <Tab icon={<ClipIcon />} label="Clips" {...a11yProps(1)} />
-        <Tab icon={<FavoriteIcon />} label="FAVORITES" {...a11yProps(2)} />
-      </Tabs>
+      <MediaQuery query="(max-width: 768px)">
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab icon={<MarkIcon fontSize="small" />} label="Marks" {...a11yProps(0)} />
+          <Tab icon={<ClipIcon fontSize="small" />} label="Clips" {...a11yProps(1)} />
+          <Tab icon={<FavoriteIcon fontSize="small" />} label="Favos" {...a11yProps(2)} />
+        </Tabs>
+      </MediaQuery>
+
+      <MediaQuery query="(min-width: 768px)">
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab icon={<MarkIcon />} label="Marks" {...a11yProps(0)} />
+          <Tab icon={<ClipIcon />} label="Clips" {...a11yProps(1)} />
+          <Tab icon={<FavoriteIcon />} label="Favos" {...a11yProps(2)} />
+        </Tabs>
+      </MediaQuery>
+
       <TabPanel value={value} index={0}>
         {!marks ? (
           <>

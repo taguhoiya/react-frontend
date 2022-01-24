@@ -55,6 +55,7 @@ export const EachMovieCard = memo((props) => {
                 clipSum={info.clipSum}
                 movieName={info.movie.movieName}
                 movieId={info.movie.id}
+                star={true}
               />
             </Grid>
           ))}

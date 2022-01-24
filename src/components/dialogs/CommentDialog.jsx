@@ -15,7 +15,7 @@ export const CommentDialog = (props) => {
         <Grid item md={0.5} xs={0.5} />
         <Grid item md={7} xs={5} className="card-header">
           <h3>{movie.movieName}</h3>
-          <Stars value={mark.score} size={20} />
+          <Stars value={mark.score} size={20} starNum={true} />
           <Scrollbars autoHeight>
             <p>{mark.content}</p>
           </Scrollbars>

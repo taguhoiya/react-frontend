@@ -6,7 +6,7 @@ import { UserAuthContext } from "../providers/UserAuthProvider";
 import { useContext } from "react";
 import { cardStyles2 } from "../cards/CardStyles";
 import { average } from "../../Helper";
-import { Loader } from "../Loader";
+import { Loader, SubLoader } from "../Loader";
 import { MOVIES } from "../../graphql/queries";
 import { useQuery } from "@apollo/client";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
@@ -29,7 +29,6 @@ export const MarkTabPanel = (props) => {
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
   });
-
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
@@ -50,72 +49,78 @@ export const MarkTabPanel = (props) => {
     });
     return (
       <>
-        <Loader state={false} />
-        <Grid container spacing={2}>
-          <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
-            {ary.map((ary, index) => (
-              <Grid item lg={6} md={6} xs={12} key={index} my={4}>
-                <Card sx={{ backgroundColor: "#e6edf5" }}>
-                  <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                    <Grid item md={0.5} sm={1.5} xs={0} />
-                    <Grid item md={6.5} sm={6} xs={4.7}>
-                      <h4
-                        style={{
-                          maxWidth: 100,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {ary.movie.movieName}
-                      </h4>
-                      <Stars value={ary.mark.score} size={19} pt="3px" starNum={false} />
-                      <Scrollbars
-                        autoHeight
-                        autoHeightMin={120}
-                        autoHeightMax={150}
-                        style={{
-                          border: "1px solid rgba(192, 231, 231, 0.733)",
-                          borderRadius: "10px",
-                          padding: "0px 6px",
-                        }}
-                      >
-                        <p>{ary.mark.content}</p>
-                      </Scrollbars>
-                      <CreateFavoIcon
-                        favoSum={ary.mark.favorites.length}
-                        auth={parseInt(authState.id)}
-                        markStrId={ary.mark.id}
-                        favoBool={ary.favoBool}
-                      />
-                      <CreateCommentIcon info={ary} markId={ary.mark.id} />
-                      {ary.markComme}
-                    </Grid>
-                    <Grid item md={4.5} sm={3} xs={4.9}>
-                      {" "}
-                      <CustomCard
-                        classes={styles}
-                        image={stock1}
-                        info={ary}
-                        movie={ary.movie}
-                        size="small"
-                        ave={ary.ave}
-                        markSum={ary.markSum}
-                        initialState={ary.initialState}
-                        clipSum={ary.clipSum}
-                        movieName={ary.movie.movieName}
-                        movieId={ary.movie.id}
-                      />
-                    </Grid>
-                    <Grid item md={0.5} sm={1.5} xs={0.2}>
-                      <MarkThreeVertIcon markId={ary.mark.id} userId={authState.id} />
-                    </Grid>
+        {!marks[0] ? (
+          <SubLoader state={true} />
+        ) : (
+          <>
+            <Loader state={false} />
+            <Grid container spacing={2}>
+              <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
+                {ary.map((ary, index) => (
+                  <Grid item lg={6} md={6} xs={12} key={index} my={4}>
+                    <Card sx={{ backgroundColor: "#e6edf5" }}>
+                      <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
+                        <Grid item md={0.5} sm={1.5} xs={0} />
+                        <Grid item md={6.5} sm={6} xs={4.7}>
+                          <h4
+                            style={{
+                              maxWidth: 100,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {ary.movie.movieName}
+                          </h4>
+                          <Stars value={ary.mark.score} size={19} pt="3px" starNum={false} />
+                          <Scrollbars
+                            autoHeight
+                            autoHeightMin={120}
+                            autoHeightMax={150}
+                            style={{
+                              border: "1px solid rgba(192, 231, 231, 0.733)",
+                              borderRadius: "10px",
+                              padding: "0px 6px",
+                            }}
+                          >
+                            <p>{ary.mark.content}</p>
+                          </Scrollbars>
+                          <CreateFavoIcon
+                            favoSum={ary.mark.favorites.length}
+                            auth={parseInt(authState.id)}
+                            markStrId={ary.mark.id}
+                            favoBool={ary.favoBool}
+                          />
+                          <CreateCommentIcon info={ary} markId={ary.mark.id} />
+                          {ary.markComme}
+                        </Grid>
+                        <Grid item md={4.5} sm={3} xs={4.9}>
+                          {" "}
+                          <CustomCard
+                            classes={styles}
+                            image={stock1}
+                            info={ary}
+                            movie={ary.movie}
+                            size="small"
+                            ave={ary.ave}
+                            markSum={ary.markSum}
+                            initialState={ary.initialState}
+                            clipSum={ary.clipSum}
+                            movieName={ary.movie.movieName}
+                            movieId={ary.movie.id}
+                          />
+                        </Grid>
+                        <Grid item md={0.5} sm={1.5} xs={0.2}>
+                          <MarkThreeVertIcon markId={ary.mark.id} userId={authState.id} />
+                        </Grid>
+                      </Grid>
+                    </Card>
                   </Grid>
-                </Card>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        </Grid>
+            </Grid>
+          </>
+        )}
       </>
     );
   }

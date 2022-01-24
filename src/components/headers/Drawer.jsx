@@ -1,9 +1,11 @@
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import { drawerWidth } from "../../containers/DashBoard";
-import { Divider, IconButton, Toolbar } from "@mui/material";
+import { Box, Divider, IconButton, Toolbar } from "@mui/material";
 import { MainListItems, SecondaryListItems } from "./ListItem";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { memo } from "react";
+
+export const drawerWidth = 200;
 
 export const DrawerStyle = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -33,9 +35,10 @@ export const DrawerStyle = styled(MuiDrawer, { shouldForwardProp: (prop) => prop
   })
 );
 
-export const Drawer = (props) => {
+export const DrawerModi = memo((props) => {
+  const { open, toggleDrawer, profileUrl } = props;
   return (
-    <DrawerStyle variant="permanent" open={props.open}>
+    <DrawerStyle variant="permanent" open={open}>
       <Toolbar
         sx={{
           display: "flex",
@@ -44,14 +47,16 @@ export const Drawer = (props) => {
           px: [1],
         }}
       >
-        <IconButton onClick={props.toggleDrawer}>
+        <IconButton onClick={toggleDrawer}>
           <ChevronLeftIcon />
         </IconButton>
       </Toolbar>
-      <Divider />
-      <MainListItems to={props.profileUrl} />
-      <Divider />
-      <SecondaryListItems to={props.profileUrl} />
+      <Box sx={{ minHeight: "100vh" }}>
+        <Divider />
+        <MainListItems to={profileUrl} />
+        <Divider />
+        <SecondaryListItems to={profileUrl} />
+      </Box>
     </DrawerStyle>
   );
-};
+});

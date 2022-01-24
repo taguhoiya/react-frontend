@@ -22,6 +22,7 @@ import { useContext } from "react";
 import { blue } from "@mui/material/colors";
 import { USER_REGISTER } from "../graphql/queries";
 import { GrowTransition } from "../containers/Verify";
+import MediaQuery from "react-responsive";
 
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation } = props;
@@ -198,15 +199,30 @@ export const EditProfile = memo((props) => {
         </Snackbar>
       )}
       {userId == params ? (
-        <Button
-          variant="outlined"
-          align="center"
-          size="medium"
-          sx={{ mt: 10 }}
-          onClick={handleClickOpen}
-        >
-          {props.children}
-        </Button>
+        <>
+          <MediaQuery query="(min-width: 768px)">
+            <Button
+              variant="outlined"
+              align="center"
+              size="medium"
+              sx={{ mt: 10 }}
+              onClick={handleClickOpen}
+            >
+              {props.children}
+            </Button>
+          </MediaQuery>
+          <MediaQuery query="(max-width: 768px)">
+            <Button
+              variant="outlined"
+              align="center"
+              size="small"
+              sx={{ mt: 10 }}
+              onClick={handleClickOpen}
+            >
+              {props.children}
+            </Button>
+          </MediaQuery>
+        </>
       ) : null}
       <Dialog
         open={open}

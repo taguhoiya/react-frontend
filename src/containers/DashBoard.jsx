@@ -2,22 +2,16 @@ import { memo, useCallback, useContext, useState } from "react";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { MainListItems, SecondaryListItems } from "../components/headers/ListItem";
 import { Container } from "@mui/material";
 import { AppBar, ToolBarModi } from "../components/headers/AppBar";
-import { DrawerStyle } from "../components/headers/Drawer";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation, useParams } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 import { useQuery } from "@apollo/client";
 import { USER_INFO_TOP_PAGE } from "../graphql/queries";
 import { Loader } from "../components/Loader";
+import { DrawerModi } from "../components/headers/Drawer";
 
-export const drawerWidth = 220;
 export const mdTheme = createTheme();
 
 export const Dashboard = memo(() => {
@@ -42,24 +36,7 @@ export const Dashboard = memo(() => {
             <AppBar position="absolute" open={open} color="inherit">
               <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
             </AppBar>
-            <DrawerStyle variant="permanent" open={open}>
-              <Toolbar
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  px: [1],
-                }}
-              >
-                <IconButton onClick={toggleDrawer}>
-                  <ChevronLeftIcon />
-                </IconButton>
-              </Toolbar>
-              <Divider />
-              <MainListItems to={profileUrl} />
-              <Divider />
-              <SecondaryListItems to={profileUrl} />
-            </DrawerStyle>
+            <DrawerModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
             <Box
               component="main"
               sx={{
