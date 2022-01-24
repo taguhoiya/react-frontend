@@ -27,7 +27,6 @@ export const EachMarkCard = memo((props) => {
         <Loader state={false} />
         <Grid container spacing={2}>
           <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
-            a{" "}
             <GetMovie
               marks={marks}
               markMovieIds={markMovieIds}

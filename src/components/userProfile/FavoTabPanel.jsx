@@ -12,13 +12,13 @@ import { Loader } from "../Loader";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
 import { CreateCommentIcon } from "../../graphql/CreateComment";
+import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
 
 export const FavoTabPanel = (props) => {
   const styles = cardStyles2();
 
   const { authState } = useContext(UserAuthContext);
   const { favorites, clips } = props;
-
   const favoredMarks = favorites.map((favo) => favo.mark);
   const favoredMarkMovieIds = favoredMarks.map((mark) => mark.movie.id);
   const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
@@ -27,7 +27,7 @@ export const FavoTabPanel = (props) => {
     const favoredMarkFavoSum = favo.mark.favorites.length;
     return { favoredMarkCommeSum, favoredMarkFavoSum };
   });
-
+  const favoUserId = favoredMarks.map((mark) => mark.user.id);
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: favoredMarkMovieIds },
   });
@@ -47,6 +47,7 @@ export const FavoTabPanel = (props) => {
         favoredMark: favoredMarks[idx],
         favoedMarkCommeSum: array[idx].favoredMarkCommeSum,
         favoredMarkFavoSum: array[idx].favoredMarkFavoSum,
+        favoUserId: favoUserId[idx],
       };
     });
     return (
@@ -59,7 +60,7 @@ export const FavoTabPanel = (props) => {
                 <Card sx={{ backgroundColor: "#e6edf5" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} xs={0} />
-                    <Grid item md={6.5} sm={6} xs={5}>
+                    <Grid item md={6.5} sm={6} xs={4.7}>
                       <h4
                         style={{
                           maxWidth: 100,
@@ -70,7 +71,7 @@ export const FavoTabPanel = (props) => {
                       >
                         {ary.movie.movieName}
                       </h4>
-                      <Stars value={ary.favoredMark.score} size={18} pt="3px" />
+                      <Stars value={ary.favoredMark.score} size={19} pt="3px" starNum={false} />
                       <Scrollbars
                         autoHeight
                         autoHeightMin={120}
@@ -94,7 +95,7 @@ export const FavoTabPanel = (props) => {
                       <CreateCommentIcon markId={ary.favoredMark.id} info={ary} />
                       {ary.favoedMarkCommeSum}
                     </Grid>
-                    <Grid item md={4.5} sm={3} xs={6}>
+                    <Grid item md={4.5} sm={3} xs={4.9}>
                       <CustomCard
                         classes={styles}
                         image={stock1}
@@ -109,7 +110,11 @@ export const FavoTabPanel = (props) => {
                         movieId={ary.movie.id}
                       />
                     </Grid>
-                    <Grid item md={0.5} sm={1.5} xs={0} />
+                    <Grid item md={0.5} sm={1.5} xs={0.2}>
+                      {ary.favoUserId == authState.id ? (
+                        <MarkThreeVertIcon markId={ary.favoredMark.id} userId={authState.id} />
+                      ) : null}
+                    </Grid>
                   </Grid>
                 </Card>
               </Grid>

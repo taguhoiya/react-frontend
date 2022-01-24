@@ -91,7 +91,7 @@ export const CreateCommentIcon = memo((props) => {
           </Snackbar>
         )}
         <IconButton onClick={handleClickOpen}>
-          <CommentIcon sx={{ color: "black" }} />
+          <CommentIcon sx={{ color: "black" }} fontSize="small" />
         </IconButton>
         <Dialog open={open} onClose={handleClose} fullWidth>
           <CommentDialog

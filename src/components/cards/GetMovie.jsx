@@ -13,6 +13,7 @@ import { CreateCommentIcon } from "../../graphql/CreateComment";
 import Scrollbars from "react-custom-scrollbars-2";
 import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
+import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 
 export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;
@@ -102,7 +103,11 @@ export const GetMovie = memo((props) => {
                     movieId={ary.movie.id}
                   />
                 </Grid>
-                <Grid item md={0.5} sm={1.5} xs={0} />
+                <Grid item md={0.5} sm={1.5} xs={0.2}>
+                  {ary.mark.userId == authState.id ? (
+                    <MarkThreeVertIcon markId={ary.favoredMark.id} userId={authState.id} />
+                  ) : null}
+                </Grid>
               </Grid>
             </Card>
           </Grid>

@@ -12,6 +12,7 @@ import { useQuery } from "@apollo/client";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { Stars } from "../Stars";
 import { CreateCommentIcon } from "../../graphql/CreateComment";
+import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
 
 export const MarkTabPanel = (props) => {
   const { marks, clips, favorites } = props;
@@ -57,7 +58,7 @@ export const MarkTabPanel = (props) => {
                 <Card sx={{ backgroundColor: "#e6edf5" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} xs={0} />
-                    <Grid item md={6.5} sm={6} xs={5}>
+                    <Grid item md={6.5} sm={6} xs={4.7}>
                       <h4
                         style={{
                           maxWidth: 100,
@@ -68,7 +69,7 @@ export const MarkTabPanel = (props) => {
                       >
                         {ary.movie.movieName}
                       </h4>
-                      <Stars value={ary.mark.score} size={18} pt="3px" />
+                      <Stars value={ary.mark.score} size={19} pt="3px" starNum={false} />
                       <Scrollbars
                         autoHeight
                         autoHeightMin={120}
@@ -90,7 +91,8 @@ export const MarkTabPanel = (props) => {
                       <CreateCommentIcon info={ary} markId={ary.mark.id} />
                       {ary.markComme}
                     </Grid>
-                    <Grid item md={4.5} sm={3} xs={6}>
+                    <Grid item md={4.5} sm={3} xs={4.9}>
+                      {" "}
                       <CustomCard
                         classes={styles}
                         image={stock1}
@@ -105,7 +107,9 @@ export const MarkTabPanel = (props) => {
                         movieId={ary.movie.id}
                       />
                     </Grid>
-                    <Grid item md={0.5} sm={1.5} xs={0} />
+                    <Grid item md={0.5} sm={1.5} xs={0.2}>
+                      <MarkThreeVertIcon markId={ary.mark.id} userId={authState.id} />
+                    </Grid>
                   </Grid>
                 </Card>
               </Grid>

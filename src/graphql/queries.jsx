@@ -139,6 +139,9 @@ export const USER_INFO = gql`
           movie {
             id
           }
+          user {
+            id
+          }
           favorites {
             id
             user {
