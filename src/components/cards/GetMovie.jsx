@@ -44,10 +44,10 @@ export const GetMovie = memo((props) => {
         id,
         mark: marks[idx],
         initialState,
-        favoBool: favoBools[idx]
+        favoBool: favoBools[idx],
       };
     });
-    console.log(favoBools)
+    console.log(favoBools);
     return (
       <>
         <Loader state={false} />

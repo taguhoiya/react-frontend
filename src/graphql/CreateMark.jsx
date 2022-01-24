@@ -31,8 +31,8 @@ export const CreateMarkIcon = memo((props) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpenB(false)
-    window.location.reload()
+    setOpenB(false);
+    window.location.reload();
   };
   const handleCloseBarError = (event, reason) => {
     if (reason === "clickaway") {
@@ -124,7 +124,7 @@ export const CreateMarkIcon = memo((props) => {
               createMark();
               handleClose();
               if (data) addMarkCount();
-              if (error) log()
+              if (error) log();
             }}
             color="primary"
           >

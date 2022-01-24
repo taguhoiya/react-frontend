@@ -13,7 +13,7 @@ const context = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const link = new createHttpLink({ uri: "http://localhost:3000/graphql" });
+const link = new createHttpLink({ uri: "https://moview-pearl.vercel.app/graphql" });
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: context.concat(link),
@@ -42,7 +42,7 @@ export const moviePageClient = new ApolloClient({
 });
 
 const authLink = new createHttpLink({
-  uri: "http://localhost:3000/graphql_auth",
+  uri: "https://moview-pearl.vercel.app/graphql_auth",
 });
 
 export const clientAuth = new ApolloClient({
@@ -52,5 +52,5 @@ export const clientAuth = new ApolloClient({
 
 export const clientUpload = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new createUploadLink({ uri: "http://localhost:3000/graphql" }),
+  link: new createUploadLink({ uri: "https://moview-pearl.vercel.app/graphql" }),
 });

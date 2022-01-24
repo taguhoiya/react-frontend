@@ -1,4 +1,12 @@
-import { Alert, Button, Dialog, DialogActions, DialogTitle, IconButton, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  IconButton,
+  Snackbar,
+} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -46,19 +54,19 @@ export const MarkThreeVertIcon = memo((props) => {
   if (parseInt(userId) === authState.id)
     return (
       <>
-            {!data ? null : (
-        <Snackbar
-          open={handleCloseBar}
-          autoHideDuration={700}
-          onClose={handleCloseBar}
-          TransitionComponent={GrowTransition}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <Alert severity="success" sx={{ width: "100%" }}>
-            Deleted successfully!
-          </Alert>
-        </Snackbar>
-      )}
+        {!data ? null : (
+          <Snackbar
+            open={handleCloseBar}
+            autoHideDuration={700}
+            onClose={handleCloseBar}
+            TransitionComponent={GrowTransition}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert severity="success" sx={{ width: "100%" }}>
+              Deleted successfully!
+            </Alert>
+          </Snackbar>
+        )}
         <IconButton
           aria-label="more"
           id="long-button"
@@ -98,10 +106,7 @@ export const MarkThreeVertIcon = memo((props) => {
               Are you sure?
             </DialogTitle>
             <DialogActions sx={{ margin: "auto" }}>
-              <Button
-                onClick={() => deleteMark()}
-                color="primary"
-              >
+              <Button onClick={() => deleteMark()} color="primary">
                 DELETE
               </Button>
               <Button onClick={handleClose2} color="primary">
