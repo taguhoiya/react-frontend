@@ -1,14 +1,13 @@
 import { makeStyles } from "@mui/styles";
-import Color from "color";
 
 export const cardStyles = makeStyles(() => ({
   actionArea: {
     borderColor: "#000000",
     borderRadius: 16,
     transition: "0.2s",
-    "&:hover": {
-      transform: "scale(1.1)",
-    },
+    // "&:hover": {
+    //   transform: "scale(1.1)",
+    // },
     marginBottom: 5,
   },
   card: () => ({
@@ -19,9 +18,9 @@ export const cardStyles = makeStyles(() => ({
     borderRadius: 16,
     textAlign: "center",
     boxShadow: "none",
-    "&:hover": {
-      boxShadow: `0 6px 12px 0 ${Color("#ffffff").rotate(-12).darken(0.2).fade(0.5)}`,
-    },
+    // "&:hover": {
+    //   boxShadow: `0 6px 12px 0 ${Color("#ffffff").rotate(-12).darken(0.2).fade(0.5)}`,
+    // },
   }),
   content: () => {
     return {
@@ -77,15 +76,12 @@ export const cardStyles2 = makeStyles(() => ({
     minHeight: 230,
     maxHeight: 300,
     width: "100%",
-    borderColor: "#000000",
     backgroundColor: "#d6f0ea",
-    borderRadius: 16,
     textAlign: "center",
   }),
   content: () => {
     return {
       width: "100%",
-      borderColor: "#000000",
     };
   },
   title: {
