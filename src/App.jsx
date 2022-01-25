@@ -8,12 +8,15 @@ import { Profile } from "./components/userProfile/Profile.jsx";
 import { AuthenticatedRoute } from "./components/routes/AuthenticatedRoute.jsx";
 import { UnauthenticatedRoute } from "./components/routes/UnauthenticatedRoute.jsx";
 import { Dashboard } from "./containers/DashBoard.jsx";
+import { UserInfoProvider } from "./components/providers/UserInfoProvider.jsx";
+import { DashBoardProvider } from "./components/providers/DashBoardProvider.jsx";
+import { memo } from "react";
 
 const options = {
   position: positions.MIDDLE,
 };
 
-const App = function () {
+export const App = memo(() =>  {
   return (
     <BrowserRouter>
       <Provider template={AlertMUITemplate} {...options}>
@@ -25,10 +28,38 @@ const App = function () {
           </Route>
           <Route path="/verify" element={<Verify />} />
           <Route exact path="/" element={<AuthenticatedRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="movies/:num" element={<Dashboard />} />
-            <Route path="marks/:num" element={<Dashboard />} />
-            <Route path="user/:userId/profile" element={<Profile />} />
+            <Route
+              path="/"
+              element={
+                <DashBoardProvider>
+                  <Dashboard />
+                </DashBoardProvider>
+              }
+            />
+            <Route
+              path="movies/:num"
+              element={
+                <DashBoardProvider>
+                  <Dashboard />
+                </DashBoardProvider>
+              }
+            />
+            <Route
+              path="marks/:num"
+              element={
+                <DashBoardProvider>
+                  <Dashboard />
+                </DashBoardProvider>
+              }
+            />
+            <Route
+              path="user/:userId/profile"
+              element={
+                <UserInfoProvider>
+                  <Profile />
+                </UserInfoProvider>
+              }
+            />
           </Route>
           <Route path="/" element={<Register />} />
           <Route
@@ -43,6 +74,5 @@ const App = function () {
       </Provider>
     </BrowserRouter>
   );
-};
+});
 
-export default App;

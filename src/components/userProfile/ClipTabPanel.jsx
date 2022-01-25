@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
-import { memo } from "react";
+import { memo, useContext } from "react";
 import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
 
@@ -8,13 +8,14 @@ import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles3 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader, SubLoader } from "../Loader";
+import { UserInfoContext } from "../providers/UserInfoProvider";
 
-export const ClipTabPanel = memo((props) => {
+export const ClipTabPanel = memo(() => {
+  const { clips, clippedMovieIds } = useContext(UserInfoContext);
   const styles = cardStyles3();
-  const clips = props.clips;
-  const clipIds = clips.map((clip) => parseInt(clip.movie.id));
+
   const { loading, error, data } = useQuery(MOVIES, {
-    variables: { ids: clipIds },
+    variables: { ids: clippedMovieIds },
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;

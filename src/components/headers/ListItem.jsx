@@ -1,4 +1,3 @@
-import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -9,7 +8,7 @@ import ClipIcon from "@mui/icons-material/Bookmark";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import { Link } from "react-router-dom";
-import { List } from "@mui/material";
+import { List, ListItemButton } from "@mui/material";
 import { memo } from "react";
 
 export const MainListItems = memo((props) => {
@@ -20,44 +19,44 @@ export const MainListItems = memo((props) => {
         Contents
       </ListSubheader>
       <Link to="/movies/1" style={{ textDecoration: "none" }}>
-        <ListItem button>
+        <ListItemButton>
           <ListItemIcon>
             <LocalMoviesIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Movies" sx={{ color: "black" }} />
-        </ListItem>
+        </ListItemButton>
       </Link>
-      <Link to="/marks/1" state={{ num: 0 }} style={{ textDecoration: "none" }}>
-        <ListItem button>
+      <Link to="/marks/1" style={{ textDecoration: "none" }}>
+        <ListItemButton>
           <ListItemIcon>
             <MarkUnreadChatAltIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Marks" sx={{ color: "black" }} />
-        </ListItem>
+        </ListItemButton>
       </Link>
       <Link to={to} state={{ num: 0 }} style={{ textDecoration: "none" }}>
-        <ListItem button>
+        <ListItemButton>
           <ListItemIcon>
             <MarkIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Marks" sx={{ color: "black" }} />
-        </ListItem>
+        </ListItemButton>
       </Link>
       <Link to={to} state={{ num: 1 }} style={{ textDecoration: "none" }}>
-        <ListItem button>
+        <ListItemButton>
           <ListItemIcon>
             <ClipIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Clips" sx={{ color: "black" }} />
-        </ListItem>
+        </ListItemButton>
       </Link>
       <Link to={to} state={{ num: 2 }} style={{ textDecoration: "none" }}>
-        <ListItem button>
+        <ListItemButton>
           <ListItemIcon>
             <FavoriteIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Favorites" sx={{ color: "black" }} />
-        </ListItem>
+        </ListItemButton>
       </Link>
     </>
   );
@@ -71,13 +70,13 @@ export const SecondaryListItems = memo((props) => {
       <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
         Info
       </ListSubheader>
-      <Link to={to} state={{ num: 0 }} style={{ textDecoration: "none" }}>
-        <ListItem button>
+      <Link to={to} style={{ textDecoration: "none" }}>
+        <ListItemButton>
           <ListItemIcon>
             <AccountCircleIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Profile" sx={{ color: "black" }} />
-        </ListItem>
+        </ListItemButton>
       </Link>
     </List>
   );

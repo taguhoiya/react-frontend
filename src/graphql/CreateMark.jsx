@@ -13,14 +13,19 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import MarkIcon from "@mui/icons-material/RateReview";
 import { CREATE_MARK } from "./mutations";
 import { InputSlider } from "../components/RangeSlider";
 import { GrowTransition } from "../containers/Verify";
+import { UserInfoContext } from "../components/providers/UserInfoProvider";
+import { DashBoardContext } from "../components/providers/DashBoardProvider";
 
 export const CreateMarkIcon = memo((props) => {
   const { userId, size, vert, markSum, movieId, movieName, fontSize } = props;
+  const { refetch } = useContext(UserInfoContext);
+  const { refetchU, refetchDash } = useContext(DashBoardContext);
+
   const [value, setValue] = useState(2.5);
   const [markCount, setMarkCount] = useState(markSum);
   const [markInput, setMarkInput] = useState("");
@@ -31,8 +36,8 @@ export const CreateMarkIcon = memo((props) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpenB(false);
-    window.location.reload();
+    log();
+    refetchDash ? refetchU() : refetch();
   };
   const handleCloseBarError = (event, reason) => {
     if (reason === "clickaway") {
@@ -56,6 +61,12 @@ export const CreateMarkIcon = memo((props) => {
   const [createMark, { data, error, loading }] = useMutation(CREATE_MARK, {
     variables: { movieId, userId, score: value, content: markInput },
   });
+  const handleAddMark = useCallback(() => {
+    createMark();
+    handleClose();
+    if (data) addMarkCount();
+    if (error) log();
+  }, []);
 
   if (loading) return null;
   return (
@@ -119,15 +130,7 @@ export const CreateMarkIcon = memo((props) => {
           />
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
-          <Button
-            onClick={() => {
-              createMark();
-              handleClose();
-              if (data) addMarkCount();
-              if (error) log();
-            }}
-            color="primary"
-          >
+          <Button onClick={handleAddMark} color="primary">
             ADD
           </Button>
           <Button onClick={handleClose} color="primary">

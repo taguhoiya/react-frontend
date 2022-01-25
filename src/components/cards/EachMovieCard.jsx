@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { MOVIE_PAGES } from "../../graphql/queries";
 import { average } from "../../Helper";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
@@ -8,9 +8,11 @@ import { cardStyles } from "./CardStyles";
 import { CustomCard } from "./CustomCard";
 import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
+import { DashBoardContext } from "../providers/DashBoardProvider";
 
 export const EachMovieCard = memo((props) => {
-  const { num, dataU } = props;
+  const { num } = props;
+  const { dataU } = useContext(DashBoardContext);
   const styles = cardStyles();
   const [page, setPage] = useState(num);
   const userClipIds = dataU.publicUser.clips.map((clip) => parseInt(clip.movieId));

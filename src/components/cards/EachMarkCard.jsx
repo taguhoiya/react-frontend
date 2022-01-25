@@ -1,13 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { MARK_PAGES } from "../../graphql/queries";
 import { Loader } from "../Loader";
+import { DashBoardContext } from "../providers/DashBoardProvider";
 import { GetMovie } from "./GetMovie";
 
-// TODO usememoかcallback使う
 export const EachMarkCard = memo((props) => {
-  const { num, dataU } = props;
+  const { num } = props;
+  const { dataU } = useContext(DashBoardContext);
   const [page, setPage] = useState(num);
 
   const { loading, error, data } = useQuery(MARK_PAGES, {
@@ -26,7 +27,7 @@ export const EachMarkCard = memo((props) => {
       <>
         <Loader state={false} />
         <Grid container spacing={2}>
-          <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
+          <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             <GetMovie
               marks={marks}
               markMovieIds={markMovieIds}

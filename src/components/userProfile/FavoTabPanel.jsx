@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Card, Divider, Grid } from "@mui/material";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { MOVIES } from "../../graphql/queries";
@@ -13,20 +13,17 @@ import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../Stars";
 import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
+import { UserInfoContext } from "../providers/UserInfoProvider";
 
-export const FavoTabPanel = (props) => {
+export const FavoTabPanel = memo(() => {
   const styles = cardStyles2();
-
   const { authState } = useContext(UserAuthContext);
-  const { favorites, clips } = props;
+  const { favorites, clips } = useContext(UserInfoContext);
   const favoredMarks = favorites.map((favo) => favo.mark);
   const favoredMarkMovieIds = favoredMarks.map((mark) => mark.movie.id);
   const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
-  const array = favorites.map((favo) => {
-    const favoredMarkCommeSum = favo.mark.comments.length;
-    const favoredMarkFavoSum = favo.mark.favorites.length;
-    return { favoredMarkCommeSum, favoredMarkFavoSum };
-  });
+  const favoredMarkCommeSum = favoredMarks.map((mark) => mark.comments.length);
+  const favoredMarkFavoSum = favoredMarks.map((mark) => mark.favorites.length);
   const favoUserId = favoredMarks.map((mark) => mark.user.id);
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: favoredMarkMovieIds },
@@ -45,8 +42,8 @@ export const FavoTabPanel = (props) => {
         clipSum: movie.clips.length,
         markSum: movie.marks.length,
         favoredMark: favoredMarks[idx],
-        favoedMarkCommeSum: array[idx].favoredMarkCommeSum,
-        favoredMarkFavoSum: array[idx].favoredMarkFavoSum,
+        favoedMarkCommeSum: favoredMarkCommeSum[idx],
+        favoredMarkFavoSum: favoredMarkFavoSum[idx],
         favoUserId: favoUserId[idx],
       };
     });
@@ -58,7 +55,7 @@ export const FavoTabPanel = (props) => {
           <>
             <Loader state={false} />
             <Grid container spacing={2}>
-              <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
+              <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
                 {ary.map((ary) => (
                   <Grid item lg={6} md={6} sm={12} xs={12} key={ary.favoredMark.id} my={4}>
                     <Card sx={{ backgroundColor: "#e6edf5" }}>
@@ -90,12 +87,11 @@ export const FavoTabPanel = (props) => {
                           </Scrollbars>
                           <Divider style={{ background: "inherit" }} />
                           <CreateFavoIcon
-                            favoSum={ary.favoedMarkFavoSum}
+                            favoSum={ary.favoredMarkFavoSum}
                             auth={parseInt(authState.id)}
                             markStrId={ary.favoredMark.id}
                             favoBool={true}
                           />
-                          {ary.favoredMarkFavoSum}
                           <CreateCommentIcon markId={ary.favoredMark.id} info={ary} />
                           {ary.favoedMarkCommeSum}
                         </Grid>
@@ -130,4 +126,4 @@ export const FavoTabPanel = (props) => {
       </>
     );
   }
-};
+});

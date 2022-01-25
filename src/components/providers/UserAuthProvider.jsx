@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, memo, useState } from "react";
 
 export const UserAuthContext = createContext({});
 
-export const UserAuthProvider = (props) => {
+export const UserAuthProvider = memo((props) => {
   const { children } = props;
 
   const id = Number(localStorage.getItem("id")) || 0;
@@ -12,4 +12,4 @@ export const UserAuthProvider = (props) => {
       {children}
     </UserAuthContext.Provider>
   );
-};
+});

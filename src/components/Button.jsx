@@ -1,7 +1,6 @@
 import Button from "@mui/material/Button";
 import { memo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
 import {
   Alert,
   Avatar,
@@ -23,6 +22,7 @@ import { blue } from "@mui/material/colors";
 import { USER_REGISTER } from "../graphql/queries";
 import { GrowTransition } from "../containers/Verify";
 import MediaQuery from "react-responsive";
+import { UserInfoContext } from "./providers/UserInfoProvider";
 
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation } = props;
@@ -115,68 +115,53 @@ export const AuthHeaderButton = memo((props) => {
   );
 });
 
-export const LogoutButton = (props) => {
-  const [setAction] = useState("");
-  const alert = useAlert();
-  return (
-    <Button
-      variant="outlined"
-      size="small"
-      sx={{ mx: "6px" }}
-      onClick={() => {
-        alert.show("This is an alert with extra actions!", {
-          title: "Alert with extra actions!",
-          actions: [
-            {
-              copy: "Do something",
-              onClick: () => setAction(window.location.reload()),
-            },
-          ],
-        });
-      }}
-    >
-      {props.children}
-    </Button>
-  );
-};
-
-export const EditProfile = memo((props) => {
-  const { nickname, image, params, userId } = props;
+export const EditProfile = memo(() => {
+  const { nickname, src, params } = useContext(UserInfoContext);
+  const { authState } = useContext(UserAuthContext);
   const [open, setOpen] = useState(false);
   const [openB, setOpenB] = useState(true);
   const [nameState, setNameState] = useState(nickname);
-  const [imageState, setImageState] = useState(image);
+  const [imageState, setImageState] = useState(src);
+  const [updateUserImage, { data, error }] = useMutation(UPDATE_USER_IMAGE, {
+    variables: { image: imageState.postImage, id: authState.id, nickname: nameState },
+    client: clientUpload,
+    update: (_proxy, response) => {
+      if (!response.errors) {
+        setTimeout(() => {}, 2000);
+      }
+    },
+  });
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
   const handleClickClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
-  const handleClose = (event, reason) => {
+  const handleCloseS = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenB(false);
+    window.location.reload();
+  };
+  const handleCloseB = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setOpenB(false);
   };
-  const { authState } = useContext(UserAuthContext);
-  const [updateUserImage, { data, error }] = useMutation(UPDATE_USER_IMAGE, {
-    variables: { image: imageState.postImage, id: authState.id, nickname: nameState },
-    client: clientUpload,
-    update: (_proxy, response) => {
-      if (!response.errors) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      }
-    },
-  });
+  const handleUpdateImage = useCallback(() => {
+    setOpenB(true);
+    updateUserImage();
+    handleClickClose();
+  }, []);
   return (
     <>
       {!error ? null : (
         <Snackbar
           open={openB}
           autoHideDuration={2000}
-          onClose={handleClose}
+          onClose={handleCloseB}
           TransitionComponent={GrowTransition}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
@@ -189,7 +174,7 @@ export const EditProfile = memo((props) => {
         <Snackbar
           open={openB}
           autoHideDuration={2000}
-          onClose={handleClose}
+          onClose={handleCloseS}
           TransitionComponent={GrowTransition}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
@@ -198,7 +183,7 @@ export const EditProfile = memo((props) => {
           </Alert>
         </Snackbar>
       )}
-      {userId == params ? (
+      {authState.id == params ? (
         <>
           <MediaQuery query="(min-width: 768px)">
             <Button
@@ -208,7 +193,7 @@ export const EditProfile = memo((props) => {
               sx={{ mt: 10 }}
               onClick={handleClickOpen}
             >
-              {props.children}
+              Edit Profile
             </Button>
           </MediaQuery>
           <MediaQuery query="(max-width: 768px)">
@@ -219,7 +204,7 @@ export const EditProfile = memo((props) => {
               sx={{ mt: 10 }}
               onClick={handleClickOpen}
             >
-              {props.children}
+              Edit Profile
             </Button>
           </MediaQuery>
         </>
@@ -252,7 +237,7 @@ export const EditProfile = memo((props) => {
           />
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
-          <Button onClick={updateUserImage} color="primary">
+          <Button onClick={handleUpdateImage} color="primary">
             UPDATE
           </Button>
           <Button onClick={handleClickClose} color="primary">

@@ -26,20 +26,22 @@ export const EachCardDialog = memo((props) => {
   const [markCountState, setMarkCount] = useState(markCount);
   const [clipped, clipSetState] = useState(initialState);
   const [countClip, countSetClip] = useState(clip);
-  const clickClip = useCallback(() => {
-    countSetClip((prev) => prev + 1);
-    clipSetState((prev) => !prev);
-  }, []);
-  const unClickClip = useCallback(() => {
-    countSetClip((prev) => prev - 1);
-    clipSetState((prev) => !prev);
-  }, []);
   const [createClip] = useMutation(CREATE_CLIP, {
     variables: { userId, movieId: info.movie.id }, // movieId変更
   });
   const [deleteClip] = useMutation(DELETE_CLIP, {
     variables: { userId, movieId: info.movie.id },
   });
+  const clickClip = useCallback(() => {
+    countSetClip((prev) => prev + 1);
+    clipSetState((prev) => !prev);
+    createClip();
+  }, []);
+  const unClickClip = useCallback(() => {
+    countSetClip((prev) => prev - 1);
+    clipSetState((prev) => !prev);
+    deleteClip();
+  }, []);
   return (
     <>
       <DialogContent dividers>
@@ -62,13 +64,7 @@ export const EachCardDialog = memo((props) => {
               {markCountState}
               {clipped ? (
                 <>
-                  <IconButton
-                    color="warning"
-                    onClick={() => {
-                      unClickClip();
-                      deleteClip();
-                    }}
-                  >
+                  <IconButton color="warning" onClick={unClickClip}>
                     <Badge color="secondary">
                       <BookmarkIcon />
                     </Badge>
@@ -76,13 +72,7 @@ export const EachCardDialog = memo((props) => {
                 </>
               ) : (
                 <>
-                  <IconButton
-                    color="inherit"
-                    onClick={() => {
-                      clickClip();
-                      createClip();
-                    }}
-                  >
+                  <IconButton color="inherit" onClick={clickClip}>
                     <Badge color="secondary">
                       <BookmarkBorderIcon />
                     </Badge>

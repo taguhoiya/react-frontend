@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { Tabs, Tab, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MarkIcon from "@mui/icons-material/RateReview";
@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { FavoTabPanel } from "./FavoTabPanel";
 import { MarkTabPanel } from "./MarkTabPanel";
 import MediaQuery from "react-responsive";
+import { UserInfoContext } from "../providers/UserInfoProvider";
 
 const a11yProps = (index) => {
   return {
@@ -18,8 +19,8 @@ const a11yProps = (index) => {
   };
 };
 
-export const TabsBasic = memo((props) => {
-  const { marks, clips, favorites } = props.data;
+export const TabsBasic = memo(() => {
+  const { favorites, marks, clips } = useContext(UserInfoContext);
   const [value, setValue] = useState(0);
   const location = useLocation();
   const state = location.state;
@@ -32,7 +33,6 @@ export const TabsBasic = memo((props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <>
       <Loader state={false} />
@@ -64,7 +64,7 @@ export const TabsBasic = memo((props) => {
             </Typography>
           </>
         ) : (
-          <MarkTabPanel marks={marks} clips={clips} favorites={favorites} />
+          <MarkTabPanel />
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -79,7 +79,7 @@ export const TabsBasic = memo((props) => {
             </Typography>
           </>
         ) : (
-          <ClipTabPanel clips={clips} />
+          <ClipTabPanel />
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -94,7 +94,7 @@ export const TabsBasic = memo((props) => {
             </Typography>
           </>
         ) : (
-          <FavoTabPanel favorites={favorites} clips={clips} marks={marks} />
+          <FavoTabPanel />
         )}
       </TabPanel>
     </>

@@ -17,19 +17,23 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { StyledMenu } from "../StyledMenu";
 import { GrowTransition } from "../../containers/Verify";
+import { UserInfoContext } from "../providers/UserInfoProvider";
+import { DashBoardContext } from "../providers/DashBoardProvider";
 
 export const MarkThreeVertIcon = memo((props) => {
   const { markId, userId } = props;
+  const { refetch } = useContext(UserInfoContext);
+  const { refetchU, refetchDash } = useContext(DashBoardContext);
+  const { authState } = useContext(UserAuthContext);
   const [deleteMark, { data }] = useMutation(DELETE_MARK, {
     variables: { id: parseInt(markId) },
   });
-  const { authState } = useContext(UserAuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
-  const [, setOpenB] = useState(true);
+  const [openB, setOpenB] = useState(true);
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
-  const handleClickDelete = useCallback(() => {
+  const handleCloseSnack = useCallback(() => {
     setOpenB((prevState) => !prevState);
   }, []);
   const handleClick = (event) => {
@@ -44,19 +48,23 @@ export const MarkThreeVertIcon = memo((props) => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+  const handleDelete = useCallback(() => {
+    setOpenB(true);
+    deleteMark();
+    refetchDash ? refetchU() : refetch();
+  }, []);
   const handleCloseBar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    handleClickDelete();
-    window.location.reload();
+    handleCloseSnack();
   };
   if (parseInt(userId) === authState.id)
     return (
       <>
         {!data ? null : (
           <Snackbar
-            open={handleCloseBar}
+            open={openB}
             autoHideDuration={700}
             onClose={handleCloseBar}
             TransitionComponent={GrowTransition}
@@ -106,7 +114,7 @@ export const MarkThreeVertIcon = memo((props) => {
               Are you sure?
             </DialogTitle>
             <DialogActions sx={{ margin: "auto" }}>
-              <Button onClick={() => deleteMark()} color="primary">
+              <Button onClick={handleDelete} color="primary">
                 DELETE
               </Button>
               <Button onClick={handleClose2} color="primary">

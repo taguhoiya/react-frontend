@@ -3,7 +3,7 @@ import Scrollbars from "react-custom-scrollbars-2";
 import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { cardStyles2 } from "../cards/CardStyles";
 import { average } from "../../Helper";
 import { Loader, SubLoader } from "../Loader";
@@ -13,15 +13,14 @@ import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { Stars } from "../Stars";
 import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
+import { UserInfoContext } from "../providers/UserInfoProvider";
 
-export const MarkTabPanel = (props) => {
-  const { marks, clips, favorites } = props;
+export const MarkTabPanel = memo(() => {
+  const { marks, favoredMarks, clippedMovieIds } = useContext(UserInfoContext);
   const { authState } = useContext(UserAuthContext);
   const styles = cardStyles2();
-  const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
   const markCommes = marks.map((mark) => mark.comments.length);
   const markMovieIds = marks.map((mark) => parseInt(mark.movie.id));
-  const favoredMarks = favorites.map((favo) => favo.mark);
   const favoredMarkIds = favoredMarks.map((mark) => parseInt(mark.id));
   const markIds = marks.map((mark) => parseInt(mark.id));
   const favoBools = markIds.map((markId) => favoredMarkIds.includes(markId));
@@ -55,7 +54,7 @@ export const MarkTabPanel = (props) => {
           <>
             <Loader state={false} />
             <Grid container spacing={2}>
-              <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
+              <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
                 {ary.map((ary, index) => (
                   <Grid item lg={6} md={6} xs={12} key={index} my={4}>
                     <Card sx={{ backgroundColor: "#e6edf5" }}>
@@ -95,7 +94,6 @@ export const MarkTabPanel = (props) => {
                           {ary.markComme}
                         </Grid>
                         <Grid item md={4.5} sm={3} xs={4.9}>
-                          {" "}
                           <CustomCard
                             classes={styles}
                             image={stock1}
@@ -124,4 +122,4 @@ export const MarkTabPanel = (props) => {
       </>
     );
   }
-};
+});

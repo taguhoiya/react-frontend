@@ -40,12 +40,6 @@ export const CreateCommentIcon = memo((props) => {
   const { uri } = useContext(UserImageContext);
   const [openB, setOpenB] = useState(true);
 
-  const handleCloseBar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenB(false);
-  };
   const handleClickOpen = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
@@ -55,10 +49,25 @@ export const CreateCommentIcon = memo((props) => {
   const [createComment, { error, data: dataC }] = useMutation(CREATE_COMMENT, {
     variables: { userId, markId, content: commContent },
   });
-  const { loading, data, refetch } = useQuery(MARK, {
+  const {
+    loading,
+    data,
+    refetch: refetchC,
+  } = useQuery(MARK, {
     variables: { id: parseInt(markId) },
     fetchPolicy: "cache-and-network",
   });
+  const handleComm = useCallback(() => {
+    setOpenB(true);
+    createComment();
+  }, []);
+  const handleCloseBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenB(false);
+    refetchC();
+  };
   if (loading) return <Loader state={true} />;
   if (data) {
     const mark = data.mark;
@@ -80,13 +89,26 @@ export const CreateCommentIcon = memo((props) => {
         {!error ? null : (
           <Snackbar
             open={openB}
-            autoHideDuration={3000}
+            autoHideDuration={1500}
             onClose={handleCloseBar}
             TransitionComponent={GrowTransition}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
           >
             <Alert severity="warning" sx={{ width: "100%" }}>
               Type a comment!
+            </Alert>
+          </Snackbar>
+        )}
+        {!dataC ? null : (
+          <Snackbar
+            open={openB}
+            autoHideDuration={800}
+            onClose={handleCloseBar}
+            TransitionComponent={GrowTransition}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert severity="success" sx={{ width: "100%" }}>
+              Commented
             </Alert>
           </Snackbar>
         )}
@@ -178,16 +200,7 @@ export const CreateCommentIcon = memo((props) => {
             </Box>
           </DialogContent>
           <DialogActions disableSpacing={true}>
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                createComment();
-                if (dataC) refetch();
-                if (error) setOpenB(!openB);
-              }}
-            >
-              ADD
-            </Button>
+            <Button onClick={handleComm}>ADD</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </DialogActions>
         </Dialog>

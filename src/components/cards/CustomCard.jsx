@@ -20,7 +20,19 @@ import { EachMovieDialog } from "../dialogs/EachMovieDialog";
 import MediaQuery from "react-responsive";
 
 export const CustomCard = (props) => {
-  const { classes, info, size, ave, movie, markSum, initialState, clipSum, movieId, star } = props;
+  const {
+    classes,
+    info,
+    size,
+    ave,
+    movie,
+    markSum,
+    initialState,
+    clipSum,
+    movieId,
+    star,
+    movieName,
+  } = props;
   const [open, setOpen] = useState(false);
   const { authState } = useContext(UserAuthContext);
   const userId = authState.id;
@@ -48,7 +60,7 @@ export const CustomCard = (props) => {
           />
           <CardContent className={classes.content} onClick={handleClickOpen}>
             <Typography className={classes.title} variant="h2">
-              {movie.movieName}
+              {movieName}
             </Typography>
           </CardContent>
           <Grid container className={classes.cardPosition} justifyContent="center">
@@ -60,7 +72,7 @@ export const CustomCard = (props) => {
                   vert={true}
                   markSum={markSum}
                   movieId={movie.id}
-                  movieName={movie.movieName}
+                  movieName={movieName}
                 />
               </Grid>
               <Grid item xs={4} className={classes.cardContent}>
@@ -89,7 +101,7 @@ export const CustomCard = (props) => {
                   vert={true}
                   markSum={markSum}
                   movieId={movie.id}
-                  movieName={movie.movieName}
+                  movieName={movieName}
                 />
               </Grid>
               <Grid item xs={4} className={classes.cardContent}>

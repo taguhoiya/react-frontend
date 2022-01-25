@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, memo, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { client } from "../../graphql/client";
 import { Loader } from "../Loader";
@@ -21,7 +21,7 @@ export const GetImagePath = () => {
   }
 };
 
-export const UserImageProvider = (props) => {
+export const UserImageProvider = memo((props) => {
   const { children } = props;
   const [imageState, setImageState] = useState("");
   const path = GetImagePath();
@@ -44,4 +44,4 @@ export const UserImageProvider = (props) => {
       </UserImageContext.Provider>
     </>
   );
-};
+});
