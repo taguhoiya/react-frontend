@@ -46,8 +46,8 @@ export const MarksSection = memo((props) => {
               return (
                 <>
                   <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-                    <Divider />
                     <MediaQuery query="(min-width: 550px)">
+                    <Divider />
                       <ListItem key={index}>
                         <ListItemAvatar>
                           <Avatar
@@ -87,6 +87,7 @@ export const MarksSection = memo((props) => {
                       </ListItem>
                     </MediaQuery>
                     <MediaQuery query="(max-width: 550px)">
+                    <Divider />
                       <ListItem key={index}>
                         <ListItemAvatar>
                           <Avatar
@@ -100,7 +101,7 @@ export const MarksSection = memo((props) => {
                             <>
                               <Typography
                                 sx={{ display: "inline" }}
-                                fontSize="0.6rem"
+                                fontSize="0.5rem"
                                 color="text.primary"
                               >
                                 {ary.user.nickname}
@@ -110,10 +111,10 @@ export const MarksSection = memo((props) => {
                           fontSize="0.6rem"
                           secondary={
                             <>
-                              <Stars value={ary.mark.score} size={13} pt="0px" starNum={false} />
+                              <Stars value={ary.mark.score} size={11} pt="0px" starNum={false} />
                               <Typography
                                 sx={{ display: "inline" }}
-                                fontSize="0.7rem"
+                                fontSize="0.5rem"
                                 component="span"
                                 color="text.primary"
                               >

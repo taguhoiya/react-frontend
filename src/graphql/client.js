@@ -23,7 +23,7 @@ const pageCache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        moviesAll: {
+        searchMovies: {
           merge(existing, incoming) {
             return { ...existing, ...incoming };
           },

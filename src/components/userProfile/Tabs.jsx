@@ -1,9 +1,9 @@
 import { memo, useContext, useEffect, useState } from "react";
-import { Tabs, Tab, Typography } from "@mui/material";
+import { Tabs, Tab } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MarkIcon from "@mui/icons-material/RateReview";
 import ClipIcon from "@mui/icons-material/Bookmark";
-import { Loader } from "../Loader";
+import { Loader, SubLoader } from "../Loader";
 import { TabPanel } from "./Tabpanel";
 import { ClipTabPanel } from "./ClipTabPanel";
 import { useLocation } from "react-router-dom";
@@ -53,49 +53,13 @@ export const TabsBasic = memo(() => {
       </MediaQuery>
 
       <TabPanel value={value} index={0}>
-        {!marks ? (
-          <>
-            <Typography
-              sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
-              variant="h4"
-              textAlign="center"
-            >
-              No marks yet!
-            </Typography>
-          </>
-        ) : (
-          <MarkTabPanel />
-        )}
+        {!marks[0] ? <SubLoader state={true} /> : <MarkTabPanel />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {!clips ? (
-          <>
-            <Typography
-              sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
-              variant="h4"
-              textAlign="center"
-            >
-              No clips yet!
-            </Typography>
-          </>
-        ) : (
-          <ClipTabPanel />
-        )}
+        {!clips[0] ? <SubLoader state={true} /> : <ClipTabPanel />}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {!favorites ? (
-          <>
-            <Typography
-              sx={{ height: "40vh", fontFamily: "Alegreya Sans SC" }}
-              variant="h4"
-              textAlign="center"
-            >
-              No favos yet!
-            </Typography>
-          </>
-        ) : (
-          <FavoTabPanel />
-        )}
+        {!favorites[0] ? <SubLoader state={true} /> : <FavoTabPanel />}
       </TabPanel>
     </>
   );

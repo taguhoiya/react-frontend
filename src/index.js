@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import {App} from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserAuthProvider } from "./components/providers/UserAuthProvider";
 import { UserImageProvider } from "./components/providers/UserImageProvider";

@@ -8,8 +8,8 @@ import { CreateMarkIcon } from "../../graphql/CreateMark";
 import { Stars } from "../Stars";
 import { MarksSection } from "../cards/MarksSection";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { BootstrapDialog, BootstrapDialogTitle } from "../cards/MovieDialog";
 import MediaQuery from "react-responsive";
+import { BootstrapDialog, BootstrapDialogTitle } from "./MovieDialog";
 
 export const EachMovieDialog = memo((props) => {
   const { handleClose, open, score, movie, markSum, initialState, clipSum } = props;
@@ -80,11 +80,11 @@ export const EachMovieDialog = memo((props) => {
       <MediaQuery query="(max-width: 550px)">
         <DialogContent dividers>
           <Grid container spaceing={0} alignItems="center">
-            <Grid item xs={6} sm={6} md={6}>
+            <Grid item xs={6.0} sm={6} md={6}>
               <img
                 src={stock1}
                 alt={movie.movieName}
-                style={{ width: "80%", objectFit: "cover" }}
+                style={{ width: "90%", objectFit: "cover" }}
               />
             </Grid>
             <Grid item xs={6} sm={5} md={6}>
@@ -105,9 +105,9 @@ export const EachMovieDialog = memo((props) => {
                 />
               </div>
               <div>
-                <Typography fontSize="0.7rem">Country: {movie.country}</Typography>
-                <Typography fontSize="0.7rem">Running Time: {movie.runningTime}min</Typography>
-                <Typography fontSize="0.7rem">
+                <Typography fontSize="0.6rem">Country: {movie.country}</Typography>
+                <Typography fontSize="0.6rem">Running Time: {movie.runningTime}min</Typography>
+                <Typography fontSize="0.6rem">
                   Genre:
                   <Typography variant="title" color="inherit" noWrap>
                     &nbsp;
@@ -115,13 +115,13 @@ export const EachMovieDialog = memo((props) => {
                   <Link to="/">{movie.category}</Link>
                 </Typography>
                 <div>
-                  <Stars value={score} size={15} starNum={true} typo="0.8rem" pt="2px" />
+                  <Stars value={score} size={14} starNum={true} typo="0.8rem" pt="1px" />
                 </div>
-                <Typography fontSize="0.7rem">Summary</Typography>
-                <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={80}>
-                  <Typography fontSize="0.6rem">{movie.summary}</Typography>
+                <Typography fontSize="0.6rem">Summary</Typography>
+                <Scrollbars autoHeight autoHeightMin={50} autoHeightMax={70}>
+                  <Typography fontSize="0.5rem">{movie.summary}</Typography>
                 </Scrollbars>
-                <Typography noWrap mt={0.8} fontSize="0.7rem">
+                <Typography noWrap mt={0.5} fontSize="0.6rem">
                   Current: {movie.releaseState}
                 </Typography>
               </div>

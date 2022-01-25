@@ -1,4 +1,4 @@
-import { Card, Grid } from "@mui/material";
+import { Card, Grid, Typography } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
@@ -14,6 +14,7 @@ import { Stars } from "../Stars";
 import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
 import { UserInfoContext } from "../providers/UserInfoProvider";
+import MediaQuery from "react-responsive";
 
 export const MarkTabPanel = memo(() => {
   const { marks, favoredMarks, clippedMovieIds } = useContext(UserInfoContext);
@@ -61,29 +62,63 @@ export const MarkTabPanel = memo(() => {
                       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                         <Grid item md={0.5} sm={1.5} xs={0} />
                         <Grid item md={6.5} sm={6} xs={4.7}>
-                          <h4
-                            style={{
-                              maxWidth: 100,
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            {ary.movie.movieName}
-                          </h4>
-                          <Stars value={ary.mark.score} size={19} pt="3px" starNum={false} />
-                          <Scrollbars
-                            autoHeight
-                            autoHeightMin={120}
-                            autoHeightMax={150}
-                            style={{
-                              border: "1px solid rgba(192, 231, 231, 0.733)",
-                              borderRadius: "10px",
-                              padding: "0px 6px",
-                            }}
-                          >
-                            <p>{ary.mark.content}</p>
-                          </Scrollbars>
+                          <MediaQuery query="(min-width: 550px)">
+                            <h4
+                              style={{
+                                maxWidth: 200,
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {ary.movie.movieName}
+                            </h4>
+                            <Stars value={ary.mark.score} size={19} pt="3px" starNum={true} />
+                            <Scrollbars
+                              autoHeight
+                              autoHeightMin={120}
+                              autoHeightMax={150}
+                              style={{
+                                border: "1px solid rgba(192, 231, 231, 0.733)",
+                                borderRadius: "10px",
+                                padding: "0px 6px",
+                              }}
+                            >
+                              <Typography fontSize="0.9rem">{ary.mark.content}</Typography>
+                            </Scrollbars>
+                          </MediaQuery>
+                          <MediaQuery query="(max-width: 550px)">
+                            <h6
+                              style={{
+                                maxWidth: 200,
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {ary.movie.movieName}
+                            </h6>
+                            <Stars
+                              value={ary.mark.score}
+                              size={12}
+                              pt="1px"
+                              typo="0.7rem"
+                              starNum={true}
+                            />
+                            <Scrollbars
+                              autoHeight
+                              autoHeightMin={100}
+                              autoHeightMax={130}
+                              style={{
+                                border: "1px solid rgba(192, 231, 231, 0.733)",
+                                borderRadius: "8px",
+                                paddingInline: "12px",
+                              }}
+                            >
+                              <Typography fontSize="0.6rem">{ary.mark.content}</Typography>
+                            </Scrollbars>
+                          </MediaQuery>
+
                           <CreateFavoIcon
                             favoSum={ary.mark.favorites.length}
                             auth={parseInt(authState.id)}
@@ -93,7 +128,7 @@ export const MarkTabPanel = memo(() => {
                           <CreateCommentIcon info={ary} markId={ary.mark.id} />
                           {ary.markComme}
                         </Grid>
-                        <Grid item md={4.5} sm={3} xs={4.9}>
+                        <Grid item md={4.5} sm={3} xs={5.0}>
                           <CustomCard
                             classes={styles}
                             image={stock1}
@@ -108,7 +143,7 @@ export const MarkTabPanel = memo(() => {
                             movieId={ary.movie.id}
                           />
                         </Grid>
-                        <Grid item md={0.5} sm={1.5} xs={0.2}>
+                        <Grid item md={0.5} sm={1.5} xs={0.5}>
                           <MarkThreeVertIcon markId={ary.mark.id} userId={authState.id} />
                         </Grid>
                       </Grid>

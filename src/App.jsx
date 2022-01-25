@@ -10,13 +10,12 @@ import { UnauthenticatedRoute } from "./components/routes/UnauthenticatedRoute.j
 import { Dashboard } from "./containers/DashBoard.jsx";
 import { UserInfoProvider } from "./components/providers/UserInfoProvider.jsx";
 import { DashBoardProvider } from "./components/providers/DashBoardProvider.jsx";
-import { memo } from "react";
 
 const options = {
   position: positions.MIDDLE,
 };
 
-export const App = memo(() =>  {
+const App = function () {
   return (
     <BrowserRouter>
       <Provider template={AlertMUITemplate} {...options}>
@@ -74,5 +73,6 @@ export const App = memo(() =>  {
       </Provider>
     </BrowserRouter>
   );
-});
+};
 
+export default App;
