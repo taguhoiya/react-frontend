@@ -8,12 +8,14 @@ import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles3 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader, SubLoader } from "../Loader";
+import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 
 export const ClipTabPanel = memo(() => {
   const { clips, clippedMovieIds } = useContext(UserInfoContext);
   const styles = cardStyles3();
-
+  const { LoggedClipMovieIds } = useContext(LoggedUserInfoContext);
+  const clipBool = clippedMovieIds.map((movieId) => LoggedClipMovieIds.includes(movieId));
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: clippedMovieIds },
   });
@@ -27,7 +29,7 @@ export const ClipTabPanel = memo(() => {
         movie: movies[idx],
         clip: clips[idx],
         ave,
-        initialState: true,
+        initialState: clipBool[idx],
         markSum: movie.marks.length,
         clipSum: movie.clips.length,
       };

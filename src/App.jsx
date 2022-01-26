@@ -10,6 +10,7 @@ import { UnauthenticatedRoute } from "./components/routes/UnauthenticatedRoute.j
 import { Dashboard } from "./containers/DashBoard.jsx";
 import { UserInfoProvider } from "./components/providers/UserInfoProvider.jsx";
 import { DashBoardProvider } from "./components/providers/DashBoardProvider.jsx";
+import { LoggedUserInfoProvider } from "./components/providers/LoggedUserInfoProvider.jsx";
 
 const options = {
   position: positions.MIDDLE,
@@ -54,9 +55,11 @@ const App = function () {
             <Route
               path="user/:userId/profile"
               element={
-                <UserInfoProvider>
-                  <Profile />
-                </UserInfoProvider>
+                <LoggedUserInfoProvider>
+                  <UserInfoProvider>
+                    <Profile />
+                  </UserInfoProvider>
+                </LoggedUserInfoProvider>
               }
             />
           </Route>

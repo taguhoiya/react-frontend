@@ -1,4 +1,4 @@
-import { Card, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
@@ -15,17 +15,22 @@ import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import MediaQuery from "react-responsive";
+import { Link } from "react-router-dom";
+import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
 
 export const MarkTabPanel = memo(() => {
-  const { marks, favoredMarks, clippedMovieIds } = useContext(UserInfoContext);
+  const { marks, user, src } = useContext(UserInfoContext);
   const { authState } = useContext(UserAuthContext);
+  const { LoggedFavoMarkIds, LoggedClipMovieIds } = useContext(LoggedUserInfoContext);
   const styles = cardStyles2();
   const markCommes = marks.map((mark) => mark.comments.length);
-  const markMovieIds = marks.map((mark) => parseInt(mark.movie.id));
-  const favoredMarkIds = favoredMarks.map((mark) => parseInt(mark.id));
-  const markIds = marks.map((mark) => parseInt(mark.id));
-  const favoBools = markIds.map((markId) => favoredMarkIds.includes(markId));
-
+  const markMovieIds = marks.map((mark) => mark.movieId);
+  const markIds = marks.map((mark) => mark.id);
+  const LoggedFavoBools = markIds.map((markId) => LoggedFavoMarkIds.includes(markId));
+  const score = marks.map((mark) => mark.score);
+  const content = marks.map((mark) => mark.content);
+  const markId = marks.map((mark) => mark.id);
+  const markFavoSum = marks.map((mark) => mark.favorites.length);
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
   });
@@ -35,16 +40,21 @@ export const MarkTabPanel = memo(() => {
     const movies = data.movies;
     const ary = movies.map((movie, idx) => {
       const ave = average(movie.marks.map((mark) => mark.score));
-      const initialState = clippedMovieIds.includes(parseInt(movie.id));
+      const initialState = LoggedClipMovieIds.includes(movie.id);
       return {
         movie: movies[idx],
         markComme: markCommes[idx],
         markSum: movie.marks.length,
         clipSum: movie.clips.length,
-        mark: marks[idx],
+        markId: markId[idx],
+        score: score[idx],
+        content: content[idx],
+        userId: user.id,
+        nickname: user.nickname,
         ave,
         initialState,
-        favoBool: favoBools[idx],
+        favoBool: LoggedFavoBools[idx],
+        markFavoSum: markFavoSum[idx],
       };
     });
     return (
@@ -63,17 +73,43 @@ export const MarkTabPanel = memo(() => {
                         <Grid item md={0.5} sm={1.5} xs={0} />
                         <Grid item md={6.5} sm={6} xs={4.7}>
                           <MediaQuery query="(min-width: 550px)">
-                            <h4
-                              style={{
-                                maxWidth: 200,
+                            <Box display="flex">
+                              <IconButton>
+                                <Link to={`/user/${ary.userId}/profile`}>
+                                  <Avatar
+                                    alt={ary.nickname}
+                                    src={src}
+                                    sx={{ width: 32, height: 32 }}
+                                  ></Avatar>
+                                </Link>
+                              </IconButton>
+                              <Link to={`/user/${ary.userId}/profile`}>
+                                <Typography
+                                  sx={{
+                                    ml: 1,
+                                    pt: 2,
+                                    fontFamily: "arial, sans-serif",
+                                    color: "black",
+                                  }}
+                                  fontSize="0.8rem"
+                                >
+                                  {ary.nickname}
+                                </Typography>
+                              </Link>
+                            </Box>
+                            <Typography
+                              sx={{
+                                maxWidth: 300,
+                                fontSize: "1.3rem",
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
+                                fontFamily: `'Vollkorn', serif`,
                               }}
                             >
                               {ary.movie.movieName}
-                            </h4>
-                            <Stars value={ary.mark.score} size={19} pt="3px" starNum={true} />
+                            </Typography>
+                            <Stars value={ary.score} size={19} pt="3px" starNum={true} />
                             <Scrollbars
                               autoHeight
                               autoHeightMin={120}
@@ -84,22 +120,48 @@ export const MarkTabPanel = memo(() => {
                                 padding: "0px 6px",
                               }}
                             >
-                              <Typography fontSize="0.9rem">{ary.mark.content}</Typography>
+                              <Typography fontSize="0.9rem">{ary.content}</Typography>
                             </Scrollbars>
                           </MediaQuery>
                           <MediaQuery query="(max-width: 550px)">
-                            <h6
-                              style={{
+                            <Box display="flex">
+                              <IconButton>
+                                <Link to={`/user/${ary.userId}/profile`}>
+                                  <Avatar
+                                    alt={ary.nickname}
+                                    src={src}
+                                    sx={{ width: 22, height: 22 }}
+                                  ></Avatar>
+                                </Link>
+                              </IconButton>
+                              <Link to={`/user/${ary.userId}/profile`}>
+                                <Typography
+                                  sx={{
+                                    ml: 1,
+                                    pt: 1.5,
+                                    fontFamily: "arial, sans-serif",
+                                    color: "black",
+                                  }}
+                                  fontSize="0.7rem"
+                                >
+                                  {ary.nickname}
+                                </Typography>
+                              </Link>
+                            </Box>
+                            <Typography
+                              sx={{
                                 maxWidth: 200,
+                                fontSize: "0.8rem",
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
+                                fontFamily: `'Vollkorn', serif`,
                               }}
                             >
                               {ary.movie.movieName}
-                            </h6>
+                            </Typography>
                             <Stars
-                              value={ary.mark.score}
+                              value={ary.score}
                               size={12}
                               pt="1px"
                               typo="0.7rem"
@@ -115,17 +177,17 @@ export const MarkTabPanel = memo(() => {
                                 paddingInline: "12px",
                               }}
                             >
-                              <Typography fontSize="0.6rem">{ary.mark.content}</Typography>
+                              <Typography fontSize="0.6rem">{ary.content}</Typography>
                             </Scrollbars>
                           </MediaQuery>
 
                           <CreateFavoIcon
-                            favoSum={ary.mark.favorites.length}
+                            favoSum={ary.markFavoSum}
                             auth={parseInt(authState.id)}
-                            markStrId={ary.mark.id}
+                            markStrId={ary.markId}
                             favoBool={ary.favoBool}
                           />
-                          <CreateCommentIcon info={ary} markId={ary.mark.id} />
+                          <CreateCommentIcon info={ary} markId={ary.markId} />
                           {ary.markComme}
                         </Grid>
                         <Grid item md={4.5} sm={3} xs={5.0}>
@@ -144,7 +206,7 @@ export const MarkTabPanel = memo(() => {
                           />
                         </Grid>
                         <Grid item md={0.5} sm={1.5} xs={0.5}>
-                          <MarkThreeVertIcon markId={ary.mark.id} userId={authState.id} />
+                          <MarkThreeVertIcon markId={ary.markId} userId={authState.id} />
                         </Grid>
                       </Grid>
                     </Card>

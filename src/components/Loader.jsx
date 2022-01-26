@@ -33,7 +33,7 @@ export const SubLoader = memo((props) => {
     <>
       <PacmanLoader loading={state} css={subOverride} color="#9fddfa" size={20} />
       <Typography sx={subOverrideStr} color="secondary">
-        No Contents...
+        No Content...
       </Typography>
     </>
   );

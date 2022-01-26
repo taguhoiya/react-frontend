@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Card, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import { MOVIES } from "../../graphql/queries";
 import { CustomCard } from "./CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
@@ -15,11 +15,19 @@ import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
 import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 import MediaQuery from "react-responsive";
+import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
+import { Link } from "react-router-dom";
 
 export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;
   const styles = cardStyles2();
   const { authState } = useContext(UserAuthContext);
+  const users = marks.map((mark) => mark.user);
+  const nicknames = users.map((user) => user.nickname);
+  const usersPath = users.map((user) =>
+    !user.path ? "" : `https://www.moview-ori.com${user.path}/`
+  );
+  const userId = users.map((user) => user.id);
   const favoIds = user.favorites.map((favo) => favo.mark.id);
   const markIds = marks.map((mark) => mark.id);
   const score = marks.map((mark) => mark.score);
@@ -36,6 +44,7 @@ export const GetMovie = memo((props) => {
   if (loading) return <Loader state={true} />;
   if (data) {
     const movies = data.movies;
+    console.log(marks);
     const ary = movies.map((movie, idx) => {
       const ave = average(movie.marks.map((mark) => mark.score));
       const initialState = clippedMovieIds.includes(movie.id);
@@ -56,8 +65,12 @@ export const GetMovie = memo((props) => {
         markComm: markComm[idx],
         initialState,
         favoBool: favoBools[idx],
+        userPath: usersPath[idx],
+        nickname: nicknames[idx],
+        userId: userId[idx],
       };
     });
+
     return (
       <>
         <Loader state={false} />
@@ -68,16 +81,37 @@ export const GetMovie = memo((props) => {
                 <Grid item md={0.5} sm={1.5} xs={0.5} />
                 <Grid item md={6.5} sm={6} xs={6}>
                   <MediaQuery query="(min-width: 550px)">
-                    <h4
-                      style={{
-                        maxWidth: 200,
+                    <Box display="flex">
+                      <IconButton>
+                        <Link to={`/user/${ary.userId}/profile`}>
+                          <Avatar
+                            alt={ary.nickname}
+                            src={!ary.userPath ? defaultImage : ary.userPath}
+                            sx={{ width: 32, height: 32 }}
+                          ></Avatar>
+                        </Link>
+                      </IconButton>
+                      <Link to={`/user/${ary.userId}/profile`}>
+                        <Typography
+                          sx={{ ml: 1, pt: 2, fontFamily: "arial, sans-serif", color: "black" }}
+                          fontSize="0.8rem"
+                        >
+                          {ary.nickname}
+                        </Typography>
+                      </Link>
+                    </Box>
+                    <Typography
+                      sx={{
+                        maxWidth: 300,
+                        fontSize: "1.3rem",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
+                        fontFamily: `arial, sans-serif`,
                       }}
                     >
                       {ary.movie.movieName}
-                    </h4>
+                    </Typography>
                     <Stars value={ary.score} size={18} pt="2px" starNum={true} />
                     <Scrollbars
                       autoHeight
@@ -93,16 +127,36 @@ export const GetMovie = memo((props) => {
                     </Scrollbars>
                   </MediaQuery>
                   <MediaQuery query="(max-width: 550px)">
-                    <h5
-                      style={{
+                    <Box display="flex">
+                      <IconButton>
+                        <Link to={`/user/${ary.userId}/profile`}>
+                          <Avatar
+                            alt={ary.nickname}
+                            src={!ary.userPath ? defaultImage : ary.userPath}
+                            sx={{ width: 22, height: 22 }}
+                          ></Avatar>
+                        </Link>
+                      </IconButton>
+                      <Link to={`/user/${ary.userId}/profile`}>
+                        <Typography
+                          sx={{ ml: 1, pt: 1.5, fontFamily: "arial, sans-serif", color: "black" }}
+                          fontSize="0.5rem"
+                        >
+                          {ary.nickname}
+                        </Typography>
+                      </Link>
+                    </Box>
+                    <Typography
+                      sx={{
                         maxWidth: 200,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
+                        fontFamily: `arial, sans-serif`,
                       }}
                     >
                       {ary.movie.movieName}
-                    </h5>
+                    </Typography>
                     <Stars value={ary.score} size={15} pt="0px" starNum={true} />
                     <Scrollbars
                       autoHeight

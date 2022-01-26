@@ -92,9 +92,11 @@ export const USER_INFO_TOP_PAGE = gql`
     publicUser(id: $id) {
       id
       marks {
+        id
         movieId
       }
       clips {
+        id
         movieId
       }
       favorites {
@@ -117,9 +119,7 @@ export const USER_INFO = gql`
         id
         content
         score
-        movie {
-          id
-        }
+        movieId
         favorites {
           id
           user {
@@ -136,9 +136,7 @@ export const USER_INFO = gql`
           id
           content
           score
-          movie {
-            id
-          }
+          movieId
           user {
             id
           }
@@ -161,9 +159,7 @@ export const USER_INFO = gql`
       }
       clips {
         id
-        movie {
-          id
-        }
+        movieId
       }
     }
   }
@@ -300,9 +296,9 @@ export const MARK_PAGES = gql`
       nowPage
       marks {
         id
+        movieId
         score
         userId
-        movieId
         content
         comments {
           id
@@ -310,6 +306,11 @@ export const MARK_PAGES = gql`
         }
         favorites {
           id
+        }
+        user {
+          id
+          nickname
+          path
         }
       }
     }

@@ -18,18 +18,21 @@ export const EachMarkCard = memo((props) => {
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
-    const marks = data.searchMarks.marks;
+    const { marks } = data.searchMarks;
     const count = data.searchMarks.totalPage;
     const markMovieIds = marks.map((mark) => parseInt(mark.movieId));
     const user = dataU.publicUser;
-
+    const markSub = [...marks];
+    const marksModi = markSub.sort(function (a, b) {
+      return a.movieId - b.movieId; //オブジェクトの昇順ソート
+    });
     return (
       <>
         <Loader state={false} />
         <Grid container spacing={2}>
           <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             <GetMovie
-              marks={marks}
+              marks={marksModi}
               markMovieIds={markMovieIds}
               user={user}
               count={count}

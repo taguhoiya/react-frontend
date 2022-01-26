@@ -15,20 +15,23 @@ import { CreateCommentIcon } from "../../graphql/CreateComment";
 import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import MediaQuery from "react-responsive";
+import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
 
 export const FavoTabPanel = memo(() => {
   const styles = cardStyles2();
   const { authState } = useContext(UserAuthContext);
-  const { favorites, clips } = useContext(UserInfoContext);
+  const { favorites } = useContext(UserInfoContext);
+  const { LoggedFavoMarkIds, LoggedClipMovieIds } = useContext(LoggedUserInfoContext);
+  const favoMarkIds = favorites.map((favo) => favo.mark.id);
   const favoredMarks = favorites.map((favo) => favo.mark);
-  const favoredMarkMovieIds = favoredMarks.map((mark) => mark.movie.id);
-  const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
+  const favoredMarkMovieIds = favoredMarks.map((mark) => mark.movieId);
   const favoredMarkCommeSum = favoredMarks.map((mark) => mark.comments.length);
   const favoredMarkFavoSum = favoredMarks.map((mark) => mark.favorites.length);
   const favoUserId = favoredMarks.map((mark) => mark.user.id);
   const score = favoredMarks.map((mark) => mark.score);
   const content = favoredMarks.map((mark) => mark.content);
   const favoMarkId = favoredMarks.map((mark) => mark.id);
+  const LoggedFavoBool = favoMarkIds.map((favoId) => LoggedFavoMarkIds.includes(favoId));
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: favoredMarkMovieIds },
   });
@@ -38,8 +41,7 @@ export const FavoTabPanel = memo(() => {
     const movies = data.movies;
     const ary = movies.map((movie, idx) => {
       const ave = average(movie.marks.map((mark) => mark.score));
-      const initialState = clippedMovieIds.includes(parseInt(movie.id));
-
+      const initialState = LoggedClipMovieIds.includes(movie.id);
       return {
         movie: movies[idx],
         ave,
@@ -53,6 +55,7 @@ export const FavoTabPanel = memo(() => {
         favoedMarkCommeSum: favoredMarkCommeSum[idx],
         favoredMarkFavoSum: favoredMarkFavoSum[idx],
         favoUserId: favoUserId[idx],
+        favoBool: LoggedFavoBool[idx],
       };
     });
     return (
@@ -71,16 +74,18 @@ export const FavoTabPanel = memo(() => {
                         <Grid item md={0.5} sm={1.5} xs={0} />
                         <Grid item md={6.5} sm={6} xs={4.7}>
                           <MediaQuery query="(min-width: 550px)">
-                            <h4
-                              style={{
-                                maxWidth: 200,
+                            <Typography
+                              sx={{
+                                maxWidth: 300,
+                                fontSize: "1.3rem",
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
+                                fontFamily: `'Vollkorn', serif`,
                               }}
                             >
                               {ary.movie.movieName}
-                            </h4>
+                            </Typography>
                             <Stars value={ary.score} size={19} pt="3px" starNum={true} />
                             <Scrollbars
                               autoHeight
@@ -130,7 +135,7 @@ export const FavoTabPanel = memo(() => {
                             favoSum={ary.favoredMarkFavoSum}
                             auth={parseInt(authState.id)}
                             markStrId={ary.favoMarkId}
-                            favoBool={true}
+                            favoBool={ary.favoBool}
                           />
                           <CreateCommentIcon markId={ary.favoMarkId} info={ary} />
                           {ary.favoedMarkCommeSum}

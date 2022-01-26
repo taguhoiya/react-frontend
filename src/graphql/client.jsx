@@ -31,6 +31,14 @@ const pageCache = new InMemoryCache({
             return existing;
           },
         },
+        searchMarks: {
+          merge(existing, incoming) {
+            return { ...existing, ...incoming };
+          },
+          read(existing) {
+            return existing;
+          },
+        },
       },
     },
   },

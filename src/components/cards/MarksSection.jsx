@@ -10,10 +10,12 @@ import { MOVIE } from "../../graphql/queries";
 import { Loader } from "../Loader";
 import { Stars } from "../Stars";
 import Scrollbars from "react-custom-scrollbars-2";
-import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
+import defaultImage from "./../../images/stock-photos/people-3.jpg";
 import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 import { memo } from "react";
 import MediaQuery from "react-responsive";
+import { IconButton } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const MarksSection = memo((props) => {
   const { movieId } = props;
@@ -47,14 +49,18 @@ export const MarksSection = memo((props) => {
                 <>
                   <List sx={{ width: "100%", bgcolor: "background.paper" }}>
                     <MediaQuery query="(min-width: 550px)">
-                    <Divider />
+                      <Divider />
                       <ListItem key={index}>
                         <ListItemAvatar>
-                          <Avatar
-                            sx={{ width: 40, height: 40 }}
-                            alt={ary.user.nickname}
-                            src={!ary.userPath ? defaultImage : ary.userPath}
-                          />
+                          <IconButton>
+                            <Link to={`/user/${ary.user.id}/profile`}>
+                              <Avatar
+                                sx={{ width: 32, height: 32 }}
+                                alt={ary.user.nickname}
+                                src={!ary.userPath ? defaultImage : ary.userPath}
+                              />
+                            </Link>
+                          </IconButton>
                         </ListItemAvatar>
                         <ListItemText
                           primary={
@@ -87,14 +93,18 @@ export const MarksSection = memo((props) => {
                       </ListItem>
                     </MediaQuery>
                     <MediaQuery query="(max-width: 550px)">
-                    <Divider />
+                      <Divider />
                       <ListItem key={index}>
                         <ListItemAvatar>
-                          <Avatar
-                            sx={{ width: 25, height: 25 }}
-                            alt={ary.user.nickname}
-                            src={!ary.userPath ? defaultImage : ary.userPath}
-                          />
+                          <IconButton>
+                            <Link to={`/user/${ary.user.id}/profile`}>
+                              <Avatar
+                                sx={{ width: 25, height: 25 }}
+                                alt={ary.user.nickname}
+                                src={!ary.userPath ? defaultImage : ary.userPath}
+                              />
+                            </Link>
+                          </IconButton>
                         </ListItemAvatar>
                         <ListItemText
                           primary={

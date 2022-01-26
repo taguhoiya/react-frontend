@@ -18,18 +18,30 @@ export const UserInfoProvider = memo((props) => {
   if (data) {
     const user = data.publicUser;
     const { favorites, marks, clips, nickname } = user;
+    const markSub = [...marks];
+    const marksModi = markSub.sort(function (a, b) {
+      return a.movieId - b.movieId;
+    });
+    const favoSub = [...favorites];
+    const favosModi = favoSub.sort(function (a, b) {
+      return a.mark.movieId - b.mark.movieId;
+    });
+    const clipSub = [...clips];
+    const clipsModi = clipSub.sort(function (a, b) {
+      return a.movieId - b.movieId;
+    });
+
     const uri = !user.path ? "" : `https://www.moview-ori.com${user.path}`;
     const src = !uri.includes("https") ? defaultImage : uri;
     const favoredMarks = favorites.map((favo) => favo.mark);
-    const clippedMovieIds = clips.map((clip) => parseInt(clip.movie.id));
-
+    const clippedMovieIds = clipsModi.map((clip) => clip.movieId);
     return (
       <UserInfoContext.Provider
         value={{
           user,
-          favorites,
-          marks,
-          clips,
+          favorites: favosModi,
+          marks: marksModi,
+          clips: clipsModi,
           nickname,
           src,
           params,

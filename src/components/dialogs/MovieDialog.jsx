@@ -19,7 +19,7 @@ export const BootstrapDialogTitle = memo((props) => {
   return (
     <DialogTitle sx={{ m: 0, p: 2, display: "flex", minWidth: "40%" }} {...other}>
       <MediaQuery query="(max-width: 550px)">
-        <Typography variant="subtitle2" sx={{ mr: 8, alignItems: "flex-start" }}>
+        <Typography variant="subtitle2" align="left" sx={{ fontFamily: "arial, sans-serif" }}>
           {children}
         </Typography>
         {onClose ? (
@@ -33,15 +33,15 @@ export const BootstrapDialogTitle = memo((props) => {
               color: (theme) => theme.palette.grey[500],
             }}
           >
-            <CloseIcon fontSize="small"/>
+            <CloseIcon fontSize="small" />
           </IconButton>
         ) : null}
-        <Typography fontSize="0.6rem" sx={{ mt: 0.5, alignItems: "flex-end" }}>
+        <Typography fontSize="0.6rem" mt={0.5} ml={0.6}>
           Released in {releaseYear}
         </Typography>
       </MediaQuery>
       <MediaQuery query="(min-width: 550px)">
-        <Typography variant="h5" sx={{ pr: 2 }}>
+        <Typography fontSize="1.2rem" align="left">
           {children}
         </Typography>
         {onClose ? (
@@ -58,7 +58,7 @@ export const BootstrapDialogTitle = memo((props) => {
             <CloseIcon />
           </IconButton>
         ) : null}
-        <Typography variant="body1" sx={{ pt: 1, alignItems: "flex-end" }}>
+        <Typography fontSize="0.8rem" align="right" pt={1} ml={2.0}>
           Released in {releaseYear}
         </Typography>
       </MediaQuery>
