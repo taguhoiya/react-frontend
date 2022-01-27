@@ -11,8 +11,7 @@ import { Link } from "react-router-dom";
 import { List, ListItemButton } from "@mui/material";
 import { memo } from "react";
 
-export const MainListItems = memo((props) => {
-  const { to } = props;
+export const MainListItems = memo(() => {
   return (
     <>
       <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
@@ -32,6 +31,26 @@ export const MainListItems = memo((props) => {
             <MarkUnreadChatAltIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Marks" sx={{ color: "black" }} />
+        </ListItemButton>
+      </Link>
+    </>
+  );
+});
+
+export const SecondaryListItems = memo((props) => {
+  const { to } = props;
+
+  return (
+    <List>
+      <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
+        Info
+      </ListSubheader>
+      <Link to={to} style={{ textDecoration: "none" }}>
+        <ListItemButton>
+          <ListItemIcon>
+            <AccountCircleIcon sx={{ color: "black" }} />
+          </ListItemIcon>
+          <ListItemText primary="Profile" sx={{ color: "black" }} />
         </ListItemButton>
       </Link>
       <Link to={to} state={{ num: 0 }} style={{ textDecoration: "none" }}>
@@ -56,26 +75,6 @@ export const MainListItems = memo((props) => {
             <FavoriteIcon sx={{ color: "black" }} />
           </ListItemIcon>
           <ListItemText primary="Favorites" sx={{ color: "black" }} />
-        </ListItemButton>
-      </Link>
-    </>
-  );
-});
-
-export const SecondaryListItems = memo((props) => {
-  const { to } = props;
-
-  return (
-    <List>
-      <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
-        Info
-      </ListSubheader>
-      <Link to={to} style={{ textDecoration: "none" }}>
-        <ListItemButton>
-          <ListItemIcon>
-            <AccountCircleIcon sx={{ color: "black" }} />
-          </ListItemIcon>
-          <ListItemText primary="Profile" sx={{ color: "black" }} />
         </ListItemButton>
       </Link>
     </List>

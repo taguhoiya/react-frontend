@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Card, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import { memo, useContext } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
@@ -16,6 +16,8 @@ import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import MediaQuery from "react-responsive";
 import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
+import { Link } from "react-router-dom";
+import defaultImage from "../../images/stock-photos/people-3.jpg";
 
 export const FavoTabPanel = memo(() => {
   const styles = cardStyles2();
@@ -28,6 +30,8 @@ export const FavoTabPanel = memo(() => {
   const favoredMarkCommeSum = favoredMarks.map((mark) => mark.comments.length);
   const favoredMarkFavoSum = favoredMarks.map((mark) => mark.favorites.length);
   const favoUserId = favoredMarks.map((mark) => mark.user.id);
+  const favoUserName = favoredMarks.map((mark) => mark.user.nickname);
+  const favoUserPath = favoredMarks.map((mark) => mark.user.path);
   const score = favoredMarks.map((mark) => mark.score);
   const content = favoredMarks.map((mark) => mark.content);
   const favoMarkId = favoredMarks.map((mark) => mark.id);
@@ -55,6 +59,8 @@ export const FavoTabPanel = memo(() => {
         favoedMarkCommeSum: favoredMarkCommeSum[idx],
         favoredMarkFavoSum: favoredMarkFavoSum[idx],
         favoUserId: favoUserId[idx],
+        favoUserName: favoUserName[idx],
+        favoUserPath: favoUserPath[idx],
         favoBool: LoggedFavoBool[idx],
       };
     });
@@ -72,8 +78,35 @@ export const FavoTabPanel = memo(() => {
                     <Card sx={{ backgroundColor: "#e6edf5" }}>
                       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                         <Grid item md={0.5} sm={1.5} xs={0} />
-                        <Grid item md={6.5} sm={6} xs={4.7}>
+                        <Grid item md={6} sm={6} xs={4.7}>
                           <MediaQuery query="(min-width: 550px)">
+                            <Box display="flex">
+                              <IconButton>
+                                <Link to={`/user/${ary.favoUserId}/profile`}>
+                                  <Avatar
+                                    alt={ary.favoUserName}
+                                    src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
+                                    sx={{ width: 32, height: 32 }}
+                                  ></Avatar>
+                                </Link>
+                              </IconButton>
+                              <Link to={`/user/${ary.favoUserId}/profile`}>
+                                <Typography
+                                  sx={{
+                                    ml: 1,
+                                    pt: 2,
+                                    fontFamily: "arial, sans-serif",
+                                    color: "black",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                  fontSize="0.8rem"
+                                >
+                                  {ary.favoUserName}
+                                </Typography>
+                              </Link>
+                            </Box>
                             <Typography
                               sx={{
                                 maxWidth: 300,
@@ -101,16 +134,45 @@ export const FavoTabPanel = memo(() => {
                             </Scrollbars>
                           </MediaQuery>
                           <MediaQuery query="(max-width: 550px)">
-                            <h6
-                              style={{
+                            <Box display="flex">
+                              <IconButton>
+                                <Link to={`/user/${ary.favoUserId}/profile`}>
+                                  <Avatar
+                                    alt={ary.favoUserName}
+                                    src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
+                                    sx={{ width: 22, height: 22 }}
+                                  ></Avatar>
+                                </Link>
+                              </IconButton>
+                              <Link to={`/user/${ary.favoUserId}/profile`}>
+                                <Typography
+                                  sx={{
+                                    ml: 0.5,
+                                    pt: 1.5,
+                                    fontFamily: "arial, sans-serif",
+                                    color: "black",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                  fontSize="0.6rem"
+                                >
+                                  {ary.favoUserName}
+                                </Typography>
+                              </Link>
+                            </Box>
+                            <Typography
+                              sx={{
                                 maxWidth: 200,
                                 overflow: "hidden",
+                                fontSize: "0.8rem",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
+                                fontFamily: `'Vollkorn', serif`,
                               }}
                             >
                               {ary.movie.movieName}
-                            </h6>
+                            </Typography>
                             <Stars
                               value={ary.score}
                               size={12}

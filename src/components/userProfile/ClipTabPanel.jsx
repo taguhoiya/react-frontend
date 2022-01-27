@@ -5,7 +5,7 @@ import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
 
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
-import { cardStyles3 } from "../cards/CardStyles";
+import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader, SubLoader } from "../Loader";
 import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
@@ -13,7 +13,7 @@ import { UserInfoContext } from "../providers/UserInfoProvider";
 
 export const ClipTabPanel = memo(() => {
   const { clips, clippedMovieIds } = useContext(UserInfoContext);
-  const styles = cardStyles3();
+  const styles = cardStyles2;
   const { LoggedClipMovieIds } = useContext(LoggedUserInfoContext);
   const clipBool = clippedMovieIds.map((movieId) => LoggedClipMovieIds.includes(movieId));
   const { loading, error, data } = useQuery(MOVIES, {

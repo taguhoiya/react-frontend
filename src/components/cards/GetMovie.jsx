@@ -15,7 +15,7 @@ import { BasicPagination } from "../userProfile/Pagination";
 import { Loader } from "../Loader";
 import { MarkThreeVertIcon } from "./MarkThreeVertIcon";
 import MediaQuery from "react-responsive";
-import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
+import defaultImage from "../../images/stock-photos/people-1.jpg";
 import { Link } from "react-router-dom";
 
 export const GetMovie = memo((props) => {
@@ -44,7 +44,6 @@ export const GetMovie = memo((props) => {
   if (loading) return <Loader state={true} />;
   if (data) {
     const movies = data.movies;
-    console.log(marks);
     const ary = movies.map((movie, idx) => {
       const ave = average(movie.marks.map((mark) => mark.score));
       const initialState = clippedMovieIds.includes(movie.id);
@@ -78,9 +77,9 @@ export const GetMovie = memo((props) => {
           <Grid item lg={5.5} md={5} sm={12} xs={12} key={index} my={4}>
             <Card className="card-box" sx={{ backgroundColor: "#e6edf5c5", marginLeft: 2 }}>
               <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                <Grid item md={0.5} sm={1.5} xs={0.5} />
-                <Grid item md={6.5} sm={6} xs={6}>
-                  <MediaQuery query="(min-width: 550px)">
+                <MediaQuery query="(min-width: 550px)">
+                  <Grid item md={0.5} sm={1.5} xs={0.5} />
+                  <Grid item md={6} sm={6} xs={4.7}>
                     <Box display="flex">
                       <IconButton>
                         <Link to={`/user/${ary.userId}/profile`}>
@@ -125,8 +124,41 @@ export const GetMovie = memo((props) => {
                     >
                       <Typography fontSize="0.9rem">{ary.content}</Typography>
                     </Scrollbars>
-                  </MediaQuery>
-                  <MediaQuery query="(max-width: 550px)">
+
+                    <CreateFavoIcon
+                      favoSum={ary.markFavo}
+                      auth={parseInt(authState.id)}
+                      markStrId={ary.markId}
+                      favoBool={ary.favoBool}
+                    />
+                    <CreateCommentIcon info={ary} markId={ary.markId} />
+                    {ary.markComm}
+                  </Grid>
+                  <Grid item md={4.5} sm={3} xs={5}>
+                    <CustomCard
+                      classes={styles}
+                      image={stock1}
+                      info={ary}
+                      size="small"
+                      ave={ary.ave}
+                      movie={ary.movie}
+                      markSum={ary.markSum}
+                      initialState={ary.initialState}
+                      clipSum={ary.clipSum}
+                      movieName={ary.movie.movieName}
+                      movieId={ary.movie.id}
+                    />
+                  </Grid>
+                  <Grid item md={0.5} sm={1.5} xs={0.2}>
+                    {ary.markUserId == authState.id ? (
+                      <MarkThreeVertIcon markId={ary.markId} userId={authState.id} />
+                    ) : null}
+                  </Grid>
+                </MediaQuery>
+
+                <MediaQuery query="(max-width: 550px)">
+                  <Grid item md={0.5} sm={1.5} xs={0} />
+                  <Grid item md={6} sm={6} xs={4.8}>
                     <Box display="flex">
                       <IconButton>
                         <Link to={`/user/${ary.userId}/profile`}>
@@ -152,7 +184,7 @@ export const GetMovie = memo((props) => {
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
-                        fontFamily: `arial, sans-serif`,
+                        fontFamily: `'Vollkorn', serif`,
                       }}
                     >
                       {ary.movie.movieName}
@@ -170,37 +202,38 @@ export const GetMovie = memo((props) => {
                     >
                       <Typography fontSize="0.6rem">{ary.content}</Typography>
                     </Scrollbars>
-                  </MediaQuery>
 
-                  <CreateFavoIcon
-                    favoSum={ary.markFavo}
-                    auth={parseInt(authState.id)}
-                    markStrId={ary.markId}
-                    favoBool={ary.favoBool}
-                  />
-                  <CreateCommentIcon info={ary} markId={ary.markId} />
-                  {ary.markComm}
-                </Grid>
-                <Grid item md={4.5} sm={3} xs={5}>
-                  <CustomCard
-                    classes={styles}
-                    image={stock1}
-                    info={ary}
-                    size="small"
-                    ave={ary.ave}
-                    movie={ary.movie}
-                    markSum={ary.markSum}
-                    initialState={ary.initialState}
-                    clipSum={ary.clipSum}
-                    movieName={ary.movie.movieName}
-                    movieId={ary.movie.id}
-                  />
-                </Grid>
-                <Grid item md={0.5} sm={1.5} xs={0.2}>
-                  {ary.markUserId == authState.id ? (
-                    <MarkThreeVertIcon markId={ary.markId} userId={authState.id} />
-                  ) : null}
-                </Grid>
+                    <CreateFavoIcon
+                      favoSum={ary.markFavo}
+                      auth={parseInt(authState.id)}
+                      markStrId={ary.markId}
+                      favoBool={ary.favoBool}
+                      fontSize="small"
+                    />
+                    <CreateCommentIcon info={ary} markId={ary.markId} />
+                    {ary.markComm}
+                  </Grid>
+                  <Grid item md={4.5} sm={3} xs={5}>
+                    <CustomCard
+                      classes={styles}
+                      image={stock1}
+                      info={ary}
+                      size="small"
+                      ave={ary.ave}
+                      movie={ary.movie}
+                      markSum={ary.markSum}
+                      initialState={ary.initialState}
+                      clipSum={ary.clipSum}
+                      movieName={ary.movie.movieName}
+                      movieId={ary.movie.id}
+                    />
+                  </Grid>
+                  <Grid item md={0.5} sm={1.5} xs={0.2}>
+                    {ary.markUserId == authState.id ? (
+                      <MarkThreeVertIcon markId={ary.markId} userId={authState.id} />
+                    ) : null}
+                  </Grid>
+                </MediaQuery>
               </Grid>
             </Card>
           </Grid>

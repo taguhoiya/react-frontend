@@ -24,7 +24,6 @@ export const LoggedUserInfoProvider = memo((props) => {
     const { favorites: LoggedFavos, marks: LoggedMarks, clips: LoggedClips } = user;
     const LoggedFavoMarkIds = LoggedFavos.map((favo) => favo.mark.id);
     const LoggedClipMovieIds = LoggedClips.map((clip) => clip.movieId);
-    console.log(LoggedClipMovieIds);
     return (
       <LoggedUserInfoContext.Provider
         value={{

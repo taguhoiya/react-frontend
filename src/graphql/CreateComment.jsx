@@ -30,6 +30,8 @@ import { CommentThreeVertIcon } from "../components/CommentThreeVertIcon";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { Loader } from "../components/Loader";
 import { GrowTransition } from "../containers/Verify";
+import MediaQuery from "react-responsive";
+import { Link } from "react-router-dom";
 
 export const CreateCommentIcon = memo((props) => {
   const { info, markId } = props;
@@ -65,8 +67,9 @@ export const CreateCommentIcon = memo((props) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpenB(false);
+    setCommContent("");
     refetchC();
+    setOpenB(false);
   };
   if (loading) return <Loader state={true} />;
   if (data) {
@@ -76,6 +79,7 @@ export const CreateCommentIcon = memo((props) => {
     const usersPath = users.map((user) =>
       !user.path ? "" : `https://www.moview-ori.com${user.path}/`
     );
+
     const ary = comments.map((itemOfComment, idx) => {
       return {
         comment: comments[idx],
@@ -102,7 +106,7 @@ export const CreateCommentIcon = memo((props) => {
         {!dataC ? null : (
           <Snackbar
             open={openB}
-            autoHideDuration={800}
+            autoHideDuration={600}
             onClose={handleCloseBar}
             TransitionComponent={GrowTransition}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -112,98 +116,211 @@ export const CreateCommentIcon = memo((props) => {
             </Alert>
           </Snackbar>
         )}
-        <IconButton onClick={handleClickOpen}>
-          <CommentIcon sx={{ color: "black" }} fontSize="small" />
-        </IconButton>
-        <Dialog open={open} onClose={handleClose} fullWidth>
-          <CommentDialog
-            mark={mark}
-            favoBool={info.favoBool}
-            ave={info.ave}
-            clipBool={info.clipBool}
-            info={info}
-          />
-          <DialogContent>
-            <Scrollbars autoHeight autoHeightMin={200} autoHeightMax={200}>
-              <List sx={{ width: "100%", margin: "auto" }}>
-                {!comments.length ? (
-                  <DialogContentText
-                    mt="10%"
-                    sx={{ fontStyle: "italic", fontWeight: "medium" }}
-                    variant="h6"
-                    textAlign="center"
-                  >
-                    Post first comment!
-                  </DialogContentText>
-                ) : (
-                  ary.map((ary) => {
-                    return (
-                      <>
-                        <Divider />
-                        <ListItem key={ary.comment.id}>
-                          <ListItemAvatar>
-                            <Avatar
-                              sx={{ width: 40, height: 40 }}
-                              alt={ary.user.nickname}
-                              src={!ary.userPath ? defaultImage : ary.userPath}
+        <MediaQuery query="(max-width: 550px)">
+          <IconButton onClick={handleClickOpen}>
+            <CommentIcon sx={{ color: "black" }} fontSize="small" />
+          </IconButton>
+          <Dialog open={open} onClose={handleClose} fullWidth>
+            <CommentDialog
+              mark={mark}
+              favoBool={info.favoBool}
+              ave={info.ave}
+              clipBool={info.clipBool}
+              info={info}
+              markUserId={mark.userId}
+              markId={mark.id}
+            />
+            <DialogContent>
+              <Scrollbars autoHeight autoHeightMin={100} autoHeightMax={160}>
+                <List sx={{ width: "100%", margin: "auto" }}>
+                  {!comments.length ? (
+                    <DialogContentText
+                      mt="10%"
+                      sx={{ fontStyle: "italic", fontWeight: "medium" }}
+                      variant="h6"
+                      textAlign="center"
+                    >
+                      Post first comment!
+                    </DialogContentText>
+                  ) : (
+                    ary.map((ary) => {
+                      return (
+                        <>
+                          <ListItem key={ary.comment.id}>
+                            <ListItemAvatar>
+                              <IconButton>
+                                <Link to={`/user/${ary.user.id}/profile`}>
+                                  <Avatar
+                                    sx={{ width: 22, height: 22 }}
+                                    alt={ary.user.nickname}
+                                    src={!ary.userPath ? defaultImage : ary.userPath}
+                                  />
+                                </Link>
+                              </IconButton>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={
+                                <>
+                                  <Typography
+                                    sx={{ display: "inline" }}
+                                    fontSize="0.5rem"
+                                    color="text.primary"
+                                  >
+                                    {ary.user.nickname}
+                                  </Typography>
+                                </>
+                              }
+                              secondary={
+                                <>
+                                  <Typography
+                                    sx={{ display: "inline" }}
+                                    fontSize="0.7rem"
+                                    color="text.primary"
+                                  >
+                                    {ary.comment.content}
+                                  </Typography>
+                                </>
+                              }
                             />
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={
-                              <>
-                                <Typography
-                                  sx={{ display: "inline" }}
-                                  fontSize="0.6rem"
-                                  color="text.primary"
-                                >
-                                  {ary.user.nickname}
-                                </Typography>
-                              </>
-                            }
-                            secondary={
-                              <>
-                                <Typography
-                                  sx={{ display: "inline" }}
-                                  fontSize="0.8rem"
-                                  color="text.primary"
-                                >
-                                  {ary.comment.content}
-                                </Typography>
-                              </>
-                            }
-                          />
-                          <CommentThreeVertIcon commId={ary.comment.id} userId={ary.user.id} />
-                        </ListItem>
-                      </>
-                    );
-                  })
-                )}
-              </List>
-            </Scrollbars>
-            <Divider color="" />
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <Avatar
-                sx={{ width: 25, height: 25, marginRight: 2, marginBottom: 0.5 }}
-                alt="my image"
-                src={uri}
-              />
-              <TextField
-                type="text"
-                fullWidth
-                variant="standard"
-                label="Comment"
-                value={commContent}
-                onChange={(e) => {
-                  setCommContent(e.target.value);
-                }}
-              />
-            </Box>
-          </DialogContent>
-          <DialogActions disableSpacing={true}>
-            <Button onClick={handleComm}>ADD</Button>
-            <Button onClick={handleClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
+                            <CommentThreeVertIcon commId={ary.comment.id} userId={ary.user.id} />
+                          </ListItem>
+                          <Divider />
+                        </>
+                      );
+                    })
+                  )}
+                </List>
+              </Scrollbars>
+              <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                <Avatar
+                  sx={{ width: 25, height: 25, marginRight: 2, marginBottom: 0.5 }}
+                  alt="my image"
+                  src={uri}
+                />
+                <TextField
+                  type="text"
+                  fullWidth
+                  variant="filled"
+                  size="small"
+                  sx={{ border: "0.8px solid #e2e2e1", overflow: "hidden", borderRadius: 4 }}
+                  label="Comment"
+                  value={commContent}
+                  onChange={(e) => {
+                    setCommContent(e.target.value);
+                  }}
+                />
+              </Box>
+            </DialogContent>
+            <DialogActions disableSpacing={true}>
+              <Button onClick={handleComm} size="small">
+                ADD
+              </Button>
+              <Button onClick={handleClose} size="small">
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </MediaQuery>
+
+        <MediaQuery query="(min-width: 550px)">
+          <IconButton onClick={handleClickOpen}>
+            <CommentIcon sx={{ color: "black" }} fontSize="small" />
+          </IconButton>
+          <Dialog open={open} onClose={handleClose} fullWidth>
+            <CommentDialog
+              mark={mark}
+              favoBool={info.favoBool}
+              ave={info.ave}
+              clipBool={info.clipBool}
+              info={info}
+            />
+            <DialogContent>
+              <Scrollbars autoHeight autoHeightMin={200} autoHeightMax={200}>
+                <List sx={{ width: "100%", margin: "auto" }}>
+                  {!comments.length ? (
+                    <DialogContentText
+                      mt="10%"
+                      sx={{ fontStyle: "italic", fontWeight: "medium" }}
+                      variant="h6"
+                      textAlign="center"
+                    >
+                      Post first comment!
+                    </DialogContentText>
+                  ) : (
+                    ary.map((ary) => {
+                      return (
+                        <>
+                          <ListItem key={ary.comment.id}>
+                            <ListItemAvatar>
+                              <IconButton>
+                                <Link to={`/user/${ary.user.id}/profile`}>
+                                  <Avatar
+                                    sx={{ width: 40, height: 40 }}
+                                    alt={ary.user.nickname}
+                                    src={!ary.userPath ? defaultImage : ary.userPath}
+                                  />
+                                </Link>
+                              </IconButton>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={
+                                <>
+                                  <Typography
+                                    sx={{ display: "inline" }}
+                                    fontSize="0.6rem"
+                                    color="text.primary"
+                                  >
+                                    {ary.user.nickname}
+                                  </Typography>
+                                </>
+                              }
+                              secondary={
+                                <>
+                                  <Typography
+                                    sx={{ display: "inline" }}
+                                    fontSize="0.8rem"
+                                    color="text.primary"
+                                  >
+                                    {ary.comment.content}
+                                  </Typography>
+                                </>
+                              }
+                            />
+                            <CommentThreeVertIcon commId={ary.comment.id} userId={ary.user.id} />
+                          </ListItem>
+                          <Divider />
+                        </>
+                      );
+                    })
+                  )}
+                </List>
+              </Scrollbars>
+              <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                <Avatar
+                  sx={{ width: 25, height: 25, marginRight: 2, marginBottom: 0.5 }}
+                  alt="my image"
+                  src={uri}
+                />
+                <TextField
+                  type="text"
+                  fullWidth
+                  label="Comment"
+                  variant="filled"
+                  size="small"
+                  sx={{ border: "0.8px solid #e2e2e1", overflow: "hidden", borderRadius: 4 }}
+                  value={commContent}
+                  onChange={(e) => {
+                    setCommContent(e.target.value);
+                  }}
+                />
+              </Box>
+            </DialogContent>
+            <DialogActions disableSpacing={true}>
+              <Button onClick={handleComm}>ADD</Button>
+              <Button onClick={handleClose}>Cancel</Button>
+            </DialogActions>
+          </Dialog>
+        </MediaQuery>
       </>
     );
   }

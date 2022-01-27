@@ -59,9 +59,7 @@ export const CustomCard = (props) => {
             initialState={initialState}
           />
           <CardContent className={classes.content} onClick={handleClickOpen}>
-            <Typography className={classes.title} variant="h2">
-              {movieName}
-            </Typography>
+            <Typography className={classes.title}>{movieName}</Typography>
           </CardContent>
           <Grid container className={classes.cardPosition} justifyContent="center">
             <MediaQuery query="(min-width: 480px)">

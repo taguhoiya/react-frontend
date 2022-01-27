@@ -30,7 +30,7 @@ export const EachMovieDialog = memo((props) => {
         {movie.movieName}
       </BootstrapDialogTitle>
       <MediaQuery query="(min-width: 550px)">
-        <DialogContent dividers>
+        <DialogContent>
           <Grid container spaceing={0} alignItems="center">
             <Grid item xs={6} sm={6} md={6}>
               <img
@@ -78,7 +78,7 @@ export const EachMovieDialog = memo((props) => {
         </DialogActions>
       </MediaQuery>
       <MediaQuery query="(max-width: 550px)">
-        <DialogContent dividers>
+        <DialogContent>
           <Grid container spaceing={0} alignItems="center">
             <Grid item xs={6.0} sm={6} md={6}>
               <img

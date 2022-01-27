@@ -44,7 +44,7 @@ export const EachCardDialog = memo((props) => {
   }, []);
   return (
     <>
-      <DialogContent dividers>
+      <DialogContent>
         <Grid container spaceing={0} alignItems="center">
           <Grid item xs={6} sm={6} md={6}>
             <img

@@ -120,6 +120,7 @@ export const USER_INFO = gql`
         content
         score
         movieId
+        userId
         favorites {
           id
           user {
@@ -139,6 +140,8 @@ export const USER_INFO = gql`
           movieId
           user {
             id
+            nickname
+            path
           }
           favorites {
             id
@@ -248,6 +251,7 @@ export const MARK = gql`
       id
       score
       content
+      userId
       movie {
         id
         movieName

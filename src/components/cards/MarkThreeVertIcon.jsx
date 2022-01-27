@@ -95,11 +95,11 @@ export const MarkThreeVertIcon = memo((props) => {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClick2} disableRipple>
+          <MenuItem onClick={handleClick2}>
             <DeleteIcon fontSize="small" />
             Delete
           </MenuItem>
-          <MenuItem onClick={handleClose} disableRipple>
+          <MenuItem onClick={handleClose}>
             <CancelIcon fontSize="small" />
             Cancel
           </MenuItem>

@@ -5,9 +5,9 @@ export const cardStyles = makeStyles(() => ({
     borderColor: "#000000",
     borderRadius: 16,
     transition: "0.2s",
-    // "&:hover": {
-    //   transform: "scale(1.1)",
-    // },
+    "&:hover": {
+      transform: "scale(1.05)",
+    },
     marginBottom: 5,
   },
   card: () => ({
@@ -18,9 +18,6 @@ export const cardStyles = makeStyles(() => ({
     borderRadius: 16,
     textAlign: "center",
     boxShadow: "none",
-    // "&:hover": {
-    //   boxShadow: `0 6px 12px 0 ${Color("#ffffff").rotate(-12).darken(0.2).fade(0.5)}`,
-    // },
   }),
   content: () => {
     return {
@@ -28,24 +25,14 @@ export const cardStyles = makeStyles(() => ({
     };
   },
   title: {
-    width: "9rem",
+    width: "10.5rem",
     fontFamily: "Keania One",
-    fontSize: "0.9rem",
+    fontSize: "1.1rem",
     color: "#0f0f0f",
     textAlign: "center",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
-  },
-  subtitle: {
-    fontFamily: "Montserrat",
-    color: "#0f0f0f",
-    opacity: 0.87,
-    marginTop: "1rem",
-    fontWeight: 500,
-    fontSize: 14,
-    textAlign: "center",
-    marginBottom: "-15px",
   },
   cardPosition: {
     position: "absolute",
@@ -86,7 +73,7 @@ export const cardStyles2 = makeStyles(() => ({
   },
   title: {
     maxWidth: "12rem",
-    height: "0.9rem",
+    height: "1.2rem",
     fontFamily: "Keania One",
     fontSize: "15px",
     color: "#0f0f0f",
@@ -128,9 +115,8 @@ export const cardStyles3 = makeStyles(() => ({
   },
   title: {
     maxWidth: "10rem",
-    height: "1rem",
+    height: "1.3rem",
     fontFamily: "Keania One",
-    fontSize: "15px",
     color: "#0f0f0f",
     overflow: "hidden",
     textOverflow: "ellipsis",

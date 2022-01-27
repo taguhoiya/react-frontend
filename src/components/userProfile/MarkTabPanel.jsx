@@ -31,6 +31,7 @@ export const MarkTabPanel = memo(() => {
   const content = marks.map((mark) => mark.content);
   const markId = marks.map((mark) => mark.id);
   const markFavoSum = marks.map((mark) => mark.favorites.length);
+  const markUserId = marks.map((mark) => parseInt(mark.userId));
   const { loading, error, data } = useQuery(MOVIES, {
     variables: { ids: markMovieIds },
   });
@@ -50,6 +51,7 @@ export const MarkTabPanel = memo(() => {
         score: score[idx],
         content: content[idx],
         userId: user.id,
+        markUserId: markUserId[idx],
         nickname: user.nickname,
         ave,
         initialState,
@@ -71,7 +73,7 @@ export const MarkTabPanel = memo(() => {
                     <Card sx={{ backgroundColor: "#e6edf5" }}>
                       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                         <Grid item md={0.5} sm={1.5} xs={0} />
-                        <Grid item md={6.5} sm={6} xs={4.7}>
+                        <Grid item md={6} sm={6} xs={4.7}>
                           <MediaQuery query="(min-width: 550px)">
                             <Box display="flex">
                               <IconButton>
@@ -90,6 +92,9 @@ export const MarkTabPanel = memo(() => {
                                     pt: 2,
                                     fontFamily: "arial, sans-serif",
                                     color: "black",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
                                   }}
                                   fontSize="0.8rem"
                                 >
@@ -139,10 +144,13 @@ export const MarkTabPanel = memo(() => {
                                   sx={{
                                     ml: 1,
                                     pt: 1.5,
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
                                     fontFamily: "arial, sans-serif",
                                     color: "black",
                                   }}
-                                  fontSize="0.7rem"
+                                  fontSize="0.6rem"
                                 >
                                   {ary.nickname}
                                 </Typography>
@@ -190,7 +198,7 @@ export const MarkTabPanel = memo(() => {
                           <CreateCommentIcon info={ary} markId={ary.markId} />
                           {ary.markComme}
                         </Grid>
-                        <Grid item md={4.5} sm={3} xs={5.0}>
+                        <Grid item md={4.5} sm={3} xs={4.9}>
                           <CustomCard
                             classes={styles}
                             image={stock1}
@@ -205,8 +213,10 @@ export const MarkTabPanel = memo(() => {
                             movieId={ary.movie.id}
                           />
                         </Grid>
-                        <Grid item md={0.5} sm={1.5} xs={0.5}>
-                          <MarkThreeVertIcon markId={ary.markId} userId={authState.id} />
+                        <Grid item md={0.5} sm={1.5} xs={0.2}>
+                          {ary.markUserId === authState.id ? (
+                            <MarkThreeVertIcon markId={ary.markId} userId={authState.id} />
+                          ) : null}
                         </Grid>
                       </Grid>
                     </Card>
