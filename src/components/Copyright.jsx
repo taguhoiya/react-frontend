@@ -7,8 +7,9 @@ export const Copyright = memo((props) => {
     <Typography variant="body2" color="text.secondary" align="center" sx={props.sx}>
       {"Copyright © "}
       <Link color="inherit" to="/">
-        Moview
+        moview
       </Link>
+      &nbsp;
       {new Date().getFullYear()}
       {"."}
     </Typography>

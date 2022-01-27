@@ -57,7 +57,7 @@ export const ToolBarModi = memo((props) => {
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          Moview
+          moview
         </Typography>
         <Logout />
       </Toolbar>
