@@ -99,8 +99,8 @@ export const cardStyles2 = makeStyles(() => ({
 
 export const cardStyles3 = makeStyles(() => ({
   card: () => ({
-    height: 280,
-    width: 150,
+    height: 250,
+    width: 130,
     borderColor: "#000000",
     backgroundColor: "#d6f0ea",
     borderRadius: 16,

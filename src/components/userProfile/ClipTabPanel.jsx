@@ -13,7 +13,7 @@ import { UserInfoContext } from "../providers/UserInfoProvider";
 
 export const ClipTabPanel = memo(() => {
   const { clips, clippedMovieIds } = useContext(UserInfoContext);
-  const styles = cardStyles2;
+  const styles = cardStyles2();
   const { LoggedClipMovieIds } = useContext(LoggedUserInfoContext);
   const clipBool = clippedMovieIds.map((movieId) => LoggedClipMovieIds.includes(movieId));
   const { loading, error, data } = useQuery(MOVIES, {
@@ -43,7 +43,7 @@ export const ClipTabPanel = memo(() => {
             <Loader state={false} />
             <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 5 }}>
               {ary.map((ary, index) => (
-                <Grid item key={index} md={2}>
+                <Grid item key={index} md={2} xs={6}>
                   <CustomCard
                     classes={styles}
                     image={stock1}

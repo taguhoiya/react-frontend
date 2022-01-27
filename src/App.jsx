@@ -4,7 +4,7 @@ import AlertMUITemplate from "react-alert-template-mui";
 import { Verify } from "./containers/Verify.jsx";
 import { Login } from "./containers/Login.jsx";
 import { Register } from "./containers/Register.jsx";
-import { Profile } from "./components/userProfile/Profile.jsx";
+import { Profile } from "./containers/Profile.jsx";
 import { AuthenticatedRoute } from "./components/routes/AuthenticatedRoute.jsx";
 import { UnauthenticatedRoute } from "./components/routes/UnauthenticatedRoute.jsx";
 import { Dashboard } from "./containers/DashBoard.jsx";

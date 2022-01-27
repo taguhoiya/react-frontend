@@ -1,14 +1,14 @@
 import { memo, useCallback, useContext, useState } from "react";
-import { UserAuthContext } from "../providers/UserAuthProvider";
+import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { Avatar, Box, Container, Grid, ThemeProvider } from "@mui/material";
-import { mdTheme } from "../../containers/DashBoard";
-import { AppBar, ToolBarModi } from "../headers/AppBar";
-import { TabsBasic } from "./Tabs";
-import { EditProfile } from "../Button";
-import { Loader } from "../Loader";
-import { DrawerModi } from "../headers/Drawer";
+import { mdTheme } from "./DashBoard";
+import { AppBar, ToolBarModi } from "../components/headers/AppBar";
+import { TabsBasic } from "../components/userProfile/Tabs";
+import { EditProfile } from "../components/Button";
+import { Loader } from "../components/Loader";
+import { DrawerModi } from "../components/headers/Drawer";
 import MediaQuery from "react-responsive";
-import { UserInfoContext } from "../providers/UserInfoProvider";
+import { UserInfoContext } from "../components/providers/UserInfoProvider";
 
 export const Profile = memo(() => {
   const { authState } = useContext(UserAuthContext);
