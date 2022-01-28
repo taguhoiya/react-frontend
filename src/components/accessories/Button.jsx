@@ -12,17 +12,17 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
-import { Dropdown } from "./userProfile/Dropdowns";
+import { Dropdown } from "../userProfile/Dropdowns";
 import { useMutation } from "@apollo/client";
-import { UPDATE_USER_IMAGE } from "../graphql/mutations";
-import { UserAuthContext } from "./providers/UserAuthProvider";
-import { clientAuth, clientUpload } from "../graphql/client";
+import { UPDATE_USER_IMAGE } from "../../graphql/mutations";
+import { UserAuthContext } from "../providers/UserAuthProvider";
+import { clientAuth, clientUpload } from "../../graphql/client";
 import { useContext } from "react";
 import { blue } from "@mui/material/colors";
-import { USER_REGISTER } from "../graphql/queries";
-import { GrowTransition } from "../containers/Verify";
+import { USER_REGISTER } from "../../graphql/queries";
+import { GrowTransition } from "../../containers/Verify";
 import MediaQuery from "react-responsive";
-import { UserInfoContext } from "./providers/UserInfoProvider";
+import { UserInfoContext } from "../providers/UserInfoProvider";
 
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation } = props;

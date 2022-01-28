@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { createContext, memo, useContext } from "react";
-import { Loader } from "../Loader";
+import { Loader } from "../accessories/Loader";
 import { UserAuthContext } from "./UserAuthProvider";
 import { USER_INFO_TOP_PAGE } from "../../graphql/queries";
 

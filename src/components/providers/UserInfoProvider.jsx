@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { createContext, memo } from "react";
 import { useParams } from "react-router-dom";
 import { USER_INFO } from "../../graphql/queries";
-import { Loader } from "../Loader";
+import { Loader } from "../accessories/Loader";
 import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
 
 export const UserInfoContext = createContext({});

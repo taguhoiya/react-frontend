@@ -7,7 +7,7 @@ import { average } from "../../Helper";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
-import { Loader, SubLoader } from "../Loader";
+import { Loader, SubLoader } from "../accessories/Loader";
 import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 

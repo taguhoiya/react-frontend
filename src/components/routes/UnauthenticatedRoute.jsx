@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { LOGGED_USER } from "../../graphql/queries";
 import { clientAuth } from "../../graphql/client";
-import { Loader } from "../Loader";
+import { Loader } from "../accessories/Loader";
 
 export const UnauthenticatedRoute = memo(() => {
   const {

@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { CreateMarkIcon } from "../../graphql/CreateMark";
-import { Stars } from "../Stars";
+import { Stars } from "../accessories/Stars";
 import { MarksSection } from "../cards/MarksSection";
 import Scrollbars from "react-custom-scrollbars-2";
 import { memo, useCallback, useContext, useState } from "react";

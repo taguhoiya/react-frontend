@@ -15,7 +15,7 @@ import { memo, useCallback, useContext, useState } from "react";
 import { DELETE_MARK } from "../../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { StyledMenu } from "../StyledMenu";
+import { StyledMenu } from "../accessories/StyledMenu";
 import { GrowTransition } from "../../containers/Verify";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import { DashBoardContext } from "../providers/DashBoardProvider";

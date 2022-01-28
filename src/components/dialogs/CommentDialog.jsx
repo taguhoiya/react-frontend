@@ -1,6 +1,6 @@
 import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
-import { Stars } from "../Stars";
+import { Stars } from "../accessories/Stars";
 import { CustomCard } from "../cards/CustomCard";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";

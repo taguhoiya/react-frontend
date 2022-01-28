@@ -3,7 +3,7 @@ import { Tabs, Tab } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MarkIcon from "@mui/icons-material/RateReview";
 import ClipIcon from "@mui/icons-material/Bookmark";
-import { Loader, SubLoader } from "../Loader";
+import { Loader, SubLoader } from "../accessories/Loader";
 import { TabPanel } from "./Tabpanel";
 import { ClipTabPanel } from "./ClipTabPanel";
 import { useLocation } from "react-router-dom";

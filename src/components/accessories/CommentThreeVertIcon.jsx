@@ -13,12 +13,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { StyledMenu } from "./StyledMenu";
 import { useMutation } from "@apollo/client";
 import { useCallback, useContext, useState } from "react";
-import { DELETE_COMMENT } from "../graphql/mutations";
+import { DELETE_COMMENT } from "../../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { UserAuthContext } from "./providers/UserAuthProvider";
-import { UserInfoContext } from "./providers/UserInfoProvider";
-import { DashBoardContext } from "./providers/DashBoardProvider";
-import { GrowTransition } from "../containers/Verify";
+import { UserAuthContext } from "../providers/UserAuthProvider";
+import { UserInfoContext } from "../providers/UserInfoProvider";
+import { DashBoardContext } from "../providers/DashBoardProvider";
+import { GrowTransition } from "../../containers/Verify";
 
 export const CommentThreeVertIcon = (props) => {
   const { commId, userId } = props;

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { memo, useContext, useState } from "react";
 import { MOVIE_PAGES } from "../../graphql/queries";
 import { average } from "../../Helper";
@@ -7,8 +7,9 @@ import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles } from "./CardStyles";
 import { CustomCard } from "./CustomCard";
 import { BasicPagination } from "../userProfile/Pagination";
-import { Loader } from "../Loader";
+import { Loader } from "../accessories/Loader";
 import { DashBoardContext } from "../providers/DashBoardProvider";
+import { SelectBox } from "../accessories/SelectBox";
 
 export const EachMovieCard = memo((props) => {
   const { num } = props;
@@ -16,8 +17,10 @@ export const EachMovieCard = memo((props) => {
   const styles = cardStyles();
   const [page, setPage] = useState(num);
   const userClipIds = dataU.publicUser.clips.map((clip) => parseInt(clip.movieId));
+  const [params, setParams] = useState("");
   const { loading, error, data } = useQuery(MOVIE_PAGES, {
-    variables: { page: !page ? 1 : page, limit: 12 },
+    variables: { page: !page ? 1 : page, limit: 12, category: params },
+    fetchPolicy: "cache-and-network",
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
@@ -35,8 +38,12 @@ export const EachMovieCard = memo((props) => {
     return (
       <>
         <Loader state={false} />
+        <Box display="flex" justifyContent="flex-end">
+          <SelectBox params={params} setParams={setParams} />
+        </Box>
         <Grid
           container
+          mt={0}
           columnSpacing={2}
           rowSpacing={3}
           direction="row"

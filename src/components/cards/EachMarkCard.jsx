@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Grid } from "@mui/material";
 import { memo, useContext, useState } from "react";
 import { MARK_PAGES } from "../../graphql/queries";
-import { Loader } from "../Loader";
+import { Loader } from "../accessories/Loader";
 import { DashBoardContext } from "../providers/DashBoardProvider";
 import { GetMovie } from "./GetMovie";
 

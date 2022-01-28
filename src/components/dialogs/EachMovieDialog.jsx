@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { CreateClipIcon } from "../../graphql/CreateClip";
 import { CreateMarkIcon } from "../../graphql/CreateMark";
-import { Stars } from "../Stars";
+import { Stars } from "../accessories/Stars";
 import { MarksSection } from "../cards/MarksSection";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import MediaQuery from "react-responsive";

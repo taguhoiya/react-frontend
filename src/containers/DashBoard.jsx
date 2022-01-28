@@ -7,7 +7,7 @@ import { AppBar, ToolBarModi } from "../components/headers/AppBar";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation, useParams } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
-import { Loader } from "../components/Loader";
+import { Loader } from "../components/accessories/Loader";
 import { DrawerModi } from "../components/headers/Drawer";
 
 export const mdTheme = createTheme();
@@ -21,12 +21,19 @@ export const Dashboard = memo(() => {
   const toggleDrawer = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
+  const [params, setParams] = useState("");
   return (
     <>
       <Loader state={false} />
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
-          <AppBar position="absolute" open={open} color="inherit">
+          <AppBar
+            position="absolute"
+            open={open}
+            color="inherit"
+            params={params}
+            setParams={setParams}
+          >
             <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
           </AppBar>
           <DrawerModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />

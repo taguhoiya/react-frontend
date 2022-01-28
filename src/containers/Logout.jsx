@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { clientAuth } from "../graphql/client";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { USER_LOGOUT } from "../graphql/queries.jsx";
-import { Loader } from "../components/Loader";
+import { Loader } from "../components/accessories/Loader";
 
 export const Logout = memo(() => {
   const { setAuthState } = useContext(UserAuthContext);
@@ -38,7 +38,7 @@ export const Logout = memo(() => {
   }
   return (
     <>
-      <Button variant="outlined" size="small" sx={{ mx: "6px" }} onClick={handleClickOpen}>
+      <Button variant="outlined" size="medium" sx={{ mx: "6px" }} onClick={handleClickOpen}>
         LOGOUT
       </Button>
       <Dialog

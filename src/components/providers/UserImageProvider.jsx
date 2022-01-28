@@ -1,7 +1,7 @@
 import { createContext, memo, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { client } from "../../graphql/client";
-import { Loader } from "../Loader";
+import { Loader } from "../accessories/Loader";
 import { useQuery } from "@apollo/client";
 import { USER_IMAGE } from "../../graphql/queries";
 import { UserAuthContext } from "./UserAuthProvider";

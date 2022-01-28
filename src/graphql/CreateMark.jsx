@@ -16,7 +16,7 @@ import {
 import { memo, useCallback, useContext, useState } from "react";
 import MarkIcon from "@mui/icons-material/RateReview";
 import { CREATE_MARK } from "./mutations";
-import { InputSlider } from "../components/RangeSlider";
+import { InputSlider } from "../components/accessories/RangeSlider";
 import { GrowTransition } from "../containers/Verify";
 import { UserInfoContext } from "../components/providers/UserInfoProvider";
 import { DashBoardContext } from "../components/providers/DashBoardProvider";

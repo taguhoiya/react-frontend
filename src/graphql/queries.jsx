@@ -219,8 +219,8 @@ export const MOVIES = gql`
 `;
 
 export const MOVIE_PAGES = gql`
-  query ($page: Int!, $limit: Int!) {
-    searchMovies(page: $page, limit: $limit) {
+  query ($page: Int!, $limit: Int!, $category: String!) {
+    searchMovies(page: $page, limit: $limit, category: $category) {
       totalCount
       totalPage
       nowPage

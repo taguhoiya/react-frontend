@@ -3,7 +3,7 @@ import { Alert, Grow, Snackbar } from "@mui/material";
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clientAuth } from "../graphql/client";
-import { Loader } from "../components/Loader";
+import { Loader } from "../components/accessories/Loader";
 import { LOGGED_USER, USER_LOGIN } from "../graphql/queries";
 
 export const GrowTransition = memo((props) => {
