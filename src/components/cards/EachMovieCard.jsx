@@ -68,14 +68,18 @@ export const EachMovieCard = memo((props) => {
               />
             </Grid>
           ))}
+          <Grid container py={2}>
           <Grid
+          my={3}
             sx={{
               position: "relative",
-              my: 6,
+              left: "50%",
+              transform: "translate(-50%, -50%)",
             }}
           >
             <BasicPagination page={page} setPage={setPage} count={count} />
           </Grid>
+        </Grid>
         </Grid>
       </>
     );
