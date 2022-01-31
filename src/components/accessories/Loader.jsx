@@ -11,14 +11,14 @@ const override = css`
 `;
 
 const subOverride = css`
-  position: fixed;
-  top: 60%;
+  position: absolute;
+  top: 55%;
   left: 50%;
 `;
 
 const subOverrideStr = css`
-  position: fixed;
-  top: 67%;
+  position: absolute;
+  top: 62%;
   left: 50%;
 `;
 

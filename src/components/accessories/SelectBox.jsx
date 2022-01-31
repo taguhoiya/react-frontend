@@ -53,7 +53,11 @@ export const SelectBox = (props) => {
   return (
     <>
       <MediaQuery query="(min-width: 550px)">
-        <FormControl sx={{ width: 250, mr: 10 }} size="small" color="success">
+        <FormControl
+          sx={{ width: 250, position: "absolute", top: 140, mr: 15 }}
+          size="small"
+          color="success"
+        >
           <Select
             value={params}
             onChange={handleChange}
@@ -62,7 +66,7 @@ export const SelectBox = (props) => {
             MenuProps={MenuProps}
           >
             <MenuItem value="">
-              <em>Wanna search by category?</em>
+              <em style={{ color: "#000000" }}>Wanna search by category?</em>
             </MenuItem>
             {cateArr.map((cate, index) => {
               return (
@@ -75,7 +79,7 @@ export const SelectBox = (props) => {
         </FormControl>
       </MediaQuery>
       <MediaQuery query="(max-width: 550px)">
-        <FormControl sx={{ width: 170 }} size="small" color="success">
+        <FormControl sx={{ width: 150, position: "relative", mb: 1 }} size="small" color="success">
           <Select
             value={params}
             onChange={handleChange}
@@ -84,12 +88,12 @@ export const SelectBox = (props) => {
             MenuProps={MenuPropsSmall}
           >
             <MenuItem value="">
-              <em style={{ fontSize: "0.8rem" }}>Search by category?</em>
+              <em style={{ fontSize: "0.7rem" }}>Search by category?</em>
             </MenuItem>
             {cateArr.map((cate, index) => {
               return (
                 <MenuItem value={cate} key={index}>
-                  <Typography fontsize="0.8rem">{cate}</Typography>
+                  <Typography fontsize="0.7rem">{cate}</Typography>
                 </MenuItem>
               );
             })}

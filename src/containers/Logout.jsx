@@ -38,7 +38,12 @@ export const Logout = memo(() => {
   }
   return (
     <>
-      <Button variant="outlined" size="medium" sx={{ mx: "6px" }} onClick={handleClickOpen}>
+      <Button
+        size="medium"
+        variant="contained"
+        sx={{ mx: "6px", borderRadius: "8px" }}
+        onClick={handleClickOpen}
+      >
         LOGOUT
       </Button>
       <Dialog

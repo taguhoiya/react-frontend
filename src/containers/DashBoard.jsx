@@ -1,74 +1,24 @@
-import { memo, useCallback, useContext, useState } from "react";
-import { UserAuthContext } from "../components/providers/UserAuthProvider";
+import { memo } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { Container } from "@mui/material";
-import { AppBar, ToolBarModi } from "../components/headers/AppBar";
 import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation, useParams } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 import { Loader } from "../components/accessories/Loader";
-import { DrawerModi } from "../components/headers/Drawer";
 
 export const mdTheme = createTheme();
 
 export const Dashboard = memo(() => {
   const num = parseInt(useParams().num);
   const location = useLocation().pathname;
-  const { authState } = useContext(UserAuthContext);
-  const profileUrl = `/user/${authState.id}/profile`;
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = useCallback(() => {
-    setOpen((prevState) => !prevState);
-  }, []);
-  const [params, setParams] = useState("");
   return (
     <>
       <Loader state={false} />
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
-          <AppBar
-            position="absolute"
-            open={open}
-            color="inherit"
-            params={params}
-            setParams={setParams}
-          >
-            <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
-          </AppBar>
-          <DrawerModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
-          <Box
-            component="main"
-            sx={{
-              display: "flex",
-              width: "100%",
-            }}
-          >
-            {location === "/" && (
-              <>
-                <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
-                  <h1>HOT MOVIE</h1>
-                  <EachMovieCard num={num} />
-                </Container>
-              </>
-            )}
-            {location.includes("movie") && (
-              <>
-                <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
-                  <h1>HOT MOVIE</h1>
-                  <EachMovieCard num={num} />
-                </Container>
-              </>
-            )}
-            {location.includes("marks") && (
-              <>
-                <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
-                  <h1>HOT MARK</h1>
-                  <EachMarkCard num={num} />
-                </Container>
-              </>
-            )}
-          </Box>
+          {location === "/" && <EachMovieCard num={num} />}
+          {location.includes("movie") && <EachMovieCard num={num} />}
+          {location.includes("marks") && <EachMarkCard num={num} />}
         </Box>
       </ThemeProvider>
     </>

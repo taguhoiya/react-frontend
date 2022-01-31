@@ -202,7 +202,6 @@ export const GetMovie = memo((props) => {
                     >
                       <Typography fontSize="0.6rem">{ary.content}</Typography>
                     </Scrollbars>
-
                     <CreateFavoIcon
                       favoSum={ary.markFavo}
                       auth={parseInt(authState.id)}
