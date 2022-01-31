@@ -3,7 +3,7 @@ import { Tabs, Tab } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MarkIcon from "@mui/icons-material/RateReview";
 import ClipIcon from "@mui/icons-material/Bookmark";
-import { Loader, SubLoader } from "../accessories/Loader";
+import { Loader, SubLoaderTab } from "../accessories/Loader";
 import { TabPanel } from "./Tabpanel";
 import { ClipTabPanel } from "./ClipTabPanel";
 import { useLocation } from "react-router-dom";
@@ -53,13 +53,13 @@ export const TabsBasic = memo(() => {
       </MediaQuery>
 
       <TabPanel value={value} index={0}>
-        {!marks[0] ? <SubLoader state={true} /> : <MarkTabPanel />}
+        {!marks[0] ? <SubLoaderTab state={true} /> : <MarkTabPanel />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {!clips[0] ? <SubLoader state={true} /> : <ClipTabPanel />}
+        {!clips[0] ? <SubLoaderTab state={true} /> : <ClipTabPanel />}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {!favorites[0] ? <SubLoader state={true} /> : <FavoTabPanel />}
+        {!favorites[0] ? <SubLoaderTab state={true} /> : <FavoTabPanel />}
       </TabPanel>
     </>
   );

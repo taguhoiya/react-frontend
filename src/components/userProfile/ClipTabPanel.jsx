@@ -7,7 +7,7 @@ import { average } from "../../Helper";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
-import { Loader, SubLoader } from "../accessories/Loader";
+import { Loader } from "../accessories/Loader";
 import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 
@@ -36,32 +36,26 @@ export const ClipTabPanel = memo(() => {
     });
     return (
       <>
-        {!clips[0] ? (
-          <SubLoader state={true} />
-        ) : (
-          <>
-            <Loader state={false} />
-            <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 5 }}>
-              {ary.map((ary, index) => (
-                <Grid item key={index} md={2} xs={6}>
-                  <CustomCard
-                    classes={styles}
-                    image={stock1}
-                    info={ary}
-                    movie={ary.movie}
-                    size="small"
-                    ave={ary.ave}
-                    markSum={ary.markSum}
-                    initialState={ary.initialState}
-                    clipSum={ary.clipSum}
-                    movieName={ary.movie.movieName}
-                    movieId={ary.movie.id}
-                  />
-                </Grid>
-              ))}
+        <Loader state={false} />
+        <Grid container rowSpacing={5} columnSpacing={{ xs: 2, sm: 3, md: 5 }}>
+          {ary.map((ary, index) => (
+            <Grid item key={index} md={2} xs={6}>
+              <CustomCard
+                classes={styles}
+                image={stock1}
+                info={ary}
+                movie={ary.movie}
+                size="small"
+                ave={ary.ave}
+                markSum={ary.markSum}
+                initialState={ary.initialState}
+                clipSum={ary.clipSum}
+                movieName={ary.movie.movieName}
+                movieId={ary.movie.id}
+              />
             </Grid>
-          </>
-        )}
+          ))}
+        </Grid>
       </>
     );
   }

@@ -8,7 +8,7 @@ import { average } from "../../Helper";
 import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
-import { Loader, SubLoader } from "../accessories/Loader";
+import { Loader } from "../accessories/Loader";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { Stars } from "../accessories/Stars";
 import { CreateCommentIcon } from "../../graphql/CreateComment";
@@ -66,170 +66,158 @@ export const FavoTabPanel = memo(() => {
     });
     return (
       <>
-        {!favorites[0] ? (
-          <SubLoader state={true} />
-        ) : (
-          <>
-            <Loader state={false} />
-            <Grid container spacing={2}>
-              <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
-                {ary.map((ary) => (
-                  <Grid item lg={6} md={6} sm={12} xs={12} key={ary.favoMarkId} my={4}>
-                    <Card sx={{ backgroundColor: "#e6edf5" }}>
-                      <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
-                        <Grid item md={0.5} sm={1.5} xs={0} />
-                        <Grid item md={6} sm={6} xs={4.7}>
-                          <MediaQuery query="(min-width: 550px)">
-                            <Box display="flex">
-                              <IconButton>
-                                <Link to={`/user/${ary.favoUserId}/profile`}>
-                                  <Avatar
-                                    alt={ary.favoUserName}
-                                    src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
-                                    sx={{ width: 32, height: 32 }}
-                                  ></Avatar>
-                                </Link>
-                              </IconButton>
-                              <Link to={`/user/${ary.favoUserId}/profile`}>
-                                <Typography
-                                  sx={{
-                                    ml: 1,
-                                    pt: 2,
-                                    fontFamily: "arial, sans-serif",
-                                    color: "black",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                  }}
-                                  fontSize="0.8rem"
-                                >
-                                  {ary.favoUserName}
-                                </Typography>
-                              </Link>
-                            </Box>
+        <Loader state={false} />
+        <Grid container spacing={2}>
+          <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
+            {ary.map((ary) => (
+              <Grid item lg={6} md={6} sm={12} xs={12} key={ary.favoMarkId} my={4}>
+                <Card sx={{ backgroundColor: "#e6edf5" }}>
+                  <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
+                    <Grid item md={0.5} sm={1.5} xs={0} />
+                    <Grid item md={6} sm={6} xs={4.7}>
+                      <MediaQuery query="(min-width: 550px)">
+                        <Box display="flex">
+                          <IconButton>
+                            <Link to={`/user/${ary.favoUserId}/profile`}>
+                              <Avatar
+                                alt={ary.favoUserName}
+                                src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
+                                sx={{ width: 32, height: 32 }}
+                              ></Avatar>
+                            </Link>
+                          </IconButton>
+                          <Link to={`/user/${ary.favoUserId}/profile`}>
                             <Typography
                               sx={{
-                                maxWidth: 300,
-                                fontSize: "1.3rem",
+                                ml: 1,
+                                pt: 2,
+                                fontFamily: "arial, sans-serif",
+                                color: "black",
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
-                                fontFamily: `'Vollkorn', serif`,
                               }}
+                              fontSize="0.8rem"
                             >
-                              {ary.movie.movieName}
+                              {ary.favoUserName}
                             </Typography>
-                            <Stars value={ary.score} size={19} pt="3px" starNum={true} />
-                            <Scrollbars
-                              autoHeight
-                              autoHeightMin={120}
-                              autoHeightMax={150}
-                              style={{
-                                border: "1px solid rgba(192, 231, 231, 0.733)",
-                                borderRadius: "10px",
-                                padding: "0px 6px",
-                              }}
-                            >
-                              <Typography fontSize="0.9rem">{ary.content}</Typography>
-                            </Scrollbars>
-                          </MediaQuery>
-                          <MediaQuery query="(max-width: 550px)">
-                            <Box display="flex">
-                              <IconButton>
-                                <Link to={`/user/${ary.favoUserId}/profile`}>
-                                  <Avatar
-                                    alt={ary.favoUserName}
-                                    src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
-                                    sx={{ width: 22, height: 22 }}
-                                  ></Avatar>
-                                </Link>
-                              </IconButton>
-                              <Link to={`/user/${ary.favoUserId}/profile`}>
-                                <Typography
-                                  sx={{
-                                    ml: 0.5,
-                                    pt: 1.5,
-                                    fontFamily: "arial, sans-serif",
-                                    color: "black",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                  }}
-                                  fontSize="0.6rem"
-                                >
-                                  {ary.favoUserName}
-                                </Typography>
-                              </Link>
-                            </Box>
+                          </Link>
+                        </Box>
+                        <Typography
+                          sx={{
+                            maxWidth: 300,
+                            fontSize: "1.3rem",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            fontFamily: `'Vollkorn', serif`,
+                          }}
+                        >
+                          {ary.movie.movieName}
+                        </Typography>
+                        <Stars value={ary.score} size={19} pt="3px" starNum={true} />
+                        <Scrollbars
+                          autoHeight
+                          autoHeightMin={120}
+                          autoHeightMax={150}
+                          style={{
+                            border: "1px solid rgba(192, 231, 231, 0.733)",
+                            borderRadius: "10px",
+                            padding: "0px 6px",
+                          }}
+                        >
+                          <Typography fontSize="0.9rem">{ary.content}</Typography>
+                        </Scrollbars>
+                      </MediaQuery>
+                      <MediaQuery query="(max-width: 550px)">
+                        <Box display="flex">
+                          <IconButton>
+                            <Link to={`/user/${ary.favoUserId}/profile`}>
+                              <Avatar
+                                alt={ary.favoUserName}
+                                src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
+                                sx={{ width: 22, height: 22 }}
+                              ></Avatar>
+                            </Link>
+                          </IconButton>
+                          <Link to={`/user/${ary.favoUserId}/profile`}>
                             <Typography
                               sx={{
-                                maxWidth: 200,
+                                ml: 0.5,
+                                pt: 1.5,
+                                fontFamily: "arial, sans-serif",
+                                color: "black",
                                 overflow: "hidden",
-                                fontSize: "0.8rem",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
-                                fontFamily: `'Vollkorn', serif`,
                               }}
+                              fontSize="0.6rem"
                             >
-                              {ary.movie.movieName}
+                              {ary.favoUserName}
                             </Typography>
-                            <Stars
-                              value={ary.score}
-                              size={12}
-                              pt="1px"
-                              typo="0.7rem"
-                              starNum={true}
-                            />
-                            <Scrollbars
-                              autoHeight
-                              autoHeightMin={100}
-                              autoHeightMax={130}
-                              style={{
-                                border: "1px solid rgba(192, 231, 231, 0.733)",
-                                borderRadius: "8px",
-                                paddingInline: "12px",
-                              }}
-                            >
-                              <Typography fontSize="0.6rem">{ary.content}</Typography>
-                            </Scrollbars>
-                          </MediaQuery>
-                          <CreateFavoIcon
-                            favoSum={ary.favoredMarkFavoSum}
-                            auth={parseInt(authState.id)}
-                            markStrId={ary.favoMarkId}
-                            favoBool={ary.favoBool}
-                          />
-                          <CreateCommentIcon markId={ary.favoMarkId} info={ary} />
-                          {ary.favoedMarkCommeSum}
-                        </Grid>
-                        <Grid item md={4.5} sm={3} xs={5.0}>
-                          <CustomCard
-                            classes={styles}
-                            image={stock1}
-                            info={ary}
-                            movie={ary.movie}
-                            size="small"
-                            ave={ary.ave}
-                            markSum={ary.markSum}
-                            initialState={ary.initialState}
-                            clipSum={ary.clipSum}
-                            movieName={ary.movie.movieName}
-                            movieId={ary.movie.id}
-                          />
-                        </Grid>
-                        <Grid item md={0.5} sm={1.5} xs={0.2}>
-                          {ary.favoUserId == authState.id ? (
-                            <MarkThreeVertIcon markId={ary.favoMarkId} userId={authState.id} />
-                          ) : null}
-                        </Grid>
-                      </Grid>
-                    </Card>
+                          </Link>
+                        </Box>
+                        <Typography
+                          sx={{
+                            maxWidth: 200,
+                            overflow: "hidden",
+                            fontSize: "0.8rem",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            fontFamily: `'Vollkorn', serif`,
+                          }}
+                        >
+                          {ary.movie.movieName}
+                        </Typography>
+                        <Stars value={ary.score} size={12} pt="1px" typo="0.7rem" starNum={true} />
+                        <Scrollbars
+                          autoHeight
+                          autoHeightMin={100}
+                          autoHeightMax={130}
+                          style={{
+                            border: "1px solid rgba(192, 231, 231, 0.733)",
+                            borderRadius: "8px",
+                            paddingInline: "12px",
+                          }}
+                        >
+                          <Typography fontSize="0.6rem">{ary.content}</Typography>
+                        </Scrollbars>
+                      </MediaQuery>
+                      <CreateFavoIcon
+                        favoSum={ary.favoredMarkFavoSum}
+                        auth={parseInt(authState.id)}
+                        markStrId={ary.favoMarkId}
+                        favoBool={ary.favoBool}
+                      />
+                      <CreateCommentIcon markId={ary.favoMarkId} info={ary} />
+                      {ary.favoedMarkCommeSum}
+                    </Grid>
+                    <Grid item md={4.5} sm={3} xs={5.0}>
+                      <CustomCard
+                        classes={styles}
+                        image={stock1}
+                        info={ary}
+                        movie={ary.movie}
+                        size="small"
+                        ave={ary.ave}
+                        markSum={ary.markSum}
+                        initialState={ary.initialState}
+                        clipSum={ary.clipSum}
+                        movieName={ary.movie.movieName}
+                        movieId={ary.movie.id}
+                      />
+                    </Grid>
+                    <Grid item md={0.5} sm={1.5} xs={0.2}>
+                      {ary.favoUserId == authState.id ? (
+                        <MarkThreeVertIcon markId={ary.favoMarkId} userId={authState.id} />
+                      ) : null}
+                    </Grid>
                   </Grid>
-                ))}
+                </Card>
               </Grid>
-            </Grid>
-          </>
-        )}
+            ))}
+          </Grid>
+        </Grid>
       </>
     );
   }
