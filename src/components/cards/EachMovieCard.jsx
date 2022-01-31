@@ -78,12 +78,14 @@ export const EachMovieCard = memo((props) => {
           >
             <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
               {!formState ? (
-                <h2>HOT MOVIE</h2>
-              ) : (
                 <>
-                  <Box display="flex" justifyContent="flex-end">
+                  <h2>HOT MOVIE</h2>
+                  <Box display="flex" justifyContent="flex-end" sx={{ m: 2 }}>
                     <SelectBox params={params} setParams={setParams} />
                   </Box>
+                </>
+              ) : (
+                <>
                   <Box sx={{ mt: 1, ml: 1 }} display="flex">
                     <Typography fontSize={15} sx={{ mt: 0.8 }}>
                       Searched by "{formState}"&nbsp;&nbsp;-
@@ -96,11 +98,13 @@ export const EachMovieCard = memo((props) => {
                       &nbsp;&nbsp;results
                     </Typography>
                   </Box>
+                  <Box display="flex" justifyContent="flex-end" sx={{ m: 2 }}>
+                    <SelectBox params={params} setParams={setParams} />
+                  </Box>
                 </>
               )}
               <Grid
                 container
-                mt={0}
                 columnSpacing={2}
                 rowSpacing={3}
                 direction="row"
@@ -129,9 +133,7 @@ export const EachMovieCard = memo((props) => {
                     </Grid>
                   ))
                 )}
-                {!movies[0] ? (
-                  <h2>HOT MOVIE</h2>
-                ) : (
+                {!movies[0] ? null : (
                   <Grid container py={2}>
                     <Grid
                       my={3}
@@ -159,12 +161,14 @@ export const EachMovieCard = memo((props) => {
           >
             <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
               {!formState ? (
-                <h1>HOT MOVIE</h1>
-              ) : (
                 <>
+                  <h1>HOT MOVIE</h1>
                   <Box display="flex" justifyContent="flex-end">
                     <SelectBox params={params} setParams={setParams} />
                   </Box>
+                </>
+              ) : (
+                <>
                   <Box sx={{ mt: 5, ml: 5 }} display="flex">
                     <Typography fontSize={20} sx={{ mt: 1.0 }}>
                       Searched by "{formState}"&nbsp;&nbsp;-
@@ -176,6 +180,9 @@ export const EachMovieCard = memo((props) => {
                     <Typography fontSize={15} sx={{ mt: 2 }}>
                       &nbsp;&nbsp;results
                     </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="flex-end">
+                    <SelectBox params={params} setParams={setParams} />
                   </Box>
                 </>
               )}

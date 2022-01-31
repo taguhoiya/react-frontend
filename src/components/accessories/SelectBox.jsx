@@ -41,7 +41,7 @@ export const SelectBox = (props) => {
     PaperProps: {
       style: {
         maxHeight: 220,
-        width: 170,
+        width: 150,
       },
     },
   };
