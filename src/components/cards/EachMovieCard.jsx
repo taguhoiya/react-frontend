@@ -49,7 +49,6 @@ export const EachMovieCard = memo((props) => {
       const initialState = userClipIds.includes(id);
       return { movie, clipSum, markSum, ave, id, initialState };
     });
-    console.log(formState);
     return (
       <>
         <Loader state={false} />
