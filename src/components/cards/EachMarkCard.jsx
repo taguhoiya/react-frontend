@@ -34,7 +34,7 @@ export const EachMarkCard = memo((props) => {
     const user = dataU.publicUser;
     const markSub = [...marks];
     const marksModi = markSub.sort(function (a, b) {
-      return a.movieId - b.movieId; //オブジェクトの昇順ソート
+      return a.movieId - b.movieId;
     });
     return (
       <>

@@ -3,10 +3,12 @@ import MuiAppBar from "@mui/material/AppBar";
 import { Badge, IconButton, TextField, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Logout } from "../../containers/Logout";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useContext, useRef, useState } from "react";
 import { drawerWidth } from "./Drawer";
 import SearchIcon from "@mui/icons-material/Search";
 import MediaQuery from "react-responsive";
+import { MovieCardContext } from "../providers/MovieCardProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -27,15 +29,19 @@ export const AppBar = styled(MuiAppBar, {
 }));
 
 export const ToolBarModi = memo((props) => {
-  const { toggleDrawer, open, setFormState } = props;
+  const { toggleDrawer, open } = props;
   const [openForm, setOpenForm] = useState(false);
   const inputEl = useRef(null);
+  const { setFormState } = useContext(MovieCardContext);
+  const locationPath = useLocation().pathname;
+  const navigate = useNavigate();
   const handleClick = useCallback(() => {
     setOpenForm((prevState) => !prevState);
   }, []);
   const handleClickSearch = (e) => {
     e.preventDefault();
     setFormState(inputEl.current.value);
+    locationPath.includes("movies") ? null : navigate("/movies/1");
   };
   return (
     <>
