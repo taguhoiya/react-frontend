@@ -136,10 +136,9 @@ export const Login = memo(() => {
               <FormControlLabel
                 control={<Checkbox value="remember" color="warning" />}
                 label="Remember me"
-
               />
               <Button
-              color="warning"
+                color="warning"
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -172,7 +171,7 @@ export const Login = memo(() => {
                   </Link> */}
                 </Grid>
                 <Grid item>
-                  <Link href="register" variant="body2" >
+                  <Link href="register" variant="body2">
                     {"Don't have an account? Register"}
                   </Link>
                 </Grid>

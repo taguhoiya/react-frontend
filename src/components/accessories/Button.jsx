@@ -69,7 +69,7 @@ export const AuthButton = (props) => {
         </Snackbar>
       )}
       <Button
-      color="warning"
+        color="warning"
         type="submit"
         fullWidth
         variant="contained"

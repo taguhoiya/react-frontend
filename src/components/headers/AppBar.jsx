@@ -10,6 +10,7 @@ import MediaQuery from "react-responsive";
 import { MovieCardContext } from "../providers/MovieCardProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/HatchfulExport-All/logo_transparent copy 2.png";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -82,23 +83,46 @@ export const ToolBarModi = memo((props) => {
           >
             moview
           </Typography>
-          <IconButton color="inherit" open={openForm} onClick={handleClick}>
-            <Badge color="secondary">
-              <SearchIcon onClick={handleClickSearch} color="black" />
-            </Badge>
-          </IconButton>
-          <form onSubmit={handleClickSearch}>
-            <TextField
-              color="warning"
-              label="Find Movie?"
-              variant="outlined"
-              size="small"
-              inputRef={inputEl}
-              type="text"
-              sx={{ mr: 5, width: 250 }}
-            />
-          </form>
-          <Logout />
+          {openForm === false ? (
+            <>
+              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mx: 1 }}>
+                <Badge color="secondary">
+                  <SearchIcon onClick={handleClickSearch} color="black" />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mr: 2 }}>
+                <Badge color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <Logout />
+            </>
+          ) : (
+            <>
+              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mx: 1 }}>
+                <Badge color="secondary">
+                  <SearchIcon onClick={handleClickSearch} color="black" />
+                </Badge>
+              </IconButton>
+              <form onSubmit={handleClickSearch}>
+                <TextField
+                  color="warning"
+                  label="Find Movie?"
+                  variant="outlined"
+                  size="small"
+                  inputRef={inputEl}
+                  type="text"
+                  sx={{ mx: 1, width: 250 }}
+                />
+              </form>
+              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mr: 2 }}>
+                <Badge color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <Logout />
+            </>
+          )}
         </MediaQuery>
         <MediaQuery query="(max-width: 550px)">
           <Link to="/">
@@ -109,7 +133,7 @@ export const ToolBarModi = memo((props) => {
             color="inherit"
             noWrap
             sx={{
-              ml: 1,
+              ml: 0.5,
               flexGrow: 1,
               fontFamily: `"Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif`,
             }}
@@ -121,6 +145,11 @@ export const ToolBarModi = memo((props) => {
               <IconButton color="inherit" open={openForm} onClick={handleClick}>
                 <Badge color="secondary">
                   <SearchIcon size="small" color="black" />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" open={openForm} onClick={handleClick}>
+                <Badge color="secondary">
+                  <NotificationsIcon size="small" />
                 </Badge>
               </IconButton>
               <Logout size="small" />

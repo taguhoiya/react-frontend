@@ -4,7 +4,7 @@ import { memo } from "react";
 export const NicknameInput = memo((props) => {
   return (
     <TextField
-    color="warning"
+      color="warning"
       margin={props.margin}
       required
       fullWidth
@@ -21,7 +21,7 @@ export const NicknameInput = memo((props) => {
 export const EmailInput = memo((props) => {
   return (
     <TextField
-    color="warning"
+      color="warning"
       margin={props.margin}
       required
       fullWidth
@@ -38,7 +38,7 @@ export const EmailInput = memo((props) => {
 export const PasswordInput = memo((props) => {
   return (
     <TextField
-    color="warning"
+      color="warning"
       margin={props.margin}
       required
       fullWidth
@@ -56,7 +56,7 @@ export const PasswordInput = memo((props) => {
 export const PasswordConfInput = memo((props) => {
   return (
     <TextField
-    color="warning"
+      color="warning"
       margin={props.margin}
       required
       fullWidth
