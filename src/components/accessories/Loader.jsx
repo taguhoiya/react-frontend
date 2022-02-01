@@ -36,14 +36,14 @@ const subOverrideStrTab = css`
 
 export const Loader = memo((props) => {
   const { state } = props;
-  return <PuffLoader loading={state} css={override} color="#36d7bc" size={40} />;
+  return <PuffLoader loading={state} css={override} color="#36d7bc" size={50} />;
 });
 
 export const SubLoader = memo((props) => {
   const { state } = props;
   return (
     <>
-      <PacmanLoader loading={state} css={subOverride} color="#9fddfa" size={20} />
+      <PacmanLoader loading={state} css={subOverride} color="#36d7bc" size={20} />
       <Typography sx={subOverrideStr} color="secondary">
         No Content...
       </Typography>
@@ -55,7 +55,7 @@ export const SubLoaderTab = memo((props) => {
   const { state } = props;
   return (
     <>
-      <PacmanLoader loading={state} css={subOverrideTab} color="#9fddfa" size={20} />
+      <PacmanLoader loading={state} css={subOverrideTab} color="#36d7bc" size={20} />
       <Typography sx={subOverrideStrTab} color="secondary">
         No Content...
       </Typography>
