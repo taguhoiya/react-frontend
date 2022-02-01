@@ -12,7 +12,7 @@ export const USER_REGISTER = gql`
       email: $email
       password: $password
       passwordConfirmation: $passwordConfirmation
-      confirmSuccessUrl: "https://moview-taguhoiya.vercel.app/verify"
+      confirmSuccessUrl: "https://moviewapp.com/verify"
     ) {
       user {
         id
@@ -59,10 +59,7 @@ export const USER_LOGOUT = gql`
 
 export const USER_RESEND_EMAIL = gql`
   mutation ($email: String!) {
-    userResendConfirmationWithToken(
-      email: $email
-      confirmUrl: "https://moview-pearl.vercel.app/verify"
-    ) {
+    userResendConfirmationWithToken(email: $email, confirmUrl: "https://moviewapp.com/verify") {
       message
     }
   }

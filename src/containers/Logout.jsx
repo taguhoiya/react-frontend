@@ -7,7 +7,7 @@ import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { USER_LOGOUT } from "../graphql/queries.jsx";
 import { Loader } from "../components/accessories/Loader";
 
-export const Logout = memo(() => {
+export const Logout = memo((props) => {
   const { setAuthState } = useContext(UserAuthContext);
   const navigate = useNavigate();
   const [logout, { client, loading, error }] = useMutation(USER_LOGOUT, {
@@ -39,7 +39,7 @@ export const Logout = memo(() => {
   return (
     <>
       <Button
-        size="medium"
+        size={!props.size ? "medium" : props.size}
         variant="contained"
         sx={{ mx: "6px", borderRadius: "8px" }}
         onClick={handleClickOpen}

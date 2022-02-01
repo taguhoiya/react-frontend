@@ -8,7 +8,8 @@ import { drawerWidth } from "./Drawer";
 import SearchIcon from "@mui/icons-material/Search";
 import MediaQuery from "react-responsive";
 import { MovieCardContext } from "../providers/MovieCardProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../images/stock-photos/messageImage_1643716270607.png";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -63,10 +64,24 @@ export const ToolBarModi = memo((props) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          moview
-        </Typography>
+
         <MediaQuery query="(min-width: 550px)">
+          <Link to="/">
+            <img src={logo} style={{ height: 30 }} />
+          </Link>
+          <Typography
+            component="h1"
+            variant="h5"
+            color="inherit"
+            noWrap
+            sx={{
+              ml: 2,
+              flexGrow: 1,
+              fontFamily: `"Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif`,
+            }}
+          >
+            moview
+          </Typography>
           <IconButton color="inherit" open={openForm} onClick={handleClick}>
             <Badge color="secondary">
               <SearchIcon onClick={handleClickSearch} />
@@ -82,19 +97,38 @@ export const ToolBarModi = memo((props) => {
               sx={{ mr: 5, width: 250 }}
             />
           </form>
+          <Logout />
         </MediaQuery>
         <MediaQuery query="(max-width: 550px)">
+          <Link to="/">
+            <img src={logo} style={{ height: 30 }} />
+          </Link>
+          <Typography
+            component="h3"
+            color="inherit"
+            noWrap
+            sx={{
+              ml: 1,
+              flexGrow: 1,
+              fontFamily: `"Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif`,
+            }}
+          >
+            moview
+          </Typography>
           {openForm === false ? (
-            <IconButton color="inherit" open={openForm} onClick={handleClick}>
-              <Badge color="secondary">
-                <SearchIcon />
-              </Badge>
-            </IconButton>
+            <>
+              <IconButton color="inherit" open={openForm} onClick={handleClick}>
+                <Badge color="secondary">
+                  <SearchIcon size="small" />
+                </Badge>
+              </IconButton>
+              <Logout size="small" />
+            </>
           ) : (
             <>
               <IconButton color="inherit" open={openForm} onClick={handleClick}>
                 <Badge color="secondary">
-                  <SearchIcon />
+                  <SearchIcon size="small" />
                 </Badge>
               </IconButton>
               <form onSubmit={handleClickSearch}>
@@ -110,7 +144,6 @@ export const ToolBarModi = memo((props) => {
             </>
           )}
         </MediaQuery>
-        <Logout />
       </Toolbar>
     </>
   );
