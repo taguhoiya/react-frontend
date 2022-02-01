@@ -71,7 +71,7 @@ export const FavoTabPanel = memo(() => {
           <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
             {ary.map((ary) => (
               <Grid item lg={6} md={6} sm={12} xs={12} key={ary.favoMarkId} my={4}>
-                <Card sx={{ backgroundColor: "#e6edf5" }}>
+                <Card sx={{ backgroundColor: "#fff" }}>
                   <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                     <Grid item md={0.5} sm={1.5} xs={0} />
                     <Grid item md={6} sm={6} xs={4.7}>

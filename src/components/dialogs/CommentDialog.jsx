@@ -16,7 +16,7 @@ export const CommentDialog = (props) => {
   const styles = cardStyles2();
   const { authState } = useContext(UserAuthContext);
   return (
-    <Card className="card-box" sx={{ backgroundColor: "#e6edf5" }}>
+    <Card className="card-box" sx={{ backgroundColor: "#eeecec" }}>
       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 4 }} py={2}>
         <MediaQuery query="(max-width: 550px)">
           <Grid item md={0.5} xs={0.5} />

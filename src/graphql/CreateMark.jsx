@@ -123,6 +123,7 @@ export const CreateMarkIcon = memo((props) => {
             name="mark"
             multiline
             maxRows="12"
+            color="warning"
             onChange={(e) => {
               setMarkInput(e.target.value);
             }}
@@ -130,10 +131,10 @@ export const CreateMarkIcon = memo((props) => {
           />
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
-          <Button onClick={handleAddMark} color="primary">
+          <Button onClick={handleAddMark} color="warning">
             ADD
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="warning">
             CANCEL
           </Button>
         </DialogActions>

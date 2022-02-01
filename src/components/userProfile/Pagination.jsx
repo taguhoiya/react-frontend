@@ -9,7 +9,7 @@ export const BasicPagination = memo((props) => {
     <Stack spacing={2}>
       <Pagination
         count={count}
-        color="primary"
+        color="warning"
         onChange={(e, page) => {
           setPage(page);
           mark ? navigate(`../marks/${page}`) : navigate(`../movies/${page}`);

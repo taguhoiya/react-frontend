@@ -205,6 +205,7 @@ export const CreateCommentIcon = memo((props) => {
                   sx={{ border: "0.8px solid #e2e2e1", overflow: "hidden", borderRadius: 4 }}
                   label="Comment"
                   value={commContent}
+                  color="warning"
                   onChange={(e) => {
                     setCommContent(e.target.value);
                   }}
@@ -212,10 +213,10 @@ export const CreateCommentIcon = memo((props) => {
               </Box>
             </DialogContent>
             <DialogActions disableSpacing={true}>
-              <Button onClick={handleComm} size="small">
+              <Button onClick={handleComm} size="small" color="warning">
                 ADD
               </Button>
-              <Button onClick={handleClose} size="small">
+              <Button onClick={handleClose} size="small" color="warning">
                 Cancel
               </Button>
             </DialogActions>
@@ -307,6 +308,7 @@ export const CreateCommentIcon = memo((props) => {
                   label="Comment"
                   variant="filled"
                   size="small"
+                  color="warning"
                   sx={{ border: "0.8px solid #e2e2e1", overflow: "hidden", borderRadius: 4 }}
                   value={commContent}
                   onChange={(e) => {
@@ -316,8 +318,12 @@ export const CreateCommentIcon = memo((props) => {
               </Box>
             </DialogContent>
             <DialogActions disableSpacing={true}>
-              <Button onClick={handleComm}>ADD</Button>
-              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleComm} color="warning">
+                ADD
+              </Button>
+              <Button onClick={handleClose} color="warning">
+                Cancel
+              </Button>
             </DialogActions>
           </Dialog>
         </MediaQuery>

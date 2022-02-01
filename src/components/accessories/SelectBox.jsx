@@ -56,7 +56,7 @@ export const SelectBox = (props) => {
         <FormControl
           sx={{ width: 250, position: "absolute", top: 140, mr: 15 }}
           size="small"
-          color="success"
+          color="warning"
         >
           <Select
             value={params}
@@ -66,7 +66,7 @@ export const SelectBox = (props) => {
             MenuProps={MenuProps}
           >
             <MenuItem value="">
-              <em style={{ color: "#000000" }}>Wanna search by category?</em>
+              <em>Wanna search by category?</em>
             </MenuItem>
             {cateArr.map((cate, index) => {
               return (

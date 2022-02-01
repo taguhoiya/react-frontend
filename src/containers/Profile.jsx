@@ -22,7 +22,7 @@ export const Profile = memo(() => {
     <>
       <Loader state={false} />
       <ThemeProvider theme={mdTheme}>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", backgroundColor: "#f0ecec" }}>
           <AppBar position="absolute" open={open} color="inherit">
             <ToolBarModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
           </AppBar>

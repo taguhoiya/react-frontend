@@ -14,7 +14,7 @@ import { memo } from "react";
 export const MainListItems = memo(() => {
   return (
     <>
-      <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
+      <ListSubheader inset sx={{ backgroundColor: "#fff" }}>
         Contents
       </ListSubheader>
       <Link to="/movies/1" style={{ textDecoration: "none" }}>
@@ -42,7 +42,7 @@ export const SecondaryListItems = memo((props) => {
 
   return (
     <List>
-      <ListSubheader inset sx={{ backgroundColor: "#e6edf5" }}>
+      <ListSubheader inset sx={{ backgroundColor: "#fff" }}>
         Info
       </ListSubheader>
       <Link to={to} style={{ textDecoration: "none" }}>

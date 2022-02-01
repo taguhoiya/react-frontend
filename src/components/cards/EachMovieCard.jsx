@@ -111,7 +111,7 @@ export const EachMovieCard = memo(() => {
               {!movies[0] ? null : (
                 <Grid container py={2}>
                   <Grid
-                    my={3}
+                    mt={3}
                     sx={{
                       position: "relative",
                       left: "50%",
@@ -196,7 +196,7 @@ export const EachMovieCard = memo(() => {
               {!movies[0] ? null : (
                 <Grid container py={2}>
                   <Grid
-                    my={3}
+                    mt={5}
                     sx={{
                       position: "relative",
                       left: "50%",

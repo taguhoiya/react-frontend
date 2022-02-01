@@ -114,10 +114,10 @@ export const MarkThreeVertIcon = memo((props) => {
               Are you sure?
             </DialogTitle>
             <DialogActions sx={{ margin: "auto" }}>
-              <Button onClick={handleDelete} color="primary">
+              <Button onClick={handleDelete} color="warning">
                 DELETE
               </Button>
-              <Button onClick={handleClose2} color="primary">
+              <Button onClick={handleClose2} color="warning">
                 CANCEL
               </Button>
             </DialogActions>

@@ -18,7 +18,7 @@ import { UPDATE_USER_IMAGE } from "../../graphql/mutations";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { clientAuth, clientUpload } from "../../graphql/client";
 import { useContext } from "react";
-import { blue } from "@mui/material/colors";
+import { purple } from "@mui/material/colors";
 import { USER_REGISTER } from "../../graphql/queries";
 import { GrowTransition } from "../../containers/Verify";
 import MediaQuery from "react-responsive";
@@ -69,6 +69,7 @@ export const AuthButton = (props) => {
         </Snackbar>
       )}
       <Button
+      color="warning"
         type="submit"
         fullWidth
         variant="contained"
@@ -87,7 +88,7 @@ export const AuthButton = (props) => {
         <CircularProgress
           size={20}
           sx={{
-            color: blue[500],
+            color: purple[500],
             position: "absolute",
             left: "50%",
             mt: 4,
@@ -192,6 +193,7 @@ export const EditProfile = memo(() => {
               size="medium"
               sx={{ mt: 10 }}
               onClick={handleClickOpen}
+              color="warning"
             >
               Edit Profile
             </Button>
@@ -201,6 +203,7 @@ export const EditProfile = memo(() => {
               variant="outlined"
               align="center"
               size="small"
+              color="warning"
               sx={{ mt: 10 }}
               onClick={handleClickOpen}
             >
@@ -237,10 +240,10 @@ export const EditProfile = memo(() => {
           />
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
-          <Button onClick={handleUpdateImage} color="primary">
+          <Button onClick={handleUpdateImage} color="warning">
             UPDATE
           </Button>
-          <Button onClick={handleClickClose} color="primary">
+          <Button onClick={handleClickClose} color="warning">
             CANCEL
           </Button>
         </DialogActions>

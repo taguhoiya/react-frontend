@@ -5,6 +5,7 @@ import { EachMovieCard } from "../components/cards/EachMovieCard";
 import { useLocation, useParams } from "react-router-dom";
 import { EachMarkCard } from "../components/cards/EachMarkCard";
 import { Loader } from "../components/accessories/Loader";
+// import { Footer } from "../components/footers/Footer";
 
 export const mdTheme = createTheme();
 
@@ -15,11 +16,14 @@ export const Dashboard = memo(() => {
     <>
       <Loader state={false} />
       <ThemeProvider theme={mdTheme}>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", backgroundColor: "#eeecec" }}>
           {location === "/" && <EachMovieCard num={num} />}
           {location.includes("movie") && <EachMovieCard num={num} />}
           {location.includes("marks") && <EachMarkCard num={num} />}
         </Box>
+        {/* <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+          <Footer />
+        </Box> */}
       </ThemeProvider>
     </>
   );

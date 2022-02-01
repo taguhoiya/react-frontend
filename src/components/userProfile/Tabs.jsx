@@ -37,18 +37,61 @@ export const TabsBasic = memo(() => {
     <>
       <Loader state={false} />
       <MediaQuery query="(max-width: 768px)">
-        <Tabs value={value} onChange={handleChange} centered>
-          <Tab icon={<MarkIcon fontSize="small" />} label="Marks" {...a11yProps(0)} />
-          <Tab icon={<ClipIcon fontSize="small" />} label="Clips" {...a11yProps(1)} />
-          <Tab icon={<FavoriteIcon fontSize="small" />} label="Favos" {...a11yProps(2)} />
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          textColor="secondary"
+          indicatorColor="secondary"
+        >
+          <Tab
+            size="small"
+            sx={{ color: "#000000" }}
+            icon={<MarkIcon color="secondary" fontSize="small" />}
+            label="Marks"
+            {...a11yProps(0)}
+          />
+          <Tab
+            sx={{ color: "#000000" }}
+            icon={<ClipIcon color="secondary" fontSize="small" />}
+            label="Clips"
+            {...a11yProps(1)}
+          />
+          <Tab
+            sx={{ color: "#000000" }}
+            icon={<FavoriteIcon color="secondary" fontSize="small" />}
+            label="Favos"
+            {...a11yProps(2)}
+          />
         </Tabs>
       </MediaQuery>
 
       <MediaQuery query="(min-width: 768px)">
-        <Tabs value={value} onChange={handleChange} centered>
-          <Tab icon={<MarkIcon />} label="Marks" {...a11yProps(0)} />
-          <Tab icon={<ClipIcon />} label="Clips" {...a11yProps(1)} />
-          <Tab icon={<FavoriteIcon />} label="Favos" {...a11yProps(2)} />
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          textColor="secondary"
+          indicatorColor="secondary"
+        >
+          <Tab
+            sx={{ color: "#000000" }}
+            icon={<MarkIcon color="secondary" />}
+            label="Marks"
+            {...a11yProps(0)}
+          />
+          <Tab
+            sx={{ color: "#000000" }}
+            icon={<ClipIcon color="secondary" />}
+            label="Clips"
+            {...a11yProps(1)}
+          />
+          <Tab
+            sx={{ color: "#000000" }}
+            icon={<FavoriteIcon color="secondary" />}
+            label="Favos"
+            {...a11yProps(2)}
+          />
         </Tabs>
       </MediaQuery>
 

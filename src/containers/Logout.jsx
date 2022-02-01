@@ -43,6 +43,7 @@ export const Logout = memo((props) => {
         variant="contained"
         sx={{ mx: "6px", borderRadius: "8px" }}
         onClick={handleClickOpen}
+        color="warning"
       >
         LOGOUT
       </Button>
@@ -57,10 +58,10 @@ export const Logout = memo((props) => {
           Are you sure?
         </DialogTitle>
         <DialogActions sx={{ margin: "auto" }}>
-          <Button onClick={logout} color="primary">
+          <Button onClick={logout} color="warning">
             LOGOUT
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="warning">
             CANCEL
           </Button>
         </DialogActions>

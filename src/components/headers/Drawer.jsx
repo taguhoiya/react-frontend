@@ -13,7 +13,7 @@ export const DrawerStyle = styled(MuiDrawer, { shouldForwardProp: (prop) => prop
       position: "relative",
       whiteSpace: "nowrap",
       width: drawerWidth,
-      backgroundColor: "#e6edf5",
+      backgroundColor: "#fff",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,

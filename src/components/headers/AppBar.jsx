@@ -49,7 +49,7 @@ export const ToolBarModi = memo((props) => {
       <Toolbar
         sx={{
           pr: "24px",
-          backgroundColor: "#e6edf5",
+          backgroundColor: "#fff",
         }}
       >
         <IconButton
@@ -84,11 +84,12 @@ export const ToolBarModi = memo((props) => {
           </Typography>
           <IconButton color="inherit" open={openForm} onClick={handleClick}>
             <Badge color="secondary">
-              <SearchIcon onClick={handleClickSearch} />
+              <SearchIcon onClick={handleClickSearch} color="black" />
             </Badge>
           </IconButton>
           <form onSubmit={handleClickSearch}>
             <TextField
+              color="warning"
               label="Find Movie?"
               variant="outlined"
               size="small"
@@ -119,7 +120,7 @@ export const ToolBarModi = memo((props) => {
             <>
               <IconButton color="inherit" open={openForm} onClick={handleClick}>
                 <Badge color="secondary">
-                  <SearchIcon size="small" />
+                  <SearchIcon size="small" color="black" />
                 </Badge>
               </IconButton>
               <Logout size="small" />
@@ -128,7 +129,7 @@ export const ToolBarModi = memo((props) => {
             <>
               <IconButton color="inherit" open={openForm} onClick={handleClick}>
                 <Badge color="secondary">
-                  <SearchIcon size="small" />
+                  <SearchIcon size="small" color="black" />
                 </Badge>
               </IconButton>
               <form onSubmit={handleClickSearch}>

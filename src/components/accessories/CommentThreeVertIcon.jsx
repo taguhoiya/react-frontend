@@ -123,10 +123,10 @@ export const CommentThreeVertIcon = (props) => {
               Are you sure?
             </DialogTitle>
             <DialogActions sx={{ margin: "auto" }}>
-              <Button onClick={handleDeleteComm} color="primary">
+              <Button onClick={handleDeleteComm} color="warning">
                 DELETE
               </Button>
-              <Button onClick={handleClose2} color="primary">
+              <Button onClick={handleClose2} color="warning">
                 CANCEL
               </Button>
             </DialogActions>

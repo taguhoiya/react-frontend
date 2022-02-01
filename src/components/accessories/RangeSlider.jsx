@@ -77,6 +77,7 @@ export const InputSlider = memo((props) => {
             value={typeof value === "number" ? value : 0}
             onChange={handleSliderChange}
             marks={marks}
+            color="warning"
           />
         </Grid>
         <Grid item>
@@ -85,6 +86,7 @@ export const InputSlider = memo((props) => {
             size="small"
             onChange={handleInputChange}
             onBlur={handleBlur}
+            color="warning"
             inputProps={{
               step: 0.1,
               min: 0,

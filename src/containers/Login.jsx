@@ -19,7 +19,7 @@ import { Copyright } from "../components/accessories/Copyright";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { Alert, Button, CircularProgress, Snackbar } from "@mui/material";
 import { GrowTransition } from "./Verify.jsx";
-import { blue } from "@mui/material/colors";
+import { purple } from "@mui/material/colors";
 
 const theme = createTheme();
 
@@ -134,10 +134,12 @@ export const Login = memo(() => {
                 }
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" color="warning" />}
                 label="Remember me"
+
               />
               <Button
+              color="warning"
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -156,7 +158,7 @@ export const Login = memo(() => {
                 <CircularProgress
                   size={20}
                   sx={{
-                    color: blue[500],
+                    color: purple[500],
                     position: "absolute",
                     left: "50%",
                     mt: 4,
@@ -170,7 +172,7 @@ export const Login = memo(() => {
                   </Link> */}
                 </Grid>
                 <Grid item>
-                  <Link href="register" variant="body2">
+                  <Link href="register" variant="body2" >
                     {"Don't have an account? Register"}
                   </Link>
                 </Grid>

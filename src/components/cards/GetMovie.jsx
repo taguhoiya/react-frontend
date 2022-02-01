@@ -75,7 +75,7 @@ export const GetMovie = memo((props) => {
         <Loader state={false} />
         {ary.map((ary, index) => (
           <Grid item lg={5.5} md={5} sm={12} xs={12} key={index} my={4}>
-            <Card className="card-box" sx={{ backgroundColor: "#e6edf5c5", marginLeft: 2 }}>
+            <Card className="card-box" sx={{ backgroundColor: "#fff", marginLeft: 2 }}>
               <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                 <MediaQuery query="(min-width: 550px)">
                   <Grid item md={0.5} sm={1.5} xs={0.5} />
