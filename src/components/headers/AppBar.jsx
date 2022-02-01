@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import MediaQuery from "react-responsive";
 import { MovieCardContext } from "../providers/MovieCardProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../images/stock-photos/messageImage_1643716270607.png";
+import logo from "../../images/HatchfulExport-All/logo_transparent copy 2.png";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -67,7 +67,7 @@ export const ToolBarModi = memo((props) => {
 
         <MediaQuery query="(min-width: 550px)">
           <Link to="/">
-            <img src={logo} style={{ height: 30 }} />
+            <img src={logo} style={{ height: 60 }} />
           </Link>
           <Typography
             component="h1"
