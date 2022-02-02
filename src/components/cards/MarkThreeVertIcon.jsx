@@ -48,7 +48,6 @@ export const MarkThreeVertIcon = memo((props) => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
-  console.log(refetchDash ? "ほげ" : "ああああ");
   const handleDelete = useCallback(() => {
     setOpenB(true);
     deleteMark();
