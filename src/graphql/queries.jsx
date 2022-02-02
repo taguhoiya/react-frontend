@@ -88,6 +88,16 @@ export const USER_INFO_TOP_PAGE = gql`
   query ($id: Int!) {
     publicUser(id: $id) {
       id
+      followingUser {
+        id
+        nickname
+        path
+      }
+      followerUser {
+        id
+        nickname
+        path
+      }
       marks {
         id
         movieId
@@ -112,6 +122,7 @@ export const USER_INFO = gql`
       id
       nickname
       path
+      selfIntro
       marks {
         id
         content
@@ -160,6 +171,16 @@ export const USER_INFO = gql`
       clips {
         id
         movieId
+      }
+      followingUser {
+        id
+        nickname
+        path
+      }
+      followerUser {
+        id
+        nickname
+        path
       }
     }
   }

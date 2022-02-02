@@ -48,15 +48,18 @@ export const MarkThreeVertIcon = memo((props) => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+  console.log(refetchDash ? "ほげ" : "ああああ");
   const handleDelete = useCallback(() => {
     setOpenB(true);
     deleteMark();
-    refetchDash ? refetchU() : refetch();
+    handleClose2();
+    handleClose();
   }, []);
   const handleCloseBar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
+    refetchDash ? refetchU() : refetch();
     handleCloseSnack();
   };
   if (parseInt(userId) === authState.id)

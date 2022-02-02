@@ -12,12 +12,13 @@ export const UserInfoProvider = memo((props) => {
   const params = useParams().userId;
   const { loading, error, data, refetch } = useQuery(USER_INFO, {
     variables: { id: parseInt(params) },
+    fetchPolicy: "no-cache",
   });
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (data) {
     const user = data.publicUser;
-    const { favorites, marks, clips, nickname } = user;
+    const { favorites, marks, clips, nickname, selfIntro, followerUser, followingUser } = user;
     const markSub = [...marks];
     const marksModi = markSub.sort(function (a, b) {
       return a.movieId - b.movieId;
@@ -48,6 +49,9 @@ export const UserInfoProvider = memo((props) => {
           refetch,
           favoredMarks,
           clippedMovieIds,
+          followerUser,
+          followingUser,
+          selfIntro,
         }}
       >
         {children}

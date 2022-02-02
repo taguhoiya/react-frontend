@@ -14,6 +14,7 @@ export const LoggedUserInfoProvider = memo((props) => {
     loading,
     error,
     data: authData,
+    refetch: refetchLog,
   } = useQuery(USER_INFO_TOP_PAGE, {
     variables: { id: loggedUserId },
   });
@@ -21,18 +22,27 @@ export const LoggedUserInfoProvider = memo((props) => {
   if (error) return `Error ${error.message}`;
   if (authData) {
     const user = authData.publicUser;
-    const { favorites: LoggedFavos, marks: LoggedMarks, clips: LoggedClips } = user;
+    const {
+      favorites: LoggedFavos,
+      marks: LoggedMarks,
+      clips: LoggedClips,
+      followerUser,
+      followingUser,
+    } = user;
     const LoggedFavoMarkIds = LoggedFavos.map((favo) => favo.mark.id);
     const LoggedClipMovieIds = LoggedClips.map((clip) => clip.movieId);
     return (
       <LoggedUserInfoContext.Provider
         value={{
           user,
+          refetchLog,
           LoggedFavos,
           LoggedFavoMarkIds,
           LoggedMarks,
           LoggedClips,
           LoggedClipMovieIds,
+          followerUser,
+          followingUser,
         }}
       >
         {children}

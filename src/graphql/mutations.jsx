@@ -1,12 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const UPDATE_USER_IMAGE = gql`
-  mutation ($id: ID!, $image: Upload, $nickname: String!) {
-    updateUserImage(input: { id: $id, image: $image, nickname: $nickname }) {
+  mutation ($id: ID!, $image: Upload, $nickname: String!, $selfIntro: String!) {
+    updateUserImage(input: { id: $id, image: $image, nickname: $nickname, selfIntro: $selfIntro }) {
       user {
         id
         nickname
         image
+        selfIntro
       }
     }
   }
@@ -98,5 +99,47 @@ export const DELETE_COMMENT = gql`
 export const DELETE_MARK = gql`
   mutation ($id: ID!) {
     deleteMark(input: { id: $id })
+  }
+`;
+
+export const CREATE_FOLLOW = gql`
+  mutation ($followerId: ID!, $followedId: ID!) {
+    createFollow(input: { followerId: $followerId, followedId: $followedId }) {
+      follower {
+        id
+        nickname
+        followingUser {
+          id
+        }
+      }
+      followed {
+        id
+        nickname
+        followingUser {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const DELETE_FOLLOW = gql`
+  mutation ($followerId: ID!, $followedId: ID!) {
+    deleteFollow(input: { followerId: $followerId, followedId: $followedId }) {
+      follower {
+        id
+        nickname
+        followingUser {
+          id
+        }
+      }
+      followed {
+        id
+        nickname
+        followingUser {
+          id
+        }
+      }
+    }
   }
 `;

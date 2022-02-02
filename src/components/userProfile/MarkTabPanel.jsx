@@ -86,6 +86,7 @@ export const MarkTabPanel = memo(() => {
                               sx={{
                                 ml: 1,
                                 pt: 2,
+                                maxWidth: 150,
                                 fontFamily: "arial, sans-serif",
                                 color: "black",
                                 overflow: "hidden",
@@ -138,8 +139,9 @@ export const MarkTabPanel = memo(() => {
                           <Link to={`/user/${ary.userId}/profile`}>
                             <Typography
                               sx={{
-                                ml: 1,
+                                ml: 0.4,
                                 pt: 1.5,
+                                maxWidth: 70,
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",

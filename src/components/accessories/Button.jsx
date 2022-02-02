@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Dropdown } from "../userProfile/Dropdowns";
 import { useMutation } from "@apollo/client";
-import { UPDATE_USER_IMAGE } from "../../graphql/mutations";
+import { CREATE_FOLLOW, DELETE_FOLLOW, UPDATE_USER_IMAGE } from "../../graphql/mutations";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { clientAuth, clientUpload } from "../../graphql/client";
 import { useContext } from "react";
@@ -23,6 +23,7 @@ import { USER_REGISTER } from "../../graphql/queries";
 import { GrowTransition } from "../../containers/Verify";
 import MediaQuery from "react-responsive";
 import { UserInfoContext } from "../providers/UserInfoProvider";
+import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
 
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation } = props;
@@ -117,14 +118,20 @@ export const AuthHeaderButton = memo((props) => {
 });
 
 export const EditProfile = memo(() => {
-  const { nickname, src, params } = useContext(UserInfoContext);
+  const { nickname, src, selfIntro, refetch } = useContext(UserInfoContext);
   const { authState } = useContext(UserAuthContext);
   const [open, setOpen] = useState(false);
   const [openB, setOpenB] = useState(true);
   const [nameState, setNameState] = useState(nickname);
+  const [selfIntState, setSelfIntState] = useState(selfIntro);
   const [imageState, setImageState] = useState(src);
   const [updateUserImage, { data, error }] = useMutation(UPDATE_USER_IMAGE, {
-    variables: { image: imageState.postImage, id: authState.id, nickname: nameState },
+    variables: {
+      image: imageState.postImage,
+      id: authState.id,
+      nickname: nameState,
+      selfIntro: selfIntState,
+    },
     client: clientUpload,
     update: (_proxy, response) => {
       if (!response.errors) {
@@ -143,7 +150,7 @@ export const EditProfile = memo(() => {
       return;
     }
     setOpenB(false);
-    window.location.reload();
+    refetch();
   };
   const handleCloseB = (event, reason) => {
     if (reason === "clickaway") {
@@ -174,44 +181,38 @@ export const EditProfile = memo(() => {
       {!data ? null : (
         <Snackbar
           open={openB}
-          autoHideDuration={2000}
+          autoHideDuration={1000}
           onClose={handleCloseS}
           TransitionComponent={GrowTransition}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="success" sx={{ width: "100%" }}>
-            Updated successfully!
+            Updated!
           </Alert>
         </Snackbar>
       )}
-      {authState.id == params ? (
-        <>
-          <MediaQuery query="(min-width: 768px)">
-            <Button
-              variant="outlined"
-              align="center"
-              size="medium"
-              sx={{ mt: 10 }}
-              onClick={handleClickOpen}
-              color="warning"
-            >
-              Edit Profile
-            </Button>
-          </MediaQuery>
-          <MediaQuery query="(max-width: 768px)">
-            <Button
-              variant="outlined"
-              align="center"
-              size="small"
-              color="warning"
-              sx={{ mt: 10 }}
-              onClick={handleClickOpen}
-            >
-              Edit Profile
-            </Button>
-          </MediaQuery>
-        </>
-      ) : null}
+      <MediaQuery query="(min-width: 768px)">
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={handleClickOpen}
+          color="warning"
+          sx={{ borderRadius: "4px" }}
+        >
+          Edit Profile
+        </Button>
+      </MediaQuery>
+      <MediaQuery query="(max-width: 768px)">
+        <Button
+          variant="outlined"
+          color="warning"
+          onClick={handleClickOpen}
+          size="small"
+          sx={{ borderRadius: "4px", height: 27 }}
+        >
+          Edit Profile
+        </Button>
+      </MediaQuery>
       <Dialog
         open={open}
         onClose={handleClickClose}
@@ -232,11 +233,23 @@ export const EditProfile = memo(() => {
             margin="dense"
             id="name"
             label="Update Nickname?"
-            type="email"
+            type="name"
             fullWidth
             variant="standard"
+            color="warning"
             defaultValue={nameState}
             onChange={(e) => setNameState(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            id="self-intro"
+            label="Update Self-introduction?"
+            type="text"
+            fullWidth
+            color="warning"
+            variant="standard"
+            defaultValue={selfIntState}
+            onChange={(e) => setSelfIntState(e.target.value)}
           />
         </DialogContent>
         <DialogActions sx={{ margin: "auto" }}>
@@ -248,6 +261,54 @@ export const EditProfile = memo(() => {
           </Button>
         </DialogActions>
       </Dialog>
+    </>
+  );
+});
+
+export const FollowButton = memo((props) => {
+  const { authState } = useContext(UserAuthContext);
+  const { refetch } = useContext(UserInfoContext);
+  const { followingUser } = useContext(LoggedUserInfoContext);
+  const { user } = props;
+  const [follow] = useMutation(CREATE_FOLLOW, {
+    variables: { followerId: authState.id, followedId: parseInt(user.id) },
+  });
+  // const followerId = followerUser.map((user) => user.id)
+  const followingId = followingUser.map((user) => user.id);
+  const [unfollow] = useMutation(DELETE_FOLLOW, {
+    variables: { followerId: authState.id, followedId: parseInt(user.id) },
+  });
+  const clickFollow = useCallback(() => {
+    follow();
+    refetch();
+  }, []);
+  const clickUnfollow = useCallback(() => {
+    unfollow();
+    refetch();
+  }, []);
+  return (
+    <>
+      {followingId.includes(user.id) ? (
+        <Button
+          size="small"
+          variant="outlined"
+          sx={{ borderRadius: "4px" }}
+          color="warning"
+          onClick={clickUnfollow}
+        >
+          Unfollow
+        </Button>
+      ) : (
+        <Button
+          size="small"
+          variant="contained"
+          sx={{ borderRadius: "4px" }}
+          color="warning"
+          onClick={clickFollow}
+        >
+          Follow
+        </Button>
+      )}
     </>
   );
 });

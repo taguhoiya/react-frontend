@@ -7,12 +7,13 @@ import { red } from "@mui/material/colors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { UserInfoContext } from "../components/providers/UserInfoProvider";
 import { DashBoardContext } from "../components/providers/DashBoardProvider";
+import { LoggedUserInfoContext } from "../components/providers/LoggedUserInfoProvider";
 
 export const CreateFavoIcon = (props) => {
   const { favoSum, auth, markStrId, favoBool, fontSize } = props;
   const { refetch } = useContext(UserInfoContext);
   const { refetchU, refetchDash } = useContext(DashBoardContext);
-
+  const { refetchLog } = useContext(LoggedUserInfoContext);
   const [count, countSetState] = useState(favoSum);
   const [favored, favoSetState] = useState(favoBool);
   const userId = auth;
@@ -28,12 +29,14 @@ export const CreateFavoIcon = (props) => {
     favoSetState((prev) => !prev);
     createFavo();
     refetchDash ? refetchU() : refetch();
+    refetchLog();
   }, []);
   const unClickFavo = useCallback(() => {
     countSetState((prev) => prev - 1);
     favoSetState((prev) => !prev);
     deleteFavo();
     refetchDash ? refetchU() : refetch();
+    refetchLog();
   }, []);
 
   return (
