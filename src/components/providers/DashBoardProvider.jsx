@@ -20,12 +20,15 @@ export const DashBoardProvider = memo((props) => {
   if (loading) return <Loader state={true} />;
   if (error) return `Error ${error.message}`;
   if (dataU) {
+    const { activeNotifications: notifyDash, passiveNotifications: notifyDashP } = dataU.publicUser;
     return (
       <DashBoardContext.Provider
         value={{
           refetchU,
           dataU,
           refetchDash: true,
+          notifyDash,
+          notifyDashP,
         }}
       >
         {children}

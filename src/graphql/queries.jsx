@@ -112,6 +112,36 @@ export const USER_INFO_TOP_PAGE = gql`
           id
         }
       }
+      activeNotifications {
+        id
+        action
+        checked
+        updatedAt
+      }
+      passiveNotifications {
+        id
+        action
+        checked
+        updatedAt
+        visitor {
+          id
+          nickname
+          path
+        }
+        visited {
+          id
+          nickname
+          path
+        }
+        mark {
+          id
+          content
+        }
+        comment {
+          id
+          content
+        }
+      }
     }
   }
 `;

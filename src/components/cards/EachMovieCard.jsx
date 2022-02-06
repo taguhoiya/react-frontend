@@ -44,172 +44,156 @@ export const EachMovieCard = memo(() => {
       </AppBar>
       <DrawerModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
       <MediaQuery query="(max-width: 550px)">
-        <Box
-          component="main"
-          sx={{
-            display: "flex",
-            width: "100%",
-          }}
-        >
-          <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
-            {!formState ? (
-              <>
-                <h2>HOT MOVIE</h2>
-                <Box display="flex" justifyContent="flex-end" sx={{ m: 2 }}>
-                  <SelectBox params={params} setParams={setParams} />
-                </Box>
-              </>
+        <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
+          {!formState ? (
+            <>
+              <h2>HOT MOVIE</h2>
+              <Box display="flex" justifyContent="flex-end" sx={{ m: 2 }}>
+                <SelectBox params={params} setParams={setParams} />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box sx={{ mt: 1 }} display="flex">
+                <Typography fontSize={13} sx={{ mt: 1.1 }}>
+                  Searched by "{formState}"&nbsp;&nbsp;-
+                </Typography>
+                &nbsp;
+                <Typography fontSize={23} sx={{ fontWeight: "bold" }}>
+                  {data.searchMovies.totalCount}
+                </Typography>
+                <Typography fontSize={11} sx={{ mt: 1.8 }}>
+                  &nbsp;results
+                </Typography>
+              </Box>
+              <Box display="flex" justifyContent="flex-end" sx={{ m: 2 }}>
+                <SelectBox params={params} setParams={setParams} />
+              </Box>
+            </>
+          )}
+          <Grid
+            container
+            columnSpacing={2}
+            rowSpacing={3}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {!movies[0] ? (
+              <SubLoader state={true} />
             ) : (
-              <>
-                <Box sx={{ mt: 1 }} display="flex">
-                  <Typography fontSize={13} sx={{ mt: 1.1 }}>
-                    Searched by "{formState}"&nbsp;&nbsp;-
-                  </Typography>
-                  &nbsp;
-                  <Typography fontSize={23} sx={{ fontWeight: "bold" }}>
-                    {data.searchMovies.totalCount}
-                  </Typography>
-                  <Typography fontSize={11} sx={{ mt: 1.8 }}>
-                    &nbsp;results
-                  </Typography>
-                </Box>
-                <Box display="flex" justifyContent="flex-end" sx={{ m: 2 }}>
-                  <SelectBox params={params} setParams={setParams} />
-                </Box>
-              </>
-            )}
-            <Grid
-              container
-              columnSpacing={2}
-              rowSpacing={3}
-              direction="row"
-              alignItems="center"
-              justifyContent="center"
-            >
-              {!movies[0] ? (
-                <SubLoader state={true} />
-              ) : (
-                ary.map((info, index) => (
-                  <Grid item key={index}>
-                    <CustomCard
-                      classes={styles}
-                      image={stock1}
-                      info={info}
-                      movie={info.movie}
-                      size="large"
-                      ave={info.ave}
-                      markSum={info.markSum}
-                      initialState={info.initialState}
-                      clipSum={info.clipSum}
-                      movieName={info.movie.movieName}
-                      movieId={info.movie.id}
-                      star={true}
-                    />
-                  </Grid>
-                ))
-              )}
-              {!movies[0] ? null : (
-                <Grid container py={2}>
-                  <Grid
-                    mt={3}
-                    sx={{
-                      position: "relative",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    <BasicPagination page={page} setPage={setPage} count={count} />
-                  </Grid>
+              ary.map((info, index) => (
+                <Grid item key={index}>
+                  <CustomCard
+                    classes={styles}
+                    image={stock1}
+                    info={info}
+                    movie={info.movie}
+                    size="large"
+                    ave={info.ave}
+                    markSum={info.markSum}
+                    initialState={info.initialState}
+                    clipSum={info.clipSum}
+                    movieName={info.movie.movieName}
+                    movieId={info.movie.id}
+                    star={true}
+                  />
                 </Grid>
-              )}
-            </Grid>
-          </Container>
-        </Box>
+              ))
+            )}
+            {!movies[0] ? null : (
+              <Grid container py={2}>
+                <Grid
+                  mt={3}
+                  sx={{
+                    position: "relative",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <BasicPagination page={page} setPage={setPage} count={count} />
+                </Grid>
+              </Grid>
+            )}
+          </Grid>
+        </Container>
       </MediaQuery>
       <MediaQuery query="(min-width: 550px)">
-        <Box
-          component="main"
-          sx={{
-            display: "flex",
-            width: "100%",
-          }}
-        >
-          <Container maxWidth="xl" sx={{ mt: 12, mb: 4, ml: 4 }}>
-            {!formState ? (
-              <>
-                <h1>HOT MOVIE</h1>
-                <Box display="flex" justifyContent="flex-end">
-                  <SelectBox params={params} setParams={setParams} />
-                </Box>
-              </>
-            ) : (
-              <>
-                <Box sx={{ mt: 5, ml: 5 }} display="flex">
-                  <Typography fontSize={20} sx={{ mt: 1.0 }}>
-                    Searched by "{formState}"&nbsp;&nbsp;-
-                  </Typography>
-                  &nbsp; &nbsp;
-                  <Typography fontSize={30} sx={{ fontWeight: "bold" }}>
-                    {data.searchMovies.totalCount}{" "}
-                  </Typography>
-                  <Typography fontSize={15} sx={{ mt: 2 }}>
-                    &nbsp;&nbsp;results
-                  </Typography>
-                </Box>
-                <Box display="flex" justifyContent="flex-end">
-                  <SelectBox params={params} setParams={setParams} />
-                </Box>
-              </>
-            )}
+        <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
+          {!formState ? (
+            <>
+              <h1>HOT MOVIE</h1>
+              <Box display="flex" justifyContent="flex-end">
+                <SelectBox params={params} setParams={setParams} />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box sx={{ mt: 5, ml: 5 }} display="flex">
+                <Typography fontSize={20} sx={{ mt: 1.0 }}>
+                  Searched by "{formState}"&nbsp;&nbsp;-
+                </Typography>
+                &nbsp; &nbsp;
+                <Typography fontSize={30} sx={{ fontWeight: "bold" }}>
+                  {data.searchMovies.totalCount}{" "}
+                </Typography>
+                <Typography fontSize={15} sx={{ mt: 2 }}>
+                  &nbsp;&nbsp;results
+                </Typography>
+              </Box>
+              <Box display="flex" justifyContent="flex-end">
+                <SelectBox params={params} setParams={setParams} />
+              </Box>
+            </>
+          )}
 
-            <Grid
-              container
-              mt={0}
-              columnSpacing={2}
-              rowSpacing={3}
-              direction="row"
-              alignItems="center"
-              justifyContent="center"
-            >
-              {!movies[0] ? (
-                <SubLoader state={true} />
-              ) : (
-                ary.map((info, index) => (
-                  <Grid item key={index}>
-                    <CustomCard
-                      classes={styles}
-                      image={stock1}
-                      info={info}
-                      movie={info.movie}
-                      size="large"
-                      ave={info.ave}
-                      markSum={info.markSum}
-                      initialState={info.initialState}
-                      clipSum={info.clipSum}
-                      movieName={info.movie.movieName}
-                      movieId={info.movie.id}
-                      star={true}
-                    />
-                  </Grid>
-                ))
-              )}
-              {!movies[0] ? null : (
-                <Grid container py={2}>
-                  <Grid
-                    mt={5}
-                    sx={{
-                      position: "relative",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    <BasicPagination page={page} setPage={setPage} count={count} />
-                  </Grid>
+          <Grid
+            container
+            mt={0}
+            columnSpacing={2}
+            rowSpacing={3}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {!movies[0] ? (
+              <SubLoader state={true} />
+            ) : (
+              ary.map((info, index) => (
+                <Grid item key={index}>
+                  <CustomCard
+                    classes={styles}
+                    image={stock1}
+                    info={info}
+                    movie={info.movie}
+                    size="large"
+                    ave={info.ave}
+                    markSum={info.markSum}
+                    initialState={info.initialState}
+                    clipSum={info.clipSum}
+                    movieName={info.movie.movieName}
+                    movieId={info.movie.id}
+                    star={true}
+                  />
                 </Grid>
-              )}
-            </Grid>
-          </Container>
-        </Box>
+              ))
+            )}
+            {!movies[0] ? null : (
+              <Grid container py={2}>
+                <Grid
+                  mt={5}
+                  sx={{
+                    position: "relative",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <BasicPagination page={page} setPage={setPage} count={count} />
+                </Grid>
+              </Grid>
+            )}
+          </Grid>
+        </Container>
       </MediaQuery>
     </>
   );

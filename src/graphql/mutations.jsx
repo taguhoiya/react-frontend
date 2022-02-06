@@ -143,3 +143,13 @@ export const DELETE_FOLLOW = gql`
     }
   }
 `;
+
+export const UPDATE_NOTI_CHECK = gql`
+  mutation ($ids: [ID!]!) {
+    updateNotiCheck(input: { ids: $ids }) {
+      notifications {
+        id
+      }
+    }
+  }
+`;

@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import { Badge, IconButton, TextField, Toolbar, Typography } from "@mui/material";
+import { Badge, IconButton, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Logout } from "../../containers/Logout";
 import { memo, useCallback, useContext, useRef, useState } from "react";
@@ -10,7 +10,7 @@ import MediaQuery from "react-responsive";
 import { MovieCardContext } from "../providers/MovieCardProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/HatchfulExport-All/logo_transparent copy 2.png";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import { NotificationButton } from "../accessories/Button";
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -47,26 +47,25 @@ export const ToolBarModi = memo((props) => {
   };
   return (
     <>
-      <Toolbar
-        sx={{
-          pr: "24px",
-          backgroundColor: "#fff",
-        }}
-      >
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={toggleDrawer}
+      <MediaQuery query="(min-width: 550px)">
+        <Toolbar
           sx={{
-            marginRight: "36px",
-            ...(open && { display: "none" }),
+            pr: "24px",
+            backgroundColor: "#fff",
           }}
         >
-          <MenuIcon />
-        </IconButton>
-
-        <MediaQuery query="(min-width: 550px)">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            sx={{
+              marginRight: "36px",
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Link to="/">
             <img src={logo} style={{ height: 60 }} />
           </Link>
@@ -85,25 +84,25 @@ export const ToolBarModi = memo((props) => {
           </Typography>
           {openForm === false ? (
             <>
-              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mx: 1 }}>
-                <Badge color="secondary">
-                  <SearchIcon onClick={handleClickSearch} color="black" />
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mr: 2 }}>
-                <Badge color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              <Tooltip title="Find Movie">
+                <IconButton color="inherit" open={openForm} onClick={handleClick}>
+                  <Badge color="secondary">
+                    <SearchIcon onClick={handleClickSearch} color="black" />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <NotificationButton />
               <Logout />
             </>
           ) : (
             <>
-              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mx: 1 }}>
-                <Badge color="secondary">
-                  <SearchIcon onClick={handleClickSearch} color="black" />
-                </Badge>
-              </IconButton>
+              <Tooltip title="Close Search Form">
+                <IconButton color="inherit" open={openForm} onClick={handleClick}>
+                  <Badge color="secondary">
+                    <SearchIcon onClick={handleClickSearch} color="black" />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
               <form onSubmit={handleClickSearch}>
                 <TextField
                   color="warning"
@@ -115,25 +114,41 @@ export const ToolBarModi = memo((props) => {
                   sx={{ mx: 1, width: 250 }}
                 />
               </form>
-              <IconButton color="inherit" open={openForm} onClick={handleClick} sx={{ mr: 2 }}>
-                <Badge color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              <NotificationButton />
               <Logout />
             </>
           )}
-        </MediaQuery>
-        <MediaQuery query="(max-width: 550px)">
+        </Toolbar>
+      </MediaQuery>
+      <MediaQuery query="(max-width: 550px)">
+        <Toolbar
+          sx={{
+            pr: "8px",
+            backgroundColor: "#fff",
+          }}
+        >
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            size="small"
+            sx={{
+              marginRight: "10px",
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Link to="/">
-            <img src={logo} style={{ height: 30 }} />
+            <img src={logo} style={{ height: 40 }} />
           </Link>
           <Typography
             component="h3"
             color="inherit"
             noWrap
             sx={{
-              ml: 0.5,
+              ml: 0.3,
               flexGrow: 1,
               fontFamily: `"Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif`,
             }}
@@ -142,21 +157,17 @@ export const ToolBarModi = memo((props) => {
           </Typography>
           {openForm === false ? (
             <>
-              <IconButton color="inherit" open={openForm} onClick={handleClick}>
+              <IconButton color="inherit" open={openForm} onClick={handleClick} size="small">
                 <Badge color="secondary">
                   <SearchIcon size="small" color="black" />
                 </Badge>
               </IconButton>
-              <IconButton color="inherit" open={openForm} onClick={handleClick}>
-                <Badge color="secondary">
-                  <NotificationsIcon size="small" />
-                </Badge>
-              </IconButton>
+              <NotificationButton />
               <Logout size="small" />
             </>
           ) : (
             <>
-              <IconButton color="inherit" open={openForm} onClick={handleClick}>
+              <IconButton color="inherit" open={openForm} onClick={handleClick} size="small">
                 <Badge color="secondary">
                   <SearchIcon size="small" color="black" />
                 </Badge>
@@ -171,10 +182,11 @@ export const ToolBarModi = memo((props) => {
                   inputRef={inputEl}
                 />
               </form>
+              <NotificationButton />
             </>
           )}
-        </MediaQuery>
-      </Toolbar>
+        </Toolbar>
+      </MediaQuery>
     </>
   );
 });

@@ -1,7 +1,6 @@
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useCallback } from "react";
 import { OutlinedInput, Typography } from "@mui/material";
 import MediaQuery from "react-responsive";
 
@@ -46,9 +45,9 @@ export const SelectBox = (props) => {
     },
   };
 
-  const handleChange = useCallback((event) => {
+  const handleChange = (event) => {
     setParams(event.target.value);
-  }, []);
+  };
 
   return (
     <>
@@ -66,7 +65,7 @@ export const SelectBox = (props) => {
             MenuProps={MenuProps}
           >
             <MenuItem value="">
-              <em>Wanna search by category?</em>
+              <em>Search by category?</em>
             </MenuItem>
             {cateArr.map((cate, index) => {
               return (
@@ -79,7 +78,7 @@ export const SelectBox = (props) => {
         </FormControl>
       </MediaQuery>
       <MediaQuery query="(max-width: 550px)">
-        <FormControl sx={{ width: 150, position: "relative", mb: 1 }} size="small" color="success">
+        <FormControl sx={{ width: 150, position: "relative", mb: 1 }} size="small" color="warning">
           <Select
             value={params}
             onChange={handleChange}

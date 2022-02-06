@@ -28,6 +28,8 @@ export const LoggedUserInfoProvider = memo((props) => {
       clips: LoggedClips,
       followerUser,
       followingUser,
+      activeNotifications: notifyLogged,
+      passiveNotifications: notifyLoggedP,
     } = user;
     const LoggedFavoMarkIds = LoggedFavos.map((favo) => favo.mark.id);
     const LoggedClipMovieIds = LoggedClips.map((clip) => clip.movieId);
@@ -43,6 +45,8 @@ export const LoggedUserInfoProvider = memo((props) => {
           LoggedClipMovieIds,
           followerUser,
           followingUser,
+          notifyLogged,
+          notifyLoggedP,
         }}
       >
         {children}

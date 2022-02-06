@@ -1,20 +1,35 @@
 import Button from "@mui/material/Button";
 import { memo, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Alert,
   Avatar,
+  Badge,
+  Box,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Menu,
   Snackbar,
   TextField,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import { Dropdown } from "../userProfile/Dropdowns";
 import { useMutation } from "@apollo/client";
-import { CREATE_FOLLOW, DELETE_FOLLOW, UPDATE_USER_IMAGE } from "../../graphql/mutations";
+import {
+  CREATE_FOLLOW,
+  DELETE_FOLLOW,
+  UPDATE_NOTI_CHECK,
+  UPDATE_USER_IMAGE,
+} from "../../graphql/mutations";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { clientAuth, clientUpload } from "../../graphql/client";
 import { useContext } from "react";
@@ -24,6 +39,11 @@ import { GrowTransition } from "../../containers/Verify";
 import MediaQuery from "react-responsive";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { DashBoardContext } from "../providers/DashBoardProvider";
+import defaultImage from "../../images/stock-photos/blank-profile-picture-gc8f506528_1280.png";
+import Scrollbars from "react-custom-scrollbars-2";
+import { Link } from "react-router-dom";
 
 export const AuthButton = (props) => {
   const { nickname, email, password, passwordConfirmation } = props;
@@ -48,8 +68,7 @@ export const AuthButton = (props) => {
       const { id } = response.data.userRegister.user;
       if (!response.errors) {
         window.alert("Sent Email. Please Confirm it!");
-        localStorage.setItem("id", parseInt(id));
-        setLoadingB(false);
+        localStorage.setItem("id", id);
       }
     },
   });
@@ -271,12 +290,12 @@ export const FollowButton = memo((props) => {
   const { followingUser } = useContext(LoggedUserInfoContext);
   const { user } = props;
   const [follow] = useMutation(CREATE_FOLLOW, {
-    variables: { followerId: authState.id, followedId: parseInt(user.id) },
+    variables: { followerId: authState.id, followedId: user.id },
   });
   // const followerId = followerUser.map((user) => user.id)
   const followingId = followingUser.map((user) => user.id);
   const [unfollow] = useMutation(DELETE_FOLLOW, {
-    variables: { followerId: authState.id, followedId: parseInt(user.id) },
+    variables: { followerId: authState.id, followedId: user.id },
   });
   const clickFollow = useCallback(() => {
     follow();
@@ -309,6 +328,181 @@ export const FollowButton = memo((props) => {
           Follow
         </Button>
       )}
+    </>
+  );
+});
+
+export const NotificationButton = memo(() => {
+  const { refetchDash, notifyDashP } = useContext(DashBoardContext);
+  const { notifyLoggedP } = useContext(LoggedUserInfoContext);
+  const { authState } = useContext(UserAuthContext);
+  const passiveNotifications = refetchDash ? notifyDashP : notifyLoggedP;
+  const noti = passiveNotifications.filter((noti) => !(parseInt(noti.visitor.id) === authState.id));
+  const check = noti.map((noti) => noti.checked);
+  const count = check.filter(function (x) {
+    return x === false;
+  }).length;
+  const [countState, setCountState] = useState(count);
+  const notiIds = noti.map((noti) => noti.id);
+  const orUserPaths = noti.map((noti) => noti.visitor.path);
+  const orNickNames = noti.map((noti) => noti.visitor.nickname);
+  const orIds = noti.map((noti) => parseInt(noti.visitor.id));
+  const commCont = noti.map((noti) => (!noti.comment ? null : noti.comment.content));
+  const action = noti.map((noti) => noti.action);
+  const [noticheck] = useMutation(UPDATE_NOTI_CHECK, {
+    variables: { ids: notiIds },
+  });
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = useCallback((event) => {
+    setAnchorEl(event.currentTarget);
+    !notiIds[0] ? null : noticheck();
+  }, []);
+  const handleClose = useCallback(() => {
+    setAnchorEl(null);
+    setCountState(0);
+  }, []);
+  const ary = noti.map((itemOfNoti, idx) => {
+    return {
+      edUserPath: orUserPaths[idx],
+      orNickName: orNickNames[idx],
+      orId: orIds[idx],
+      comment: commCont[idx],
+      action: action[idx],
+    };
+  });
+  return (
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center", mx: 2 }}>
+        <Tooltip title="Notifications">
+          <IconButton onClick={handleClick}>
+            <Badge color="secondary" badgeContent={countState} max={100}>
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            height: 0,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <Scrollbars autoHeight autoHeightMin={180} autoHeightMax={360}>
+          <List sx={{ bgcolor: "background.paper", width: 300 }}>
+            {!ary[0] ? (
+              <>
+                <Divider />
+                <ListItem
+                  key={ary.id}
+                  sx={{ fontStyle: "italic", fontWeight: "medium", width: 200, height: 240 }}
+                  textAlign="center"
+                >
+                  No notification!
+                </ListItem>
+                <Divider />
+              </>
+            ) : (
+              ary.map((ary) => {
+                return (
+                  <>
+                    <Divider />
+                    <ListItem key={ary.id} alignItems="flex-start">
+                      <ListItemAvatar size="large">
+                        <Link to={`/user/${ary.orId}/profile`}>
+                          <Avatar
+                            sx={{ width: 40, height: 40 }}
+                            alt={ary.orNickName}
+                            src={!ary.orUserPath ? defaultImage : ary.orUserPath}
+                          />
+                        </Link>
+                      </ListItemAvatar>
+                      {ary.action === "favo" ? (
+                        <ListItemText
+                          primary={
+                            <>
+                              <Typography fontSize="0.8rem" color="text.primary">
+                                <Link to={`/user/${ary.orId}/profile`} style={{ color: "#FF6700" }}>
+                                  {ary.orNickName}
+                                </Link>{" "}
+                                favored your mark.
+                              </Typography>
+                            </>
+                          }
+                        />
+                      ) : null}
+                      {ary.action === "comment" ? (
+                        <ListItemText
+                          primary={
+                            <>
+                              <Typography fontSize="0.8rem" color="text.primary">
+                                <Link to={`/user/${ary.orId}/profile`} style={{ color: "#FF6700" }}>
+                                  {ary.orNickName}
+                                </Link>{" "}
+                                commented your mark.
+                              </Typography>
+                            </>
+                          }
+                          secondary={
+                            <>
+                              <Typography fontSize="0.7rem" color="#7a7979">
+                                {ary.comment}
+                              </Typography>
+                            </>
+                          }
+                        />
+                      ) : null}
+                      {ary.action === "follow" ? (
+                        <ListItemText
+                          primary={
+                            <>
+                              <Typography fontSize="0.8rem" color="text.primary">
+                                <Link to={`/user/${ary.orId}/profile`} style={{ color: "#FF6700" }}>
+                                  {ary.orNickName}
+                                </Link>{" "}
+                                followed you.
+                              </Typography>
+                            </>
+                          }
+                        />
+                      ) : null}
+                    </ListItem>
+                  </>
+                );
+              })
+            )}
+          </List>
+        </Scrollbars>
+      </Menu>
     </>
   );
 });
