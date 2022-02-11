@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
 import { Verify } from "./containers/Verify.jsx";
@@ -12,6 +12,7 @@ import { UserInfoProvider } from "./components/providers/UserInfoProvider.jsx";
 import { DashBoardProvider } from "./components/providers/DashBoardProvider.jsx";
 import { LoggedUserInfoProvider } from "./components/providers/LoggedUserInfoProvider.jsx";
 import { MovieCardProvider } from "./components/providers/MovieCardProvider.jsx";
+import { CommentPop } from "./graphql/CommentPop.jsx";
 
 const options = {
   position: positions.MIDDLE,
@@ -20,18 +21,33 @@ const options = {
 const App = function () {
   return (
     <MovieCardProvider>
-      <BrowserRouter>
-        <Provider template={AlertMUITemplate} {...options}>
-          <Routes>
-            <Route exact path="/" element={<UnauthenticatedRoute />}>
-              <Route path="/" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </Route>
-            <Route path="/verify" element={<Verify />} />
-            <Route exact path="/" element={<AuthenticatedRoute />}>
+      <Provider template={AlertMUITemplate} {...options}>
+        <Routes>
+          <Route exact path="/" element={<UnauthenticatedRoute />}>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+          <Route path="/verify" element={<Verify />} />
+          <Route exact path="/" element={<AuthenticatedRoute />}>
+            <Route
+              path="/"
+              element={
+                <DashBoardProvider>
+                  <Dashboard />
+                </DashBoardProvider>
+              }
+            />
+            <Route
+              path="/movies/:num"
+              element={
+                <DashBoardProvider>
+                  <Dashboard />
+                </DashBoardProvider>
+              }
+            />
               <Route
-                path="/"
+                path="/marks/:num"
                 element={
                   <DashBoardProvider>
                     <Dashboard />
@@ -39,44 +55,38 @@ const App = function () {
                 }
               />
               <Route
-                path="movies/:num"
-                element={
-                  <DashBoardProvider>
-                    <Dashboard />
-                  </DashBoardProvider>
-                }
-              />
-              <Route
-                path="marks/:num"
-                element={
-                  <DashBoardProvider>
-                    <Dashboard />
-                  </DashBoardProvider>
-                }
-              />
-              <Route
-                path="user/:userId/profile"
+                path="/mark/:markId"
                 element={
                   <LoggedUserInfoProvider>
-                    <UserInfoProvider>
-                      <Profile />
-                    </UserInfoProvider>
+                    <DashBoardProvider>
+                  <CommentPop />
+                  </DashBoardProvider>
                   </LoggedUserInfoProvider>
                 }
               />
-            </Route>
-            <Route path="/" element={<Register />} />
+
             <Route
-              path="*"
+              path="/user/:userId/profile"
               element={
-                <main style={{ padding: "1rem" }}>
-                  <p>Theres nothing here!</p>
-                </main>
+                <LoggedUserInfoProvider>
+                  <UserInfoProvider>
+                    <Profile />
+                  </UserInfoProvider>
+                </LoggedUserInfoProvider>
               }
             />
-          </Routes>
-        </Provider>
-      </BrowserRouter>
+          </Route>
+          <Route path="/" element={<Register />} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>Theres nothing here!</p>
+              </main>
+            }
+          />
+        </Routes>
+      </Provider>
     </MovieCardProvider>
   );
 };

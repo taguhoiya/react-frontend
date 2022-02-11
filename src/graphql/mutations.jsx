@@ -19,12 +19,6 @@ export const CREATE_CLIP = gql`
       clip {
         id
       }
-      user {
-        id
-      }
-      movie {
-        id
-      }
     }
   }
 `;
@@ -35,12 +29,6 @@ export const CREATE_MARK = gql`
       mark {
         id
       }
-      user {
-        id
-      }
-      movie {
-        id
-      }
     }
   }
 `;
@@ -49,12 +37,6 @@ export const CREATE_FAVO = gql`
   mutation ($markId: ID!, $userId: ID!) {
     createFavo(input: { markId: $markId, userId: $userId }) {
       favorite {
-        id
-      }
-      user {
-        id
-      }
-      mark {
         id
       }
     }
@@ -80,12 +62,6 @@ export const CREATE_COMMENT = gql`
         id
         content
       }
-      user {
-        id
-      }
-      mark {
-        id
-      }
     }
   }
 `;
@@ -108,16 +84,10 @@ export const CREATE_FOLLOW = gql`
       follower {
         id
         nickname
-        followingUser {
-          id
-        }
       }
       followed {
         id
         nickname
-        followingUser {
-          id
-        }
       }
     }
   }
@@ -129,16 +99,10 @@ export const DELETE_FOLLOW = gql`
       follower {
         id
         nickname
-        followingUser {
-          id
-        }
       }
       followed {
         id
         nickname
-        followingUser {
-          id
-        }
       }
     }
   }

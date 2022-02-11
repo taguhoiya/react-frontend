@@ -26,7 +26,7 @@ export const MarkThreeVertIcon = memo((props) => {
   const { refetchU, refetchDash } = useContext(DashBoardContext);
   const { authState } = useContext(UserAuthContext);
   const [deleteMark, { data }] = useMutation(DELETE_MARK, {
-    variables: { id: parseInt(markId) },
+    variables: { id: parseInt(markId) }
   });
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);

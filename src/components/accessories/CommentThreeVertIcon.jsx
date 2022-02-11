@@ -26,7 +26,6 @@ export const CommentThreeVertIcon = (props) => {
   const { refetchU, refetchDash } = useContext(DashBoardContext);
   const [deleteComment, { data }] = useMutation(DELETE_COMMENT, {
     variables: { id: commId },
-    fetchPolicy: "network-only",
   });
   const { authState } = useContext(UserAuthContext);
   const [anchorEl, setAnchorEl] = useState(null);

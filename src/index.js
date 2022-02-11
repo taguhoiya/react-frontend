@@ -8,6 +8,15 @@ import { UserImageProvider } from "./components/providers/UserImageProvider";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./graphql/client";
 import { CssBaseline } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+
+const date = new Date();
+const nowUnix = Math.floor(date.getTime() / 1000);
+const expiry = nowUnix + 604800;
+localStorage.setItem("expiry", expiry);
+if (parseInt(localStorage["expiry"]) < nowUnix) {
+  localStorage.clear();
+}
 
 ReactDOM.render(
   <StrictMode>
@@ -15,7 +24,9 @@ ReactDOM.render(
       <UserAuthProvider>
         <UserImageProvider>
           <CssBaseline />
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </UserImageProvider>
       </UserAuthProvider>
     </ApolloProvider>

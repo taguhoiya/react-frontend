@@ -88,6 +88,7 @@ export const USER_INFO_TOP_PAGE = gql`
   query ($id: Int!) {
     publicUser(id: $id) {
       id
+      nickname
       followingUser {
         id
         nickname
@@ -123,6 +124,7 @@ export const USER_INFO_TOP_PAGE = gql`
         action
         checked
         updatedAt
+        markId
         visitor {
           id
           nickname
@@ -305,9 +307,12 @@ export const MARK = gql`
         movieName
         marks {
           id
+          score
+          userId
         }
         clips {
           id
+          userId
         }
       }
       user {

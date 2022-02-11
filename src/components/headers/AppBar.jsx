@@ -182,7 +182,6 @@ export const ToolBarModi = memo((props) => {
                   inputRef={inputEl}
                 />
               </form>
-              <NotificationButton />
             </>
           )}
         </Toolbar>

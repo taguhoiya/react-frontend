@@ -292,7 +292,6 @@ export const FollowButton = memo((props) => {
   const [follow] = useMutation(CREATE_FOLLOW, {
     variables: { followerId: authState.id, followedId: user.id },
   });
-  // const followerId = followerUser.map((user) => user.id)
   const followingId = followingUser.map((user) => user.id);
   const [unfollow] = useMutation(DELETE_FOLLOW, {
     variables: { followerId: authState.id, followedId: user.id },
@@ -348,6 +347,7 @@ export const NotificationButton = memo(() => {
   const orNickNames = noti.map((noti) => noti.visitor.nickname);
   const orIds = noti.map((noti) => parseInt(noti.visitor.id));
   const commCont = noti.map((noti) => (!noti.comment ? null : noti.comment.content));
+  const markId = noti.map((noti) => noti.markId).filter((x, i, self) => self.indexOf(x) === i);
   const action = noti.map((noti) => noti.action);
   const [noticheck] = useMutation(UPDATE_NOTI_CHECK, {
     variables: { ids: notiIds },
@@ -369,140 +369,299 @@ export const NotificationButton = memo(() => {
       orId: orIds[idx],
       comment: commCont[idx],
       action: action[idx],
+      markId: markId[idx]
     };
   });
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center", mx: 2 }}>
-        <Tooltip title="Notifications">
-          <IconButton onClick={handleClick}>
-            <Badge color="secondary" badgeContent={countState} max={100}>
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            height: 0,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
+      <MediaQuery query="(min-width: 550px)">
+        <Box sx={{ display: "flex", alignItems: "center", textAlign: "center", mx: 2 }}>
+          <Tooltip title="Notifications">
+            <IconButton onClick={handleClick}>
+              <Badge color="secondary" badgeContent={countState} max={100}>
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              height: 0,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
             },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <Scrollbars autoHeight autoHeightMin={180} autoHeightMax={360}>
-          <List sx={{ bgcolor: "background.paper", width: 300 }}>
-            {!ary[0] ? (
-              <>
-                <Divider />
-                <ListItem
-                  key={ary.id}
-                  sx={{ fontStyle: "italic", fontWeight: "medium", width: 200, height: 240 }}
-                  textAlign="center"
-                >
-                  No notification!
-                </ListItem>
-                <Divider />
-              </>
-            ) : (
-              ary.map((ary) => {
-                return (
-                  <>
-                    <Divider />
-                    <ListItem key={ary.id} alignItems="flex-start">
-                      <ListItemAvatar size="large">
-                        <Link to={`/user/${ary.orId}/profile`}>
-                          <Avatar
-                            sx={{ width: 40, height: 40 }}
-                            alt={ary.orNickName}
-                            src={!ary.orUserPath ? defaultImage : ary.orUserPath}
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <Scrollbars autoHeight autoHeightMin={180} autoHeightMax={360}>
+            <List sx={{ bgcolor: "background.paper", width: 300 }}>
+              {!ary[0] ? (
+                <>
+                  <Divider />
+                  <ListItem
+                    key={ary.id}
+                    sx={{ fontStyle: "italic", fontWeight: "medium", width: 200, height: 240 }}
+                    textAlign="center"
+                  >
+                    No notification!
+                  </ListItem>
+                  <Divider />
+                </>
+              ) : (
+                ary.map((ary) => {
+                  return (
+                    <>
+                      <Divider />
+                      <ListItem key={ary.id} alignItems="flex-start">
+                        <ListItemAvatar size="large">
+                          <Link to={`/user/${ary.orId}/profile`}>
+                            <Avatar
+                              sx={{ width: 40, height: 40 }}
+                              alt={ary.orNickName}
+                              src={!ary.orUserPath ? defaultImage : ary.orUserPath}
+                            />
+                          </Link>
+                        </ListItemAvatar>
+                        {ary.action === "favo" ? (
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography fontSize="0.8rem" color="text.primary">
+                                  <Link
+                                    to={`/user/${ary.orId}/profile`}
+                                    style={{ color: "#FF6700" }}
+                                  >
+                                    {ary.orNickName}
+                                  </Link>{" "}
+                                  favored your{" "}
+                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>
+                                  .
+                                </Typography>
+                              </>
+                            }
                           />
-                        </Link>
-                      </ListItemAvatar>
-                      {ary.action === "favo" ? (
-                        <ListItemText
-                          primary={
-                            <>
-                              <Typography fontSize="0.8rem" color="text.primary">
-                                <Link to={`/user/${ary.orId}/profile`} style={{ color: "#FF6700" }}>
-                                  {ary.orNickName}
-                                </Link>{" "}
-                                favored your mark.
-                              </Typography>
-                            </>
-                          }
-                        />
-                      ) : null}
-                      {ary.action === "comment" ? (
-                        <ListItemText
-                          primary={
-                            <>
-                              <Typography fontSize="0.8rem" color="text.primary">
-                                <Link to={`/user/${ary.orId}/profile`} style={{ color: "#FF6700" }}>
-                                  {ary.orNickName}
-                                </Link>{" "}
-                                commented your mark.
-                              </Typography>
-                            </>
-                          }
-                          secondary={
-                            <>
-                              <Typography fontSize="0.7rem" color="#7a7979">
-                                {ary.comment}
-                              </Typography>
-                            </>
-                          }
-                        />
-                      ) : null}
-                      {ary.action === "follow" ? (
-                        <ListItemText
-                          primary={
-                            <>
-                              <Typography fontSize="0.8rem" color="text.primary">
-                                <Link to={`/user/${ary.orId}/profile`} style={{ color: "#FF6700" }}>
-                                  {ary.orNickName}
-                                </Link>{" "}
-                                followed you.
-                              </Typography>
-                            </>
-                          }
-                        />
-                      ) : null}
-                    </ListItem>
-                  </>
-                );
-              })
-            )}
-          </List>
-        </Scrollbars>
-      </Menu>
+                        ) : null}
+                        {ary.action === "comment" ? (
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography fontSize="0.8rem" color="text.primary">
+                                  <Link
+                                    to={`/user/${ary.orId}/profile`}
+                                    style={{ color: "#FF6700" }}
+                                  >
+                                    {ary.orNickName}
+                                  </Link>{" "}
+                                  commented your{" "}
+                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>.
+                                </Typography>
+                              </>
+                            }
+                            secondary={
+                              <>
+                                <Typography fontSize="0.7rem" color="#7a7979">
+                                  {ary.comment}
+                                </Typography>
+                              </>
+                            }
+                          />
+                        ) : null}
+                        {ary.action === "follow" ? (
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography fontSize="0.8rem" color="text.primary">
+                                  <Link
+                                    to={`/user/${ary.orId}/profile`}
+                                    style={{ color: "#FF6700" }}
+                                  >
+                                    {ary.orNickName}
+                                  </Link>{" "}
+                                  followed you.
+                                </Typography>
+                              </>
+                            }
+                          />
+                        ) : null}
+                      </ListItem>
+                    </>
+                  );
+                })
+              )}
+            </List>
+          </Scrollbars>
+        </Menu>
+      </MediaQuery>
+      <MediaQuery query="(max-width: 550px)">
+        <Box sx={{ display: "flex", alignItems: "center", textAlign: "center", mx: 0 }}>
+          <Tooltip title="Notifications">
+            <IconButton onClick={handleClick}>
+              <Badge color="secondary" badgeContent={countState} max={100}>
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          sx={{ p: 0 }}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              height: 0,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 20,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <Scrollbars autoHeight autoHeightMin={180} autoHeightMax={360}>
+            <List sx={{ bgcolor: "background.paper", width: 240 }}>
+              {!ary[0] ? (
+                <>
+                  <Divider />
+                  <ListItem
+                    key={ary.id}
+                    sx={{ fontStyle: "italic", fontWeight: "medium", width: 200, height: 240 }}
+                    textAlign="center"
+                  >
+                    No notification!
+                  </ListItem>
+                  <Divider />
+                </>
+              ) : (
+                ary.map((ary) => {
+                  return (
+                    <>
+                      <Divider />
+                      <ListItem key={ary.id} alignItems="flex-start">
+                        <ListItemAvatar size="large">
+                          <Link to={`/user/${ary.orId}/profile`}>
+                            <Avatar
+                              sx={{ width: 30, height: 30 }}
+                              alt={ary.orNickName}
+                              src={!ary.orUserPath ? defaultImage : ary.orUserPath}
+                            />
+                          </Link>
+                        </ListItemAvatar>
+                        {ary.action === "favo" ? (
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography fontSize="0.7rem" color="text.primary">
+                                  <Link
+                                    to={`/user/${ary.orId}/profile`}
+                                    style={{ color: "#FF6700" }}
+                                  >
+                                    {ary.orNickName}
+                                  </Link>{" "}
+                                  favored your{" "}
+                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>
+                                </Typography>
+                              </>
+                            }
+                          />
+                        ) : null}
+                        {ary.action === "comment" ? (
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography fontSize="0.7rem" color="text.primary">
+                                  <Link
+                                    to={`/user/${ary.orId}/profile`}
+                                    style={{ color: "#FF6700" }}
+                                  >
+                                    {ary.orNickName}
+                                  </Link>{" "}
+                                  commented your{" "}
+                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>.
+                                </Typography>
+                              </>
+                            }
+                            secondary={
+                              <>
+                                <Typography fontSize="0.6rem" color="#7a7979">
+                                  {ary.comment}
+                                </Typography>
+                              </>
+                            }
+                          />
+                        ) : null}
+                        {ary.action === "follow" ? (
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography fontSize="0.7rem" color="text.primary">
+                                  <Link
+                                    to={`/user/${ary.orId}/profile`}
+                                    style={{ color: "#FF6700" }}
+                                  >
+                                    {ary.orNickName}
+                                  </Link>{" "}
+                                  followed you.
+                                </Typography>
+                              </>
+                            }
+                          />
+                        ) : null}
+                      </ListItem>
+                    </>
+                  );
+                })
+              )}
+            </List>
+          </Scrollbars>
+        </Menu>
+      </MediaQuery>
     </>
   );
 });
