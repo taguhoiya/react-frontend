@@ -296,17 +296,20 @@ export const FollowButton = memo((props) => {
   const [unfollow] = useMutation(DELETE_FOLLOW, {
     variables: { followerId: authState.id, followedId: user.id },
   });
+  const [followState, setFollow] = useState(followingId.includes(user.id));
   const clickFollow = useCallback(() => {
+    setFollow((prev) => !prev);
     follow();
     refetch();
   }, []);
   const clickUnfollow = useCallback(() => {
+    setFollow((prev) => !prev);
     unfollow();
     refetch();
   }, []);
   return (
     <>
-      {followingId.includes(user.id) ? (
+      {followState ? (
         <Button
           size="small"
           variant="outlined"
