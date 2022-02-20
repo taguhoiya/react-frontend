@@ -347,7 +347,7 @@ export const NotificationButton = memo(() => {
   const orNickNames = noti.map((noti) => noti.visitor.nickname);
   const orIds = noti.map((noti) => parseInt(noti.visitor.id));
   const commCont = noti.map((noti) => (!noti.comment ? null : noti.comment.content));
-  const markId = noti.map((noti) => noti.markId).filter((x, i, self) => self.indexOf(x) === i);
+  const markId = noti.map((noti) => noti.markId);
   const action = noti.map((noti) => noti.action);
   const [noticheck] = useMutation(UPDATE_NOTI_CHECK, {
     variables: { ids: notiIds },
@@ -369,7 +369,7 @@ export const NotificationButton = memo(() => {
       orId: orIds[idx],
       comment: commCont[idx],
       action: action[idx],
-      markId: markId[idx]
+      markId: markId[idx],
     };
   });
   return (
@@ -460,7 +460,9 @@ export const NotificationButton = memo(() => {
                                     {ary.orNickName}
                                   </Link>{" "}
                                   favored your{" "}
-                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>
+                                  <Link to={`/mark/${ary.markId}`} style={{ color: "#FF6700" }}>
+                                    mark
+                                  </Link>
                                   .
                                 </Typography>
                               </>
@@ -479,7 +481,10 @@ export const NotificationButton = memo(() => {
                                     {ary.orNickName}
                                   </Link>{" "}
                                   commented your{" "}
-                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>.
+                                  <Link to={`/mark/${ary.markId}`} style={{ color: "#FF6700" }}>
+                                    mark
+                                  </Link>
+                                  .
                                 </Typography>
                               </>
                             }
@@ -605,7 +610,9 @@ export const NotificationButton = memo(() => {
                                     {ary.orNickName}
                                   </Link>{" "}
                                   favored your{" "}
-                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>
+                                  <Link to={`/mark/${ary.markId}`} style={{ color: "#FF6700" }}>
+                                    mark
+                                  </Link>
                                 </Typography>
                               </>
                             }
@@ -623,7 +630,10 @@ export const NotificationButton = memo(() => {
                                     {ary.orNickName}
                                   </Link>{" "}
                                   commented your{" "}
-                                  <Link to={`/mark/${markId}`} style={{ color: "#FF6700" }}>mark</Link>.
+                                  <Link to={`/mark/${ary.markId}`} style={{ color: "#FF6700" }}>
+                                    mark
+                                  </Link>
+                                  .
                                 </Typography>
                               </>
                             }

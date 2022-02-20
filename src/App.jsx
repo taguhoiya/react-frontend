@@ -46,24 +46,24 @@ const App = function () {
                 </DashBoardProvider>
               }
             />
-              <Route
-                path="/marks/:num"
-                element={
+            <Route
+              path="/marks/:num"
+              element={
+                <DashBoardProvider>
+                  <Dashboard />
+                </DashBoardProvider>
+              }
+            />
+            <Route
+              path="/mark/:markId"
+              element={
+                <LoggedUserInfoProvider>
                   <DashBoardProvider>
-                    <Dashboard />
+                    <CommentPop />
                   </DashBoardProvider>
-                }
-              />
-              <Route
-                path="/mark/:markId"
-                element={
-                  <LoggedUserInfoProvider>
-                    <DashBoardProvider>
-                  <CommentPop />
-                  </DashBoardProvider>
-                  </LoggedUserInfoProvider>
-                }
-              />
+                </LoggedUserInfoProvider>
+              }
+            />
 
             <Route
               path="/user/:userId/profile"

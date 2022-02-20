@@ -74,7 +74,7 @@ export const Verify = memo(() => {
         {dataA.publicUser.confirmedAt ? (
           <Snackbar
             open={open}
-            autoHideDuration={1000}
+            autoHideDuration={800}
             onClose={handleClose}
             TransitionComponent={GrowTransition}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
