@@ -14,7 +14,7 @@ export const CommentDialog = (props) => {
   const { mark, info, markId, markUserId } = props;
   const styles = cardStyles2();
   const { authState } = useContext(UserAuthContext);
-  console.log(info);
+
   return (
     <Card className="card-box" sx={{ backgroundColor: "#eeecec" }}>
       <Grid container columnSpacing={{ xs: 2, sm: 3, md: 4 }} py={2}>
