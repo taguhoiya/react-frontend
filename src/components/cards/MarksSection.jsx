@@ -37,7 +37,7 @@ export const MarksSection = memo((props) => {
         <Scrollbars autoHeight>
           {!marks.length ? (
             <Typography
-              sx={{ fontStyle: "italic", fontWeight: "medium", color: "#c7c3c3" }}
+              sx={{ fontStyle: "italic", fontWeight: "medium", color: "#c7c3c3", height: "60px" }}
               variant="h5"
               textAlign="center"
             >

@@ -1,7 +1,6 @@
 import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
 import { CustomCard } from "../cards/CustomCard";
-import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { memo, useContext } from "react";
 import { cardStyles2 } from "../cards/CardStyles";
@@ -193,7 +192,6 @@ export const MarkTabPanel = memo(() => {
                     <Grid item md={4.5} sm={3} xs={4.9}>
                       <CustomCard
                         classes={styles}
-                        image={stock1}
                         info={ary}
                         movie={ary.movie}
                         size="small"

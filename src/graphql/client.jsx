@@ -30,7 +30,7 @@ const cache = new InMemoryCache({
   },
 });
 
-const link = new createHttpLink({ uri: "https://www.moview-ori.com/graphql" });
+const link = new createHttpLink({ uri: "http://localhost:3000/graphql" });
 export const client = new ApolloClient({
   cache,
   link: context.concat(link),
@@ -67,7 +67,7 @@ export const moviePageClient = new ApolloClient({
 });
 
 const authLink = new createHttpLink({
-  uri: "https://www.moview-ori.com/graphql_auth",
+  uri: "http://localhost:3000/graphql_auth",
 });
 
 export const clientAuth = new ApolloClient({
@@ -77,5 +77,5 @@ export const clientAuth = new ApolloClient({
 
 export const clientUpload = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new createUploadLink({ uri: "https://www.moview-ori.com/graphql" }),
+  link: new createUploadLink({ uri: "http://localhost:3000/graphql" }),
 });

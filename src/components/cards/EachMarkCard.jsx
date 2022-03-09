@@ -58,7 +58,7 @@ export const EachMarkCard = memo((props) => {
         >
           <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
             <h2>HOT MARK</h2>
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid container rowSpacing={0} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
                 <GetMovie
                   marks={marksModi}

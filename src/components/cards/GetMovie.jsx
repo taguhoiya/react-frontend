@@ -2,8 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import { MOVIES } from "../../graphql/queries";
 import { CustomCard } from "./CustomCard";
-import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
-import { cardStyles2 } from "./CardStyles";
+import { cardStyles2, cardStyles5 } from "./CardStyles";
 import { memo, useContext } from "react";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { average } from "../../Helper";
@@ -21,6 +20,7 @@ import { Link } from "react-router-dom";
 export const GetMovie = memo((props) => {
   const { markMovieIds, marks, user, setPage, page, count } = props;
   const styles = cardStyles2();
+  const styles2 = cardStyles5();
   const { authState } = useContext(UserAuthContext);
   const users = marks.map((mark) => mark.user);
   const nicknames = users.map((user) => user.nickname);
@@ -74,12 +74,12 @@ export const GetMovie = memo((props) => {
       <>
         <Loader state={false} />
         {ary.map((ary, index) => (
-          <Grid item lg={5.5} md={5} sm={12} xs={12} key={index} my={4}>
+          <Grid item lg={5.5} md={5} sm={12} xs={12} key={index} my={2}>
             <Card className="card-box" sx={{ backgroundColor: "#fff", marginLeft: 2 }}>
               <Grid container columnSpacing={{ xs: 2, sm: 3, md: 2 }} py={2}>
                 <MediaQuery query="(min-width: 550px)">
                   <Grid item md={0.5} sm={1.5} xs={0.5} />
-                  <Grid item md={6} sm={6} xs={4.7}>
+                  <Grid item md={7} sm={6} xs={4.7}>
                     <Box display="flex">
                       <IconButton>
                         <Link to={`/user/${ary.userId}/profile`}>
@@ -101,7 +101,7 @@ export const GetMovie = memo((props) => {
                     </Box>
                     <Typography
                       sx={{
-                        maxWidth: 300,
+                        maxWidth: 400,
                         fontSize: "1.3rem",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -111,10 +111,10 @@ export const GetMovie = memo((props) => {
                     >
                       {ary.movie.movieName}
                     </Typography>
-                    <Stars value={ary.score} size={18} pt="2px" starNum={true} />
+                    <Stars value={ary.score} size={22} pt="5px" starNum={true} />
                     <Scrollbars
                       autoHeight
-                      autoHeightMin={120}
+                      autoHeightMin={150}
                       autoHeightMax={150}
                       style={{
                         border: "1px solid rgba(192, 231, 231, 0.733)",
@@ -122,7 +122,7 @@ export const GetMovie = memo((props) => {
                         paddingInline: "15px",
                       }}
                     >
-                      <Typography fontSize="0.9rem">{ary.content}</Typography>
+                      <Typography fontSize="1.1rem">{ary.content}</Typography>
                     </Scrollbars>
 
                     <CreateFavoIcon
@@ -134,10 +134,9 @@ export const GetMovie = memo((props) => {
                     <CreateCommentIcon info={ary} markId={ary.markId} />
                     {ary.markComm}
                   </Grid>
-                  <Grid item md={4.5} sm={3} xs={5}>
+                  <Grid item md={3} sm={3} xs={5}>
                     <CustomCard
                       classes={styles}
-                      image={stock1}
                       info={ary}
                       size="small"
                       ave={ary.ave}
@@ -214,8 +213,7 @@ export const GetMovie = memo((props) => {
                   </Grid>
                   <Grid item md={4.5} sm={3} xs={5}>
                     <CustomCard
-                      classes={styles}
-                      image={stock1}
+                      classes={styles2}
                       info={ary}
                       size="small"
                       ave={ary.ave}

@@ -1,8 +1,8 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { memo, useCallback, useContext, useState } from "react";
 import { average } from "../../Helper";
-import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
-import { cardStyles } from "./CardStyles";
+
+import { cardStyles, cardStyles4 } from "./CardStyles";
 import { CustomCard } from "./CustomCard";
 import { BasicPagination } from "../userProfile/Pagination";
 import { Loader, SubLoader } from "../accessories/Loader";
@@ -24,6 +24,7 @@ export const EachMovieCard = memo(() => {
     setOpen((prevState) => !prevState);
   }, []);
   const styles = cardStyles();
+  const styles2 = cardStyles4();
   const userClipIds = dataU.publicUser.clips.map((clip) => parseInt(clip.movieId));
   const count = data.searchMovies.totalPage;
   const movies = data.searchMovies.movies;
@@ -44,7 +45,7 @@ export const EachMovieCard = memo(() => {
       </AppBar>
       <DrawerModi open={open} toggleDrawer={toggleDrawer} profileUrl={profileUrl} />
       <MediaQuery query="(max-width: 550px)">
-        <Container maxWidth="xl" sx={{ mt: 12, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 8, mb: 4 }}>
           {!formState ? (
             <>
               <h2>HOT MOVIE</h2>
@@ -73,7 +74,7 @@ export const EachMovieCard = memo(() => {
           )}
           <Grid
             container
-            columnSpacing={2}
+            columnSpacing={1.5}
             rowSpacing={3}
             direction="row"
             alignItems="center"
@@ -85,8 +86,8 @@ export const EachMovieCard = memo(() => {
               ary.map((info, index) => (
                 <Grid item key={index}>
                   <CustomCard
-                    classes={styles}
-                    image={stock1}
+                    classes={styles2}
+                    image={info.movie.posterPath}
                     info={info}
                     movie={info.movie}
                     size="large"
@@ -163,7 +164,7 @@ export const EachMovieCard = memo(() => {
                 <Grid item key={index}>
                   <CustomCard
                     classes={styles}
-                    image={stock1}
+                    image={info.movie.posterPath}
                     info={info}
                     movie={info.movie}
                     size="large"

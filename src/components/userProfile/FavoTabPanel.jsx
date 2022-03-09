@@ -5,7 +5,6 @@ import Scrollbars from "react-custom-scrollbars-2";
 import { CreateFavoIcon } from "../../graphql/CreateFavo";
 import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
-import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader } from "../accessories/Loader";
@@ -195,7 +194,6 @@ export const FavoTabPanel = memo(() => {
                     <Grid item md={4.5} sm={3} xs={5.0}>
                       <CustomCard
                         classes={styles}
-                        image={stock1}
                         info={ary}
                         movie={ary.movie}
                         size="small"

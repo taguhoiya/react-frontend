@@ -2,7 +2,6 @@ import { Avatar, Box, Card, Grid, IconButton, Typography } from "@mui/material";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Stars } from "../accessories/Stars";
 import { CustomCard } from "../cards/CustomCard";
-import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import MediaQuery from "react-responsive";
 import { MarkThreeVertIcon } from "../cards/MarkThreeVertIcon";
@@ -71,7 +70,6 @@ export const CommentDialog = (props) => {
           <Grid item md={4.5} sm={3} xs={5}>
             <CustomCard
               classes={styles}
-              image={stock1}
               info={info}
               movie={info.movie}
               size="small"
@@ -142,7 +140,6 @@ export const CommentDialog = (props) => {
           <Grid item md={4} xs={4}>
             <CustomCard
               classes={styles}
-              image={stock1}
               info={info}
               movie={info.movie}
               size="small"

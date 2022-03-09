@@ -4,7 +4,6 @@ import { memo, useContext } from "react";
 import { MOVIES } from "../../graphql/queries";
 import { average } from "../../Helper";
 
-import stock1 from "../../images/stock-photos/adtDSC_3214.jpg";
 import { cardStyles2 } from "../cards/CardStyles";
 import { CustomCard } from "../cards/CustomCard";
 import { Loader } from "../accessories/Loader";
@@ -42,7 +41,6 @@ export const ClipTabPanel = memo(() => {
             <Grid item key={index} md={2} xs={6}>
               <CustomCard
                 classes={styles}
-                image={stock1}
                 info={ary}
                 movie={ary.movie}
                 size="small"

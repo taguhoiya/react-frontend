@@ -65,14 +65,6 @@ export const USER_RESEND_EMAIL = gql`
   }
 `;
 
-export const MOVIE_CATEGORIES = gql`
-  query {
-    allCategories {
-      category
-    }
-  }
-`;
-
 export const USER_IMAGE = gql`
   query ($id: Int!) {
     userImage(id: $id) {
@@ -246,13 +238,16 @@ export const MOVIES = gql`
     movies(id: $ids) {
       id
       movieName
+      posterPath
       summary
-      runningTime
+      runtime
       releaseYear
       releaseDate
       country
       category
       releaseState
+      tmdbId
+      homepage
       marks {
         id
         score
@@ -277,13 +272,16 @@ export const MOVIE_PAGES = gql`
       movies {
         id
         movieName
+        posterPath
         summary
-        runningTime
+        runtime
         releaseYear
         releaseDate
         country
         category
         releaseState
+        tmdbId
+        homepage
         marks {
           score
         }
@@ -291,6 +289,33 @@ export const MOVIE_PAGES = gql`
           id
         }
       }
+    }
+  }
+`;
+
+export const MOVIE_CATEGORY = gql`
+  query ($movieId: ID!) {
+    movieCategory(movieId: $movieId) {
+      id
+      action
+      adventure
+      animation
+      comedy
+      crime
+      documentary
+      drama
+      family
+      fantasy
+      history
+      horror
+      music
+      mystery
+      romance
+      scienceFiction
+      tvMovie
+      thriller
+      war
+      western
     }
   }
 `;

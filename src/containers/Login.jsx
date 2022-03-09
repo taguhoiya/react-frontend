@@ -94,7 +94,7 @@ export const Login = memo(() => {
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
               <Alert severity="success" sx={{ width: "100%" }}>
-                Succcess!
+                Success!
               </Alert>
             </Snackbar>
           )}
