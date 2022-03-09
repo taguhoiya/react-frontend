@@ -330,6 +330,16 @@ export const MARK = gql`
       movie {
         id
         movieName
+        posterPath
+        summary
+        runtime
+        releaseYear
+        releaseDate
+        country
+        category
+        releaseState
+        tmdbId
+        homepage
         marks {
           id
           score

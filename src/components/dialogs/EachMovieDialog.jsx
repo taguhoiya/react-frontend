@@ -80,10 +80,17 @@ export const EachMovieDialog = memo((props) => {
                   <div>
                     <Stars value={score} size={20} starNum={true} />
                   </div>
-                  <Typography fontSize="0.9rem">Summary</Typography>
+                  <Typography fontSize="0.9rem" my={1.5}>
+                    Summary
+                  </Typography>
                   <Scrollbars autoHeight autoHeightMin={80} autoHeightMax={80}>
                     <Typography fontSize="0.8rem">{movie.summary}</Typography>
                   </Scrollbars>
+                  <Typography noWrap mt={3} fontSize="0.9rem">
+                    <a href={movie.homepage} target="_blank" rel="noreferrer">
+                      Official WebSite
+                    </a>
+                  </Typography>
                   <Typography noWrap mt={2} fontSize="0.9rem">
                     Current: {movie.releaseState}
                   </Typography>
@@ -143,6 +150,9 @@ export const EachMovieDialog = memo((props) => {
                   <Scrollbars autoHeight autoHeightMin={50} autoHeightMax={70}>
                     <Typography fontSize="0.5rem">{movie.summary}</Typography>
                   </Scrollbars>
+                  <Typography noWrap mt={0.5} fontSize="0.6rem">
+                    Official WebSite: {movie.homepage}
+                  </Typography>
                   <Typography noWrap mt={0.5} fontSize="0.6rem">
                     Current: {movie.releaseState}
                   </Typography>

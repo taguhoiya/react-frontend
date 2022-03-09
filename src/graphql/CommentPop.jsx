@@ -32,6 +32,7 @@ import { GrowTransition } from "../containers/Verify";
 import MediaQuery from "react-responsive";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LoggedUserInfoContext } from "../components/providers/LoggedUserInfoProvider";
+import { average } from "../Helper";
 
 export const CommentPop = memo(() => {
   const [open, setOpen] = useState(true);
@@ -77,6 +78,8 @@ export const CommentPop = memo(() => {
     const { mark } = data;
     const { comments, movie } = mark;
     const markSum = movie.marks.length;
+    const markScoreArray = movie.marks.map((mark) => mark.score);
+    const ave = average(markScoreArray);
     const clipSum = movie.clips.length;
     const initialState = LoggedClipMovieIds.includes(movie.id);
     const users = comments.map((comm) => comm.user);
@@ -93,11 +96,13 @@ export const CommentPop = memo(() => {
     const info = {
       userId: user.id,
       nickname: user.nickname,
+      ave,
       movie,
       markSum,
       initialState,
       clipSum,
     };
+    console.log(info);
     return (
       <>
         <Loader state={false} />
@@ -225,13 +230,7 @@ export const CommentPop = memo(() => {
 
         <MediaQuery query="(min-width: 550px)">
           <Dialog open={open} onClose={handleClose} fullWidth>
-            <CommentDialog
-              mark={mark}
-              // favoBool={info.favoBool}
-              // ave={info.ave}
-              // clipBool={info.clipBool}
-              info={info}
-            />
+            <CommentDialog mark={mark} info={info} />
             <DialogContent>
               <Scrollbars autoHeight autoHeightMin={200} autoHeightMax={200}>
                 <List sx={{ width: "100%", margin: "auto" }}>

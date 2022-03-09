@@ -31,6 +31,7 @@ export const CustomCard = (props) => {
   const handleClose = useCallback(() => {
     setOpen((prevState) => !prevState);
   }, []);
+  console.log(ave);
   return (
     <>
       <CardActionArea className={classes.actionArea}>
