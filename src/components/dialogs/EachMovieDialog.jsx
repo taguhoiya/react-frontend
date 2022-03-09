@@ -88,7 +88,7 @@ export const EachMovieDialog = memo((props) => {
                   </Scrollbars>
                   <Typography noWrap mt={3} fontSize="0.9rem">
                     <a href={movie.homepage} target="_blank" rel="noreferrer">
-                      Official WebSite
+                      Watch it anyway
                     </a>
                   </Typography>
                   <Typography noWrap mt={2} fontSize="0.9rem">
@@ -151,7 +151,9 @@ export const EachMovieDialog = memo((props) => {
                     <Typography fontSize="0.5rem">{movie.summary}</Typography>
                   </Scrollbars>
                   <Typography noWrap mt={0.5} fontSize="0.6rem">
-                    Official WebSite: {movie.homepage}
+                    <a href={movie.homepage} target="_blank" rel="noreferrer">
+                      Watch it anyway
+                    </a>
                   </Typography>
                   <Typography noWrap mt={0.5} fontSize="0.6rem">
                     Current: {movie.releaseState}
