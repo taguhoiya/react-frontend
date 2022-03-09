@@ -102,7 +102,6 @@ export const CommentPop = memo(() => {
       initialState,
       clipSum,
     };
-    console.log(info);
     return (
       <>
         <Loader state={false} />
