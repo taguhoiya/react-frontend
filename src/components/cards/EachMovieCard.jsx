@@ -84,7 +84,7 @@ export const EachMovieCard = memo(() => {
               <SubLoader state={true} />
             ) : (
               ary.map((info, index) => (
-                <Grid item key={index}>
+                <Grid item key={index} xs={6}>
                   <CustomCard
                     classes={styles2}
                     image={info.movie.posterPath}
