@@ -134,7 +134,11 @@ export const FavoTabPanel = memo(() => {
                             <Link to={`/user/${ary.favoUserId}/profile`}>
                               <Avatar
                                 alt={ary.favoUserName}
-                                src={!ary.favoUserPath ? defaultImage : ary.favoUserPath}
+                                src={
+                                  !ary.favoUserPath
+                                    ? defaultImage
+                                    : `https://www.moview-ori.com${ary.favoUserPath}`
+                                }
                                 sx={{ width: 22, height: 22 }}
                               ></Avatar>
                             </Link>
