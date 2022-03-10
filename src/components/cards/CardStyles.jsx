@@ -63,6 +63,7 @@ export const cardStyles2 = makeStyles(() => ({
     minHeight: 230,
     maxHeight: 320,
     width: "100%",
+    border: "0.1px solid #bebebe",
     backgroundColor: "#fff",
     textAlign: "center",
   }),
@@ -101,7 +102,7 @@ export const cardStyles3 = makeStyles(() => ({
   card: () => ({
     height: 250,
     width: 130,
-    borderColor: "#000000",
+    border: "0.1px solid #bebebe",
     backgroundColor: "#ffffff",
     borderRadius: 16,
     textAlign: "center",
@@ -109,7 +110,8 @@ export const cardStyles3 = makeStyles(() => ({
   content: () => {
     return {
       width: "100%",
-      borderColor: "#000000",
+      border: "0.1px solid #bebebe",
+
       padding: "1rem 1.5rem 1.5rem",
     };
   },
@@ -153,6 +155,7 @@ export const cardStyles4 = makeStyles(() => ({
     backgroundColor: "#fff",
     textAlign: "center",
     boxShadow: "none",
+    border: "0.1px solid #bebebe",
   }),
   content: () => {
     return {

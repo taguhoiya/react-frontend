@@ -193,7 +193,7 @@ export const EditProfile = memo(() => {
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="warning" sx={{ width: "100%" }}>
-            There's something wrong! Update agein correctly!
+            There's something wrong! Update again correctly!
           </Alert>
         </Snackbar>
       )}

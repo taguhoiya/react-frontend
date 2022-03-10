@@ -79,7 +79,7 @@ export const CreateMarkIcon = memo((props) => {
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="warning" sx={{ width: "100%" }}>
-            Cannot post agein if you've done before!
+            Cannot post again if you've done before!
           </Alert>
         </Snackbar>
       )}

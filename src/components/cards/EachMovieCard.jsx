@@ -74,7 +74,7 @@ export const EachMovieCard = memo(() => {
           )}
           <Grid
             container
-            columnSpacing={1.5}
+            columnSpacing={1}
             rowSpacing={3}
             direction="row"
             alignItems="center"
