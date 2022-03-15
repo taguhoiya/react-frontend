@@ -68,6 +68,7 @@ export const AuthButton = (props) => {
       const { id } = response.data.userRegister.user;
       if (!response.errors) {
         window.alert("Sent Email. Please Confirm it!");
+        setLoadingB(prev => !prev)
         localStorage.setItem("id", id);
       }
     },
