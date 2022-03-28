@@ -4,8 +4,12 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "prettier",   'react-app',
-  'react-app/jest'],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "react-app",
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -13,13 +17,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-    "plugins": [
-        "react",
-    ],
-    "rules": {
-        "react/prop-types": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/display-name": "off",
+  plugins: ["react"],
+  rules: {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
     "react/no-unescaped-entities": "off",
   },
   settings: {
