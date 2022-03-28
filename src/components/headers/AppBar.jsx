@@ -68,7 +68,7 @@ export const ToolBarModi = memo((props) => {
             <MenuIcon />
           </IconButton>
           <Link to="/">
-            <img src={logo} style={{ height: 60 }} alt={logo}/>
+            <img src={logo} style={{ height: 60 }} alt={logo} />
           </Link>
           <Typography
             component="h1"

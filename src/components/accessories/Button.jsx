@@ -122,7 +122,7 @@ export const AuthButton = (props) => {
 
 // type AuthHeaderButtonType = {
 //   to = "string",
-//   onClick: 
+//   onClick:
 // }
 // export const AuthHeaderButton = memo((props) => {
 //   return (
@@ -363,10 +363,13 @@ export const NotificationButton = memo(() => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const condition = !notiIds[0] ? null : noticheck();
-  const handleClick = useCallback((event) => {
-    setAnchorEl(event.currentTarget);
-    condition();
-  }, [condition]);
+  const handleClick = useCallback(
+    (event) => {
+      setAnchorEl(event.currentTarget);
+      condition();
+    },
+    [condition]
+  );
   const handleClose = useCallback(() => {
     setAnchorEl(null);
     setCountState(0);
