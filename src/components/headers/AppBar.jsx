@@ -40,10 +40,11 @@ export const ToolBarModi = memo((props) => {
   const handleClick = useCallback(() => {
     setOpenForm((prevState) => !prevState);
   }, []);
+  const condition = locationPath.includes("movies") ? null : navigate("/movies/1");
   const handleClickSearch = (e) => {
     e.preventDefault();
     setFormState(inputEl.current.value);
-    locationPath.includes("movies") ? null : navigate("/movies/1");
+    condition();
   };
   return (
     <>
@@ -67,7 +68,7 @@ export const ToolBarModi = memo((props) => {
             <MenuIcon />
           </IconButton>
           <Link to="/">
-            <img src={logo} style={{ height: 60 }} />
+            <img src={logo} style={{ height: 60 }} alt={logo}/>
           </Link>
           <Typography
             component="h1"
@@ -141,7 +142,7 @@ export const ToolBarModi = memo((props) => {
             <MenuIcon />
           </IconButton>
           <Link to="/">
-            <img src={logo} style={{ height: 40 }} />
+            <img src={logo} alt={logo} style={{ height: 40 }} />
           </Link>
           <Typography
             component="h3"

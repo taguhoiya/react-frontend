@@ -28,7 +28,7 @@ export function* zip(...args) {
     }
   }
   for (let index = 0; index < length; index++) {
-    let elms = [];
+    const elms: Array<string> = [];
     for (let arr of args) {
       elms.push(arr[index]);
     }

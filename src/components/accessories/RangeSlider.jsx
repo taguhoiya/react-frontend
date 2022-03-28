@@ -59,7 +59,7 @@ export const InputSlider = memo((props) => {
     } else if (value > 5) {
       setValue(5);
     }
-  }, []);
+  }, [setValue, value]);
   return (
     <Box sx={{ width: "80%", margin: "0 auto" }}>
       <Typography id="input-slider" gutterBottom>

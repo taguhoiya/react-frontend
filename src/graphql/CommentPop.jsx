@@ -49,7 +49,7 @@ export const CommentPop = memo(() => {
   const handleClose = useCallback(() => {
     navigate(-1);
     setOpen((prevState) => !prevState);
-  }, []);
+  }, [navigate]);
   const [createComment, { error, data: dataC }] = useMutation(CREATE_COMMENT, {
     variables: { userId, markId: markId, content: commContent },
   });
@@ -64,7 +64,7 @@ export const CommentPop = memo(() => {
   const handleComm = useCallback(() => {
     setOpenB(true);
     createComment();
-  }, []);
+  }, [createComment]);
   const handleCloseBar = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -68,7 +68,7 @@ export const AuthButton = (props) => {
       const { id } = response.data.userRegister.user;
       if (!response.errors) {
         window.alert("Sent Email. Please Confirm it!");
-        setLoadingB(prev => !prev)
+        setLoadingB((prev) => !prev);
         localStorage.setItem("id", id);
       }
     },
@@ -120,22 +120,26 @@ export const AuthButton = (props) => {
   );
 };
 
-export const AuthHeaderButton = memo((props) => {
-  return (
-    <>
-      <Button
-        variant="outlined"
-        size="small"
-        component={Link}
-        to={props.to}
-        sx={{ mx: "6px" }}
-        onClick={props.onClick}
-      >
-        {props.children}
-      </Button>
-    </>
-  );
-});
+// type AuthHeaderButtonType = {
+//   to = "string",
+//   onClick: 
+// }
+// export const AuthHeaderButton = memo((props) => {
+//   return (
+//     <>
+//       <Button
+//         variant="outlined"
+//         size="small"
+//         component={Link}
+//         to={props.to}
+//         sx={{ mx: "6px" }}
+//         onClick={props.onClick}
+//       >
+//         {props.children}
+//       </Button>
+//     </>
+//   );
+// });
 
 export const EditProfile = memo(() => {
   const { nickname, src, selfIntro, refetch } = useContext(UserInfoContext);
@@ -182,7 +186,7 @@ export const EditProfile = memo(() => {
     setOpenB(true);
     updateUserImage();
     handleClickClose();
-  }, []);
+  }, [handleClickClose, updateUserImage]);
   return (
     <>
       {!error ? null : (
@@ -302,12 +306,12 @@ export const FollowButton = memo((props) => {
     setFollow((prev) => !prev);
     follow();
     refetch();
-  }, []);
+  }, [follow, refetch]);
   const clickUnfollow = useCallback(() => {
     setFollow((prev) => !prev);
     unfollow();
     refetch();
-  }, []);
+  }, [refetch, unfollow]);
   return (
     <>
       {followState ? (
@@ -358,10 +362,11 @@ export const NotificationButton = memo(() => {
   });
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const condition = !notiIds[0] ? null : noticheck();
   const handleClick = useCallback((event) => {
     setAnchorEl(event.currentTarget);
-    !notiIds[0] ? null : noticheck();
-  }, []);
+    condition();
+  }, [condition]);
   const handleClose = useCallback(() => {
     setAnchorEl(null);
     setCountState(0);

@@ -55,7 +55,7 @@ export const CommentThreeVertIcon = (props) => {
     handleClose();
     handleClose2();
     refetchDash ? refetchU() : refetch();
-  }, []);
+  }, [deleteComment, refetch, refetchDash, refetchU]);
   const handleCloseBar = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -62,7 +62,7 @@ export const CreateCommentIcon = memo((props) => {
   const handleComm = useCallback(() => {
     setOpenB(true);
     createComment();
-  }, []);
+  }, [createComment]);
   const handleCloseBar = (event, reason) => {
     if (reason === "clickaway") {
       return;

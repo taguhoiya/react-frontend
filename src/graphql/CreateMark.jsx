@@ -55,7 +55,7 @@ export const CreateMarkIcon = memo((props) => {
   }, []);
   const addMarkCount = useCallback(() => {
     setMarkCount((prev) => prev + 1);
-  }, [markCount]);
+  }, []);
 
   const [createMark, { data, error, loading }] = useMutation(CREATE_MARK, {
     variables: { movieId, userId, score: value, content: markInput },
@@ -65,7 +65,7 @@ export const CreateMarkIcon = memo((props) => {
     handleClose();
     if (data) addMarkCount();
     if (error) log();
-  }, []);
+  }, [addMarkCount, createMark, data, error, handleClose, log]);
 
   if (loading) return null;
   return (

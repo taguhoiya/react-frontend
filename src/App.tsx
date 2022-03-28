@@ -23,13 +23,13 @@ const App = function () {
     <MovieCardProvider>
       <Provider template={AlertMUITemplate} {...options}>
         <Routes>
-          <Route exact path="/" element={<UnauthenticatedRoute />}>
+          <Route path="/" element={<UnauthenticatedRoute />}>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Route>
           <Route path="/verify" element={<Verify />} />
-          <Route exact path="/" element={<AuthenticatedRoute />}>
+          <Route path="/" element={<AuthenticatedRoute />}>
             <Route
               path="/"
               element={

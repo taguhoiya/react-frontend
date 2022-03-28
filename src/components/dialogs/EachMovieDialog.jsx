@@ -25,6 +25,7 @@ export const EachMovieDialog = memo((props) => {
     const { movieCategory } = data;
     const categories = Object.entries(movieCategory).map((category) => {
       if (category[1] === true) return category[0];
+      else return null
     });
     const category = categories.filter(function (fac) {
       return fac !== undefined;

@@ -30,14 +30,14 @@ export const CreateFavoIcon = (props) => {
     createFavo();
     refetchDash ? refetchU() : refetch();
     refetchLog();
-  }, []);
+  }, [createFavo, refetch, refetchDash, refetchLog, refetchU]);
   const unClickFavo = useCallback(() => {
     countSetState((prev) => prev - 1);
     favoSetState((prev) => !prev);
     deleteFavo();
     refetchDash ? refetchU() : refetch();
     refetchLog();
-  }, []);
+  }, [deleteFavo, refetch, refetchDash, refetchLog, refetchU]);
 
   return (
     <>

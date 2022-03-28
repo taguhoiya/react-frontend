@@ -53,7 +53,7 @@ export const MarkThreeVertIcon = memo((props) => {
     deleteMark();
     handleClose2();
     handleClose();
-  }, []);
+  }, [deleteMark]);
   const handleCloseBar = (event, reason) => {
     if (reason === "clickaway") {
       return;

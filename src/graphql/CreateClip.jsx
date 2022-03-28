@@ -27,13 +27,13 @@ export const CreateClipIcon = memo((props) => {
     clipSetState((prev) => !prev);
     createClip();
     refetchDash ? refetchU() : refetch();
-  }, []);
+  }, [createClip, refetch, refetchDash, refetchU]);
   const unClickClip = useCallback(() => {
     countSetClip((prev) => prev - 1);
     clipSetState((prev) => !prev);
     deleteClip();
     refetchDash ? refetchU() : refetch();
-  }, []);
+  }, [deleteClip, refetch, refetchDash, refetchU]);
 
   return (
     <>
