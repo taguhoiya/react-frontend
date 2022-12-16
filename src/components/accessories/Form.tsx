@@ -1,11 +1,17 @@
 import { TextField } from "@mui/material";
 import { memo } from "react";
 
-export const NicknameInput = memo((props) => {
+type InputProps = {
+  margin?: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+};
+
+export const NicknameInput = memo((props: InputProps) => {
   return (
     <TextField
       color="warning"
-      margin={props.margin}
+      margin={props.margin as any}
       required
       fullWidth
       id="nickname"
@@ -18,11 +24,11 @@ export const NicknameInput = memo((props) => {
   );
 });
 
-export const EmailInput = memo((props) => {
+export const EmailInput = memo((props: InputProps) => {
   return (
     <TextField
       color="warning"
-      margin={props.margin}
+      margin={props.margin as any}
       required
       fullWidth
       id="email"
@@ -35,11 +41,11 @@ export const EmailInput = memo((props) => {
   );
 });
 
-export const PasswordInput = memo((props) => {
+export const PasswordInput = memo((props: InputProps) => {
   return (
     <TextField
       color="warning"
-      margin={props.margin}
+      margin={props.margin as any}
       required
       fullWidth
       name="password"
@@ -53,11 +59,11 @@ export const PasswordInput = memo((props) => {
   );
 });
 
-export const PasswordConfInput = memo((props) => {
+export const PasswordConfInput = memo((props: InputProps) => {
   return (
     <TextField
       color="warning"
-      margin={props.margin}
+      margin={props.margin as any}
       required
       fullWidth
       name="passwordConfirmation"

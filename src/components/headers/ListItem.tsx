@@ -37,7 +37,11 @@ export const MainListItems = memo(() => {
   );
 });
 
-export const SecondaryListItems = memo((props) => {
+type PropsTypes = {
+  to: string;
+};
+
+export const SecondaryListItems = memo((props: PropsTypes) => {
   const { to } = props;
 
   return (
