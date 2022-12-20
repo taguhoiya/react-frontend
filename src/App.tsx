@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
-import { Verify } from "./containers/Verify.jsx";
+import { Verify } from "./containers/Verify.jsx/index.js";
 import { Login } from "./containers/Login.jsx";
 import { Register } from "./containers/Register.jsx";
 import { Profile } from "./containers/Profile.jsx";

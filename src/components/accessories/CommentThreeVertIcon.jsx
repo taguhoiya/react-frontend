@@ -18,7 +18,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import { DashBoardContext } from "../providers/DashBoardProvider";
-import { GrowTransition } from "../../containers/Verify";
+import { GrowTransition } from "../../containers/Verify.jsx";
 
 export const CommentThreeVertIcon = (props) => {
   const { commId, userId } = props;

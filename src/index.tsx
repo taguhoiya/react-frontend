@@ -13,7 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 const date = new Date();
 const nowUnix = Math.floor(date.getTime() / 1000);
 const expiry = nowUnix + 604800;
-localStorage.setItem("expiry", expiry);
+localStorage.setItem("expiry", expiry.toString());
 if (parseInt(localStorage["expiry"]) < nowUnix) {
   localStorage.clear();
 }

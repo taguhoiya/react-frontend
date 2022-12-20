@@ -13,12 +13,12 @@ import { USER_LOGIN } from "../graphql/queries.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { clientAuth } from "../graphql/client";
-import { EmailInput, PasswordInput } from "../components/accessories/Form";
-import { Copyright } from "../components/accessories/Copyright";
-import { UserAuthContext } from "../components/providers/UserAuthProvider";
+import { clientAuth } from "../graphql/client.tsx/index.js";
+import { EmailInput, PasswordInput } from "../components/accessories/Form.jsx";
+import { Copyright } from "../components/accessories/Copyright.jsx";
+import { UserAuthContext } from "../components/providers/UserAuthProvider.jsx";
 import { Alert, Button, CircularProgress, Snackbar } from "@mui/material";
-import { GrowTransition } from "./Verify.jsx";
+import { GrowTransition } from "./Verify.jsx/index.js";
 import { purple } from "@mui/material/colors";
 
 const theme = createTheme();

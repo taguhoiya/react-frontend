@@ -1,13 +1,18 @@
 import { useQuery } from "@apollo/client";
-import { createContext, memo, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 import { MOVIE_PAGES } from "../../graphql/queries";
 import { Loader } from "../accessories/Loader";
 
 export const MovieCardContext = createContext({});
 
-export const MovieCardProvider = memo((props) => {
+type MovieCardProviderProps = {
+  children: ReactNode;
+  num: number;
+};
+
+export const MovieCardProvider = (props: MovieCardProviderProps) => {
   const { children, num } = props;
-  const [page, setPage] = useState(num);
+  const [page, setPage] = useState<number>(num);
   const [params, setParams] = useState("");
   const [formState, setFormState] = useState("");
   const { loading, error, data, refetch } = useQuery(MOVIE_PAGES, {
@@ -34,4 +39,4 @@ export const MovieCardProvider = memo((props) => {
       </MovieCardContext.Provider>
     );
   }
-});
+};

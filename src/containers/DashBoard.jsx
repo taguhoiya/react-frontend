@@ -10,7 +10,7 @@ import { Loader } from "../components/accessories/Loader";
 export const mdTheme = createTheme();
 
 export const Dashboard = memo(() => {
-  const num = parseInt(useParams().num);
+  const num = parseInt(useParams().num || "");
   const location = useLocation().pathname;
   return (
     <>

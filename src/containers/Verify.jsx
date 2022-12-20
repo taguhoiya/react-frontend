@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Alert, Grow, Snackbar } from "@mui/material";
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { clientAuth } from "../graphql/client";
+import { clientAuth } from "../graphql/client.tsx";
 import { Loader } from "../components/accessories/Loader";
 import { LOGGED_USER, USER_LOGIN } from "../graphql/queries";
 

@@ -29,7 +29,7 @@ import { CREATE_COMMENT } from "./mutations";
 import { CommentThreeVertIcon } from "../components/accessories/CommentThreeVertIcon";
 import { UserAuthContext } from "../components/providers/UserAuthProvider";
 import { Loader } from "../components/accessories/Loader";
-import { GrowTransition } from "../containers/Verify";
+import { GrowTransition } from "../containers/Verify.jsx";
 import MediaQuery from "react-responsive";
 import { Link } from "react-router-dom";
 

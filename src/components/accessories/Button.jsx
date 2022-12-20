@@ -31,11 +31,11 @@ import {
   UPDATE_USER_IMAGE,
 } from "../../graphql/mutations";
 import { UserAuthContext } from "../providers/UserAuthProvider";
-import { clientAuth, clientUpload } from "../../graphql/client";
+import { clientAuth, clientUpload } from "../../graphql/client.tsx";
 import { useContext } from "react";
 import { purple } from "@mui/material/colors";
 import { USER_REGISTER } from "../../graphql/queries";
-import { GrowTransition } from "../../containers/Verify";
+import { GrowTransition } from "../../containers/Verify.jsx";
 import MediaQuery from "react-responsive";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import { LoggedUserInfoContext } from "../providers/LoggedUserInfoProvider";

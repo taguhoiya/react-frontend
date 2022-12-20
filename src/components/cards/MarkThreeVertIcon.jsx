@@ -16,7 +16,7 @@ import { DELETE_MARK } from "../../graphql/mutations";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { UserAuthContext } from "../providers/UserAuthProvider";
 import { StyledMenu } from "../accessories/StyledMenu";
-import { GrowTransition } from "../../containers/Verify";
+import { GrowTransition } from "../../containers/Verify.jsx";
 import { UserInfoContext } from "../providers/UserInfoProvider";
 import { DashBoardContext } from "../providers/DashBoardProvider";
 
